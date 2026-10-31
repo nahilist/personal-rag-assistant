@@ -14,12 +14,18 @@ from app.api.v1.router import api_v1_router
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Initializing Personal RAG Assistant API service...")
-    # For local/testing environments without Postgres CLI running, ensure schema exists
-    async with engine.begin() as conn:
-        try:
+    try:
+        async with engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
-        except Exception as e:
-            logger.warning(f"Database schema auto-creation notice: {str(e)}")
+        logger.info("Database connection established.")
+    except Exception as e:
+        logger.warning(
+            f"Database connection to '{engine.url}' failed: {str(e)}. "
+            "Automatically falling back to local SQLite database for offline local development..."
+        )
+        from app.core.database import switch_to_sqlite
+        await switch_to_sqlite()
+
     yield
     logger.info("Shutting down Personal RAG Assistant API service...")
 
@@ -75,3 +81,4 @@ async def generic_exception_handler(request: Request, exc: Exception):
 
 
 app.include_router(api_v1_router, prefix=settings.API_V1_PREFIX)
+
