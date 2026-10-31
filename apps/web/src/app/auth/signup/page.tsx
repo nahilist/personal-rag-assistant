@@ -24,7 +24,7 @@ export default function SignupPage() {
     try {
       const res = await api.signup(email, password, name);
       setAuthSession(res.access_token, res.user);
-      router.push("/app");
+      window.location.href = "/app";
     } catch (err: any) {
       setErrorMsg(err.message || "Failed to create account.");
       setIsLoading(false);

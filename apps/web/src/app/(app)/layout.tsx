@@ -23,9 +23,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [usage, setUsage] = useState<UserUsage | null>(null);
-  const [user, setUser] = useState(getStoredUser());
+  const [user, setUser] = useState<UserProfile | null>(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+    setUser(getStoredUser());
+
     const token = getAuthToken();
     if (!token) {
       router.push("/auth/login");
@@ -34,20 +38,24 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
     // Load conversations and user profile/usage safely with catch
     api.listConversations()
-      .then((res) => setConversations(res.items))
+      .then((res) => {
+        if (Array.isArray(res?.items)) {
+          setConversations(res.items);
+        }
+      })
       .catch((err) => {
-        if (err.message.includes("401") || err.message.includes("authenticated")) {
+        if (err.message && (err.message.includes("401") || err.message.includes("authenticated"))) {
           router.push("/auth/login");
         }
       });
 
     api.getMe()
       .then((data) => {
-        setUsage(data.usage);
-        setUser(data.user);
+        if (data?.usage) setUsage(data.usage);
+        if (data?.user) setUser(data.user);
       })
       .catch((err) => {
-        if (err.message.includes("401") || err.message.includes("authenticated")) {
+        if (err.message && (err.message.includes("401") || err.message.includes("authenticated"))) {
           router.push("/auth/login");
         }
       });
@@ -55,15 +63,17 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   const handleSignOut = () => {
     clearAuthSession();
-    router.push("/auth/login");
+    window.location.href = "/auth/login";
   };
 
   const handleNewChat = async () => {
     try {
       const conv = await api.createConversation("New Chat");
-      router.push(`/app/chat/${conv.id}`);
+      if (conv?.id) {
+        window.location.href = `/app/chat/${conv.id}`;
+      }
     } catch {
-      router.push("/app");
+      window.location.href = "/app";
     }
   };
 
@@ -182,17 +192,17 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </div>
 
         {/* User Profile / Logout */}
-        <div className="p-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+        <div className="p-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between" suppressHydrationWarning>
           <div className="flex items-center gap-2 overflow-hidden">
-            <div className="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0">
-              {user?.display_name?.charAt(0).toUpperCase() || "U"}
+            <div className="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0" suppressHydrationWarning>
+              {mounted && user?.display_name ? user.display_name.charAt(0).toUpperCase() : "U"}
             </div>
             <div className="truncate">
-              <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate">
-                {user?.display_name || "User"}
+              <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate" suppressHydrationWarning>
+                {mounted && user?.display_name ? user.display_name : "User"}
               </p>
-              <p className="text-[10px] text-slate-400 truncate">
-                {user?.email || "Signed In"}
+              <p className="text-[10px] text-slate-400 truncate" suppressHydrationWarning>
+                {mounted && user?.email ? user.email : "Signed In"}
               </p>
             </div>
           </div>

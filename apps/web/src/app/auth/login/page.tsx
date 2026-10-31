@@ -23,7 +23,7 @@ export default function LoginPage() {
     try {
       const res = await api.login(email || "alice@example.com", password);
       setAuthSession(res.access_token, res.user);
-      router.push("/app");
+      window.location.href = "/app";
     } catch (err: any) {
       setErrorMsg(err.message || "Failed to sign in.");
       setIsLoading(false);
@@ -36,7 +36,7 @@ export default function LoginPage() {
     try {
       const res = await api.login(emailStr, undefined, userId);
       setAuthSession(res.access_token, res.user);
-      router.push("/app");
+      window.location.href = "/app";
     } catch (err: any) {
       setErrorMsg(err.message || "Failed to sign in with demo user.");
       setIsLoading(false);

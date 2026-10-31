@@ -27,8 +27,11 @@ export default function DocumentsPage() {
   const fetchDocuments = () => {
     setIsLoading(true);
     api.listDocuments()
-      .then((res) => setDocuments(res.items))
-      .catch((err) => console.error(err))
+      .then((res) => setDocuments(Array.isArray(res?.items) ? res.items : []))
+      .catch((err) => {
+        console.error(err);
+        setDocuments([]);
+      })
       .finally(() => setIsLoading(false));
   };
 
@@ -37,11 +40,14 @@ export default function DocumentsPage() {
     // Auto refresh while any document is in an active processing state
     const interval = setInterval(() => {
       setDocuments((prev) => {
+        if (!Array.isArray(prev)) return [];
         const hasActive = prev.some((d) =>
           ["queued", "extracting", "chunking", "embedding", "uploading"].includes(d.status)
         );
         if (hasActive) {
-          api.listDocuments().then((res) => setDocuments(res.items));
+          api.listDocuments()
+            .then((res) => setDocuments(Array.isArray(res?.items) ? res.items : []))
+            .catch(() => {});
         }
         return prev;
       });

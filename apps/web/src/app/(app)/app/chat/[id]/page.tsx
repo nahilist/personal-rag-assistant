@@ -45,12 +45,15 @@ export default function ChatPage() {
 
     // Load initial messages and available ready documents
     api.getConversationMessages(conversationId)
-      .then((res) => setMessages(res.items))
+      .then((res) => {
+        if (Array.isArray(res?.items)) setMessages(res.items);
+      })
       .catch((err) => setErrorMsg(err.message));
 
     api.listDocuments()
       .then((res) => {
-        const ready = res.items.filter((d) => d.status === "ready");
+        const items = Array.isArray(res?.items) ? res.items : [];
+        const ready = items.filter((d) => d.status === "ready");
         setDocuments(ready);
       })
       .catch(() => {});

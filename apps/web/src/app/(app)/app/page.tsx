@@ -32,8 +32,12 @@ export default function AssistantHomePage() {
       api.listConversations().catch(() => ({ items: [], total: 0 })),
     ])
       .then(([docRes, convRes]) => {
-        setDocuments(docRes.items);
-        setConversations(convRes.items);
+        setDocuments(Array.isArray(docRes?.items) ? docRes.items : []);
+        setConversations(Array.isArray(convRes?.items) ? convRes.items : []);
+      })
+      .catch(() => {
+        setDocuments([]);
+        setConversations([]);
       })
       .finally(() => setIsLoading(false));
   };
@@ -48,13 +52,17 @@ export default function AssistantHomePage() {
         "Grounded Assistant Session",
         docId ? [docId] : []
       );
-      router.push(`/app/chat/${conv.id}`);
-    } catch (err) {
-      alert("Failed to initialize conversation.");
+      if (conv?.id) {
+        window.location.href = `/app/chat/${conv.id}`;
+      }
+    } catch (err: any) {
+      alert(err.message || "Failed to initialize conversation.");
     }
   };
 
-  const readyDocs = documents.filter((d) => d.status === "ready");
+  const readyDocs = Array.isArray(documents)
+    ? documents.filter((d) => d.status === "ready")
+    : [];
 
   return (
     <div className="p-8 max-w-6xl mx-auto space-y-8">
@@ -110,7 +118,7 @@ export default function AssistantHomePage() {
           </div>
           <div>
             <p className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-              {documents.filter((d) => ["queued", "extracting", "chunking", "embedding"].includes(d.status)).length}
+              {(Array.isArray(documents) ? documents : []).filter((d) => ["queued", "extracting", "chunking", "embedding"].includes(d.status)).length}
             </p>
             <p className="text-xs text-slate-500 font-medium">Processing Pipeline</p>
           </div>
