@@ -72,3 +72,4 @@ export interface Conversation {
   updated_at: string;
   document_ids: string[];
 }
+

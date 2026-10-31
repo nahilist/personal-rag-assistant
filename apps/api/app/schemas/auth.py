@@ -24,3 +24,4 @@ class UserUsageResponse(BaseModel):
 class MeResponse(BaseModel):
     user: UserProfileResponse
     usage: UserUsageResponse
+

@@ -64,3 +64,4 @@ class OpenAIEmbeddingProvider(EmbeddingProvider):
             resp.raise_for_status()
             data = resp.json()
             return [item["embedding"] for item in data["data"]]
+

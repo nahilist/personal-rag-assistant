@@ -42,3 +42,4 @@ class DeterministicMockEmbeddingProvider(EmbeddingProvider):
 
     async def embed_documents(self, texts: List[str]) -> List[List[float]]:
         return [self._embed(t) for t in texts]
+

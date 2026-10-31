@@ -30,3 +30,4 @@ export function clearAuthSession(): void {
   localStorage.removeItem(TOKEN_KEY);
   localStorage.removeItem(USER_KEY);
 }
+

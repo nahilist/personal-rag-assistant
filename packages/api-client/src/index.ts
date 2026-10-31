@@ -114,3 +114,4 @@ export interface ChatStreamDoneEvent {
   status: 'completed' | 'insufficient_evidence' | 'cancelled' | 'failed';
   message_id?: string;
 }
+

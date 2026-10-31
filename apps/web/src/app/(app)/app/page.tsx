@@ -27,7 +27,10 @@ export default function AssistantHomePage() {
 
   const loadData = () => {
     setIsLoading(true);
-    Promise.all([api.listDocuments(), api.listConversations()])
+    Promise.all([
+      api.listDocuments().catch(() => ({ items: [], total: 0 })),
+      api.listConversations().catch(() => ({ items: [], total: 0 })),
+    ])
       .then(([docRes, convRes]) => {
         setDocuments(docRes.items);
         setConversations(convRes.items);
@@ -182,3 +185,4 @@ export default function AssistantHomePage() {
     </div>
   );
 }
+

@@ -104,3 +104,4 @@ class OpenAILLMProvider(LLMProvider):
         async for chunk in self.generate_stream(messages, max_tokens, temperature):
             chunks.append(chunk)
         return "".join(chunks)
+

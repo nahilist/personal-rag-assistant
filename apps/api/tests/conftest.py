@@ -77,3 +77,4 @@ def auth_headers_a(user_a):
 def auth_headers_b(user_b):
     token = create_access_token(user_id=user_b, email="user_b@example.com")
     return {"Authorization": f"Bearer {token}"}
+

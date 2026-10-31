@@ -15,7 +15,7 @@ import {
   HardDrive,
 } from "lucide-react";
 import { api } from "@/lib/api/client";
-import { getStoredUser, clearAuthSession } from "@/lib/auth/authStore";
+import { getStoredUser, clearAuthSession, getAuthToken } from "@/lib/auth/authStore";
 import { Conversation, UserUsage } from "@/types";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
@@ -26,18 +26,32 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState(getStoredUser());
 
   useEffect(() => {
-    // Load conversations and user profile/usage
+    const token = getAuthToken();
+    if (!token) {
+      router.push("/auth/login");
+      return;
+    }
+
+    // Load conversations and user profile/usage safely with catch
     api.listConversations()
       .then((res) => setConversations(res.items))
-      .catch(() => {});
+      .catch((err) => {
+        if (err.message.includes("401") || err.message.includes("authenticated")) {
+          router.push("/auth/login");
+        }
+      });
 
     api.getMe()
       .then((data) => {
         setUsage(data.usage);
         setUser(data.user);
       })
-      .catch(() => {});
-  }, [pathname]);
+      .catch((err) => {
+        if (err.message.includes("401") || err.message.includes("authenticated")) {
+          router.push("/auth/login");
+        }
+      });
+  }, [pathname, router]);
 
   const handleSignOut = () => {
     clearAuthSession();

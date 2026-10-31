@@ -66,3 +66,4 @@ async def purge_deleted_documents(session: AsyncSession) -> int:
 
     await session.commit()
     return purged
+

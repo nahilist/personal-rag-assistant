@@ -114,6 +114,38 @@ async def list_conversations(
     return ConversationListResponse(items=items, next_cursor=None, total=len(items))
 
 
+@router.get("/{id}", response_model=ConversationResponse)
+async def get_conversation(
+    id: uuid.UUID,
+    current_user: AuthenticatedUser = Depends(get_current_user),
+    session: AsyncSession = Depends(get_db),
+):
+    stmt = select(Conversation).where(
+        and_(
+            Conversation.id == id,
+            Conversation.user_id == current_user.id,
+            Conversation.deleted_at.is_(None),
+        )
+    )
+    conv = (await session.execute(stmt)).scalar_one_or_none()
+    if not conv:
+        raise HTTPException(status_code=404, detail="Conversation not found or access denied")
+
+    sc_stmt = select(ConversationDocument.document_id).where(
+        ConversationDocument.conversation_id == conv.id
+    )
+    doc_ids = (await session.execute(sc_stmt)).scalars().all()
+
+    return ConversationResponse(
+        id=conv.id,
+        title=conv.title,
+        language=conv.language,
+        created_at=conv.created_at,
+        updated_at=conv.updated_at,
+        document_ids=doc_ids,
+    )
+
+
 @router.get("/{id}/messages", response_model=MessageListResponse)
 async def get_conversation_messages(
     id: uuid.UUID,
@@ -270,3 +302,4 @@ async def delete_conversation(
     conv.deleted_at = conv.updated_at
     await session.commit()
     return {"status": "deleted", "id": str(id)}
+

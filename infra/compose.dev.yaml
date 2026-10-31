@@ -53,3 +53,4 @@ volumes:
   pgdata_dev:
   storage_dev:
   ollama_data:
+

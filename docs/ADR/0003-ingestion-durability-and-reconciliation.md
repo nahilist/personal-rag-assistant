@@ -23,3 +23,4 @@ Document parsing and vector embedding are long-running, multi-step asynchronous 
 - Zero lost jobs or phantom active chunks.
 - Late workers gracefully abort if a user deletes a file during embedding.
 - Fast recovery from worker or queue restarts.
+

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Lock, Mail, User, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { setAuthSession } from "@/lib/auth/authStore";
+import { api } from "@/lib/api/client";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -15,29 +16,19 @@ export default function SignupPage() {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSignup = (e: React.FormEvent) => {
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setErrorMsg(null);
 
-    const newUserId = "33333333-3333-3333-3333-333333333333";
-    const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.${btoa(
-      JSON.stringify({
-        sub: newUserId,
-        email: email,
-        aud: "authenticated",
-        exp: Math.floor(Date.now() / 1000) + 86400,
-      })
-    )}.testsignature`;
-
-    setAuthSession(token, {
-      id: newUserId,
-      email: email,
-      display_name: name || email.split("@")[0],
-      preferred_language: "en",
-      created_at: new Date().toISOString(),
-    });
-
-    router.push("/app");
+    try {
+      const res = await api.login(email, password);
+      setAuthSession(res.access_token, res.user);
+      router.push("/app");
+    } catch (err: any) {
+      setErrorMsg(err.message || "Failed to create account.");
+      setIsLoading(false);
+    }
   };
 
   return (

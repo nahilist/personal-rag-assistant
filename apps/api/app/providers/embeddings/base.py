@@ -15,3 +15,4 @@ class EmbeddingProvider(ABC):
     @abstractmethod
     async def embed_documents(self, texts: List[str]) -> List[List[float]]:
         pass
+

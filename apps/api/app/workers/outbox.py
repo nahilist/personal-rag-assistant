@@ -46,3 +46,4 @@ async def dispatch_pending_outbox_events(session: AsyncSession) -> int:
 
     await session.commit()
     return dispatched
+

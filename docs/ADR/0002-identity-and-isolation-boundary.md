@@ -23,3 +23,4 @@ The Personal RAG Assistant is a multi-user application where each user's uploade
 ## Consequences
 - Multi-layer defense-in-depth: API auth layer, database composite foreign keys, RLS policies, and private storage keys.
 - Impossible for Account A to associate Account B's documents into Account A's conversation.
+

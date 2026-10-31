@@ -176,3 +176,4 @@ async def run_ingestion_job(session: AsyncSession, job_id: uuid.UUID) -> bool:
 
         await session.commit()
         return False
+

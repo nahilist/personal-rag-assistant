@@ -165,3 +165,4 @@ class DocumentExtractor:
             return cls.extract_text(data, is_markdown=False)
         else:
             raise ExtractionError("unsupported_format", f"Unsupported file type: {mime_type}")
+

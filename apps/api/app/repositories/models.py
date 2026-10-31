@@ -335,3 +335,4 @@ class AuditEvent(Base):
     request_id = Column(GUID, nullable=True)
     payload = Column(JSON, nullable=True)
     created_at = Column(DateTime(timezone=True), default=utc_now, nullable=False)
+

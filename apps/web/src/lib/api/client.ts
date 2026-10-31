@@ -1,9 +1,10 @@
-import { getAuthToken } from "@/lib/auth/authStore";
+import { getAuthToken, clearAuthSession } from "@/lib/auth/authStore";
 import {
   MeData,
   DocumentItem,
   Conversation,
   Message,
+  UserProfile,
 } from "@/types";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000/api/v1";
@@ -29,6 +30,18 @@ async function request<T>(
   const response = await fetch(url, { ...options, headers });
 
   if (!response.ok) {
+    if (response.status === 401 || response.status === 403) {
+      if (typeof window !== "undefined") {
+        clearAuthSession();
+        if (
+          !window.location.pathname.startsWith("/auth") &&
+          window.location.pathname !== "/"
+        ) {
+          window.location.href = "/auth/login";
+        }
+      }
+    }
+
     let errorDetail = "An unexpected error occurred.";
     try {
       const errJson = await response.json();
@@ -44,6 +57,14 @@ async function request<T>(
 
 export const api = {
   // Auth & Profile
+  login: (email: string, password?: string, userId?: string) =>
+    request<{ access_token: string; token_type: string; user: UserProfile }>(
+      "/auth/token",
+      {
+        method: "POST",
+        body: JSON.stringify({ email, password, user_id: userId }),
+      }
+    ),
   getMe: () => request<MeData>("/me"),
   deleteAccount: () => request<{ status: string }>("/me", { method: "DELETE" }),
 

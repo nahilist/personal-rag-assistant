@@ -31,3 +31,4 @@ def test_tampered_jwt_token():
     with pytest.raises(HTTPException) as exc_info:
         verify_jwt_token(tampered)
     assert exc_info.value.status_code == 401
+

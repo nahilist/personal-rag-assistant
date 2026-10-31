@@ -110,3 +110,4 @@ async def test_two_user_document_and_chat_isolation(
     # Verify no leaks of ALICE-TOP-SECRET
     assert "ALICE-TOP-SECRET" not in stream_text
     assert "insufficient evidence" in stream_text.lower()
+

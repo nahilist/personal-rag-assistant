@@ -56,3 +56,4 @@ class MessageResponse(BaseModel):
 class MessageListResponse(BaseModel):
     items: List[MessageResponse]
     total: int
+

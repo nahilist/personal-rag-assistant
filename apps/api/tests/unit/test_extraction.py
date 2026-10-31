@@ -45,3 +45,4 @@ def test_scanned_pdf_detection():
         DocumentExtractor.extract("application/pdf", pdf_bytes.getvalue())
 
     assert exc_info.value.code == "ocr_required"
+

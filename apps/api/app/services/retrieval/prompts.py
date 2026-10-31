@@ -52,3 +52,4 @@ def budget_messages(
 
     budgeted.extend(reversed(history))
     return budgeted
+

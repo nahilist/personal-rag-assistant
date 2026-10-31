@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Lock, Mail, ArrowRight, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { setAuthSession } from "@/lib/auth/authStore";
+import { api } from "@/lib/api/client";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -20,28 +21,8 @@ export default function LoginPage() {
     setErrorMsg(null);
 
     try {
-      // In standalone dev/test mode, generate or acquire a test token
-      // or exchange credentials with Supabase Auth
-      const demoUserId = "11111111-1111-1111-1111-111111111111";
-      // Generate a client JWT or mock bearer token for the user
-      // Create test token format
-      const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.${btoa(
-        JSON.stringify({
-          sub: demoUserId,
-          email: email || "alice@example.com",
-          aud: "authenticated",
-          exp: Math.floor(Date.now() / 1000) + 86400,
-        })
-      )}.testsignature`;
-
-      setAuthSession(token, {
-        id: demoUserId,
-        email: email || "alice@example.com",
-        display_name: (email || "alice@example.com").split("@")[0],
-        preferred_language: "en",
-        created_at: new Date().toISOString(),
-      });
-
+      const res = await api.login(email || "alice@example.com", password);
+      setAuthSession(res.access_token, res.user);
       router.push("/app");
     } catch (err: any) {
       setErrorMsg(err.message || "Failed to sign in.");
@@ -49,25 +30,17 @@ export default function LoginPage() {
     }
   };
 
-  const handleDemoLogin = (userId: string, emailStr: string) => {
-    const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.${btoa(
-      JSON.stringify({
-        sub: userId,
-        email: emailStr,
-        aud: "authenticated",
-        exp: Math.floor(Date.now() / 1000) + 86400,
-      })
-    )}.testsignature`;
-
-    setAuthSession(token, {
-      id: userId,
-      email: emailStr,
-      display_name: emailStr.split("@")[0],
-      preferred_language: "en",
-      created_at: new Date().toISOString(),
-    });
-
-    router.push("/app");
+  const handleDemoLogin = async (userId: string, emailStr: string) => {
+    setIsLoading(true);
+    setErrorMsg(null);
+    try {
+      const res = await api.login(emailStr, undefined, userId);
+      setAuthSession(res.access_token, res.user);
+      router.push("/app");
+    } catch (err: any) {
+      setErrorMsg(err.message || "Failed to sign in with demo user.");
+      setIsLoading(false);
+    }
   };
 
   return (

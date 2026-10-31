@@ -64,3 +64,4 @@ async def get_admin_metrics(session: AsyncSession = Depends(get_db)):
             "total_tokens_consumed": total_tokens,
         },
     }
+

@@ -8,6 +8,7 @@ from app.core.database import get_db
 router = APIRouter(prefix="/health", tags=["health"])
 
 
+@router.get("")
 @router.get("/live")
 async def health_live():
     return {"status": "ok", "service": "personal-rag-api"}
@@ -29,3 +30,4 @@ async def health_ready(session: AsyncSession = Depends(get_db)):
         )
 
     return {"status": "ready", "database": "connected"}
+

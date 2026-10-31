@@ -21,3 +21,4 @@ The Personal RAG Assistant requires text generation and dense semantic embedding
 - Clean separation of provider logic from domain orchestration.
 - Seamless switching between local offline development and production endpoints via environment variables.
 - Prevents embedding dimension mismatch and silent retrieval degradation.
+

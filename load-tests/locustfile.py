@@ -54,3 +54,4 @@ class RAGAssistantUser(HttpUser):
                     },
                     headers=self.headers,
                 )
+
