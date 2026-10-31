@@ -1,0 +1,89 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: personal_rag_db
+    environment:
+      POSTGRES_DB: personal_rag
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+    ports:
+      - "54322:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ../supabase/migrations:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d personal_rag"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: personal_rag_redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ..
+      dockerfile: infra/docker/Dockerfile.api
+    container_name: personal_rag_api
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgrespassword@db:5432/personal_rag
+      - REDIS_URL=redis://redis:6379/0
+      - STORAGE_BACKEND=local
+      - STORAGE_LOCAL_DIR=/app/data/storage
+      - LLM_PROVIDER=mock
+      - EMBEDDING_PROVIDER=mock
+    volumes:
+      - storage_data:/app/data/storage
+
+  worker:
+    build:
+      context: ..
+      dockerfile: infra/docker/Dockerfile.api
+    container_name: personal_rag_worker
+    command: ["uv", "run", "celery", "-A", "app.workers.tasks", "worker", "--loglevel=info", "-c", "2"]
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgrespassword@db:5432/personal_rag
+      - REDIS_URL=redis://redis:6379/0
+      - STORAGE_BACKEND=local
+      - STORAGE_LOCAL_DIR=/app/data/storage
+      - LLM_PROVIDER=mock
+      - EMBEDDING_PROVIDER=mock
+    volumes:
+      - storage_data:/app/data/storage
+
+  web:
+    build:
+      context: ..
+      dockerfile: infra/docker/Dockerfile.web
+    container_name: personal_rag_web
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_BASE_URL=http://localhost:8000/api/v1
+
+volumes:
+  pgdata:
+  storage_data:
+

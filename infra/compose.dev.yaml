@@ -1,0 +1,56 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: personal_rag_db_dev
+    environment:
+      POSTGRES_DB: personal_rag
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+    ports:
+      - "54322:5432"
+    volumes:
+      - pgdata_dev:/var/lib/postgresql/data
+      - ../supabase/migrations:/docker-entrypoint-initdb.d:ro
+
+  redis:
+    image: redis:7-alpine
+    container_name: personal_rag_redis_dev
+    ports:
+      - "6379:6379"
+
+  api:
+    build:
+      context: ..
+      dockerfile: infra/docker/Dockerfile.api
+    container_name: personal_rag_api_dev
+    command: ["uv", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+    depends_on:
+      - db
+      - redis
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgrespassword@db:5432/personal_rag
+      - REDIS_URL=redis://redis:6379/0
+      - STORAGE_BACKEND=local
+      - STORAGE_LOCAL_DIR=/app/data/storage
+      - LLM_PROVIDER=mock
+      - EMBEDDING_PROVIDER=mock
+    volumes:
+      - ../apps/api:/app
+      - storage_dev:/app/data/storage
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: personal_rag_ollama
+    profiles: ["model"]
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+volumes:
+  pgdata_dev:
+  storage_dev:
+  ollama_data:
+
