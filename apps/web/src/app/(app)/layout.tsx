@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { api } from "@/lib/api/client";
 import { getStoredUser, clearAuthSession, getAuthToken } from "@/lib/auth/authStore";
-import { Conversation, UserUsage } from "@/types";
+import { Conversation, UserUsage, UserProfile } from "@/types";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
