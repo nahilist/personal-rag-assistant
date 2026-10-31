@@ -7,7 +7,17 @@ import {
   UserProfile,
 } from "@/types";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000/api/v1";
+function getBaseUrl(): string {
+  if (process.env.NEXT_PUBLIC_API_BASE_URL) {
+    return process.env.NEXT_PUBLIC_API_BASE_URL;
+  }
+  if (typeof window !== "undefined") {
+    // In browser: use relative /api/v1 to avoid CORS and IPv6 [::1] connection refused errors
+    return "/api/v1";
+  }
+  // In Node.js SSR: connect directly to local FastAPI server
+  return "http://127.0.0.1:8000/api/v1";
+}
 
 async function request<T>(
   endpoint: string,
@@ -26,14 +36,19 @@ async function request<T>(
     }
   }
 
+  const baseUrl = getBaseUrl();
   let url: string;
   if (endpoint.startsWith("http://") || endpoint.startsWith("https://")) {
     url = endpoint;
   } else if (endpoint.startsWith("/api/v1")) {
-    const baseOrigin = BASE_URL.replace(/\/api\/v1\/?$/, "");
-    url = `${baseOrigin}${endpoint}`;
+    if (baseUrl.startsWith("http")) {
+      const baseOrigin = baseUrl.replace(/\/api\/v1\/?$/, "");
+      url = `${baseOrigin}${endpoint}`;
+    } else {
+      url = endpoint;
+    }
   } else {
-    const prefix = BASE_URL.endsWith("/") ? BASE_URL.slice(0, -1) : BASE_URL;
+    const prefix = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
     const path = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
     url = `${prefix}${path}`;
   }
@@ -67,12 +82,29 @@ async function request<T>(
 
 export const api = {
   // Auth & Profile
-  login: (email: string, password?: string, userId?: string) =>
+  login: (email: string, password?: string, userId?: string, displayName?: string) =>
     request<{ access_token: string; token_type: string; user: UserProfile }>(
       "/auth/token",
       {
         method: "POST",
-        body: JSON.stringify({ email, password, user_id: userId }),
+        body: JSON.stringify({
+          email,
+          password,
+          user_id: userId,
+          display_name: displayName,
+        }),
+      }
+    ),
+  signup: (email: string, password?: string, name?: string) =>
+    request<{ access_token: string; token_type: string; user: UserProfile }>(
+      "/auth/token",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          email,
+          password,
+          display_name: name,
+        }),
       }
     ),
   getMe: () => request<MeData>("/me"),

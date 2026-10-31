@@ -1,7 +1,15 @@
 import { getAuthToken } from "@/lib/auth/authStore";
 import { MessageSource } from "@/types";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000/api/v1";
+function getBaseUrl(): string {
+  if (process.env.NEXT_PUBLIC_API_BASE_URL) {
+    return process.env.NEXT_PUBLIC_API_BASE_URL;
+  }
+  if (typeof window !== "undefined") {
+    return "/api/v1";
+  }
+  return "http://127.0.0.1:8000/api/v1";
+}
 
 export interface StreamChatParams {
   conversationId: string;
@@ -37,8 +45,9 @@ export async function streamChatMessage({
   }
 
   try {
+    const baseUrl = getBaseUrl();
     const response = await fetch(
-      `${BASE_URL}/conversations/${conversationId}/messages`,
+      `${baseUrl}/conversations/${conversationId}/messages`,
       {
         method: "POST",
         headers,

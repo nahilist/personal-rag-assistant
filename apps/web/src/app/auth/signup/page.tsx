@@ -22,7 +22,7 @@ export default function SignupPage() {
     setErrorMsg(null);
 
     try {
-      const res = await api.login(email, password);
+      const res = await api.signup(email, password, name);
       setAuthSession(res.access_token, res.user);
       router.push("/app");
     } catch (err: any) {

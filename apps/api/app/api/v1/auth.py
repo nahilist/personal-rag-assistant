@@ -19,6 +19,7 @@ class LoginTokenRequest(BaseModel):
     email: str
     password: Optional[str] = None
     user_id: Optional[uuid.UUID] = None
+    display_name: Optional[str] = None
 
 
 class LoginTokenResponse(BaseModel):
@@ -53,7 +54,7 @@ async def acquire_token(
     if not profile:
         profile = Profile(
             id=user_id,
-            display_name=body.email.split("@")[0],
+            display_name=body.display_name or body.email.split("@")[0],
             preferred_language="en",
         )
         session.add(profile)
