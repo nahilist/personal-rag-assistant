@@ -38,6 +38,11 @@ class GroundedMockLLMProvider(LLMProvider):
         # Look for [S1], [S2] blocks in system prompt
         sources_found = re.findall(r"\[(S\d+)\].*?:\s*(.*?)(?=\n\[S\d+\]|\Z)", sys_msg, re.DOTALL)
 
+        # Check for conversational greetings
+        cleaned_user = re.sub(r"[^\w\s]", "", user_msg).strip().lower()
+        if cleaned_user in ["hi", "hello", "hey", "hii", "hi there", "namaste", "greetings"]:
+            return "Hello! I am your Personal RAG Assistant. Ask me any question about your uploaded documents, and I will provide grounded answers with verifiable source citations."
+
         if not sources_found:
             return "Based on your uploaded documents, there is insufficient evidence to answer this question. Please upload relevant files or refine your search."
 

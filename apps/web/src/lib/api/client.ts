@@ -26,7 +26,17 @@ async function request<T>(
     }
   }
 
-  const url = endpoint.startsWith("http") ? endpoint : `${BASE_URL}${endpoint}`;
+  let url: string;
+  if (endpoint.startsWith("http://") || endpoint.startsWith("https://")) {
+    url = endpoint;
+  } else if (endpoint.startsWith("/api/v1")) {
+    const baseOrigin = BASE_URL.replace(/\/api\/v1\/?$/, "");
+    url = `${baseOrigin}${endpoint}`;
+  } else {
+    const prefix = BASE_URL.endsWith("/") ? BASE_URL.slice(0, -1) : BASE_URL;
+    const path = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
+    url = `${prefix}${path}`;
+  }
   const response = await fetch(url, { ...options, headers });
 
   if (!response.ok) {
