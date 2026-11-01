@@ -1,7 +1,7 @@
 import os
-from typing import List, Optional
+from typing import List, Optional, Union
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from pydantic import Field
+from pydantic import Field, field_validator
 
 
 class Settings(BaseSettings):
@@ -50,7 +50,14 @@ class Settings(BaseSettings):
     EMBEDDING_DIMENSION: int = 384
 
     # Quotas & Limits
-    ALLOWED_ORIGINS: List[str] = ["http://localhost:3000", "http://127.0.0.1:3000"]
+    ALLOWED_ORIGINS: Union[List[str], str] = ["http://localhost:3000", "http://127.0.0.1:3000"]
+
+    @field_validator("ALLOWED_ORIGINS", mode="after")
+    @classmethod
+    def assemble_cors_origins(cls, v: Union[str, List[str]]) -> List[str]:
+        if isinstance(v, str):
+            return [i.strip() for i in v.split(",") if i.strip()]
+        return v
     MAX_ACTIVE_GENERATIONS: int = 20
     MAX_UPLOAD_BYTES: int = 20 * 1024 * 1024  # 20 MB
     MAX_DOCS_PER_USER: int = 20
