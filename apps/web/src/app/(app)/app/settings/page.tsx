@@ -10,6 +10,8 @@ import {
   Trash2,
   ShieldAlert,
   Info,
+  Globe,
+  Lock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -35,7 +37,7 @@ export default function SettingsPage() {
   const handleDeleteAccount = async () => {
     if (
       !confirm(
-        "Are you sure you want to permanently delete your account and all private documents? This action cannot be undone."
+        "Are you sure you want to permanently delete your account, private documents, and all conversations? This action cannot be undone."
       )
     )
       return;
@@ -58,31 +60,34 @@ export default function SettingsPage() {
   return (
     <div className="p-8 max-w-4xl mx-auto space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-2">
+          <Settings className="w-3.5 h-3.5" /> Workspace Configuration
+        </div>
+        <h1 className="text-3xl font-extrabold text-white tracking-tight">
           Account & Quotas
         </h1>
-        <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-          Manage your preferences, view resource limits and privacy controls
+        <p className="text-sm text-slate-400 mt-1">
+          Manage your assistant preferences, verify tenant resource quotas, and access privacy controls.
         </p>
       </div>
 
       {/* Quotas & Capacity Breakdown */}
       <Card className="space-y-6">
-        <h2 className="text-base font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-          <HardDrive className="w-5 h-5 text-blue-600" /> Resource Quotas
+        <h2 className="text-base font-bold text-white flex items-center gap-2">
+          <HardDrive className="w-4 h-4 text-blue-400" /> Resource Quotas & Isolation
         </h2>
 
-        <div className="space-y-4">
+        <div className="space-y-5">
           <div>
-            <div className="flex justify-between text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+            <div className="flex justify-between text-xs font-semibold mb-2 text-slate-300">
               <span>Private File Storage</span>
-              <span>
+              <span className="font-mono text-blue-400">
                 {storageMB} MB / {limitMB} MB
               </span>
             </div>
-            <div className="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+            <div className="w-full h-2.5 bg-white/[0.04] border border-white/[0.06] rounded-full overflow-hidden p-0.5">
               <div
-                className="h-full bg-blue-600 rounded-full"
+                className="h-full bg-gradient-to-r from-blue-600 to-indigo-500 rounded-full transition-all duration-500"
                 style={{
                   width: `${Math.min(
                     100,
@@ -94,15 +99,15 @@ export default function SettingsPage() {
           </div>
 
           <div>
-            <div className="flex justify-between text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+            <div className="flex justify-between text-xs font-semibold mb-2 text-slate-300">
               <span>Indexed Documents</span>
-              <span>
+              <span className="font-mono text-emerald-400">
                 {usage?.document_count || 0} / {usage?.document_limit || 20}
               </span>
             </div>
-            <div className="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+            <div className="w-full h-2.5 bg-white/[0.04] border border-white/[0.06] rounded-full overflow-hidden p-0.5">
               <div
-                className="h-full bg-emerald-600 rounded-full"
+                className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full transition-all duration-500"
                 style={{
                   width: `${Math.min(
                     100,
@@ -114,15 +119,15 @@ export default function SettingsPage() {
           </div>
 
           <div>
-            <div className="flex justify-between text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
-              <span>Today's Questions / Requests</span>
-              <span>
+            <div className="flex justify-between text-xs font-semibold mb-2 text-slate-300">
+              <span>Daily Rate-Limited Queries</span>
+              <span className="font-mono text-purple-400">
                 {usage?.today_requests || 0} / {usage?.daily_request_limit || 100}
               </span>
             </div>
-            <div className="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+            <div className="w-full h-2.5 bg-white/[0.04] border border-white/[0.06] rounded-full overflow-hidden p-0.5">
               <div
-                className="h-full bg-purple-600 rounded-full"
+                className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all duration-500"
                 style={{
                   width: `${Math.min(
                     100,
@@ -137,17 +142,18 @@ export default function SettingsPage() {
 
       {/* Language Preferences */}
       <Card className="space-y-4">
-        <h2 className="text-base font-bold text-slate-900 dark:text-slate-100">
-          Preferred Assistant Language
+        <h2 className="text-base font-bold text-white flex items-center gap-2">
+          <Globe className="w-4 h-4 text-blue-400" />
+          <span>Preferred Assistant Language</span>
         </h2>
-        <p className="text-xs text-slate-500">
-          The assistant preserves factual meaning while answering in your preferred dialect.
+        <p className="text-xs text-slate-400">
+          The assistant preserves exact factual grounding while translating responses to your preferred dialect.
         </p>
         <div className="max-w-xs">
           <select
             value={language}
             onChange={(e) => setLanguage(e.target.value)}
-            className="w-full p-2.5 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 text-xs rounded-xl border border-white/[0.1] bg-[#0C101B] text-white focus:outline-none focus:border-blue-500/50"
           >
             <option value="en">English (Default)</option>
             <option value="hindi">Hindi</option>
@@ -157,24 +163,26 @@ export default function SettingsPage() {
       </Card>
 
       {/* Privacy and Data Retention Disclosure */}
-      <Card className="space-y-3 bg-slate-50/50 dark:bg-slate-900/40">
-        <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-          <Info className="w-4 h-4 text-blue-500" /> Privacy & Retention Disclosure
+      <Card className="space-y-3 bg-[#0C101B]/50 border-white/[0.06]">
+        <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+          <Lock className="w-3.5 h-3.5 text-blue-400" /> Privacy & Retention Disclosure
         </h3>
-        <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+        <p className="text-xs text-slate-400 leading-relaxed">
           Document search access is revoked immediately upon deletion. Original storage files and derived embeddings are purged asynchronously within 24 hours under the documented deletion SLA. Note that deleting a document does not retroactively rewrite past saved chat messages; to completely clear all document references, delete the associated conversation or your account.
         </p>
       </Card>
 
       {/* Danger Zone */}
-      <Card className="border-red-200 dark:border-red-900/60 p-6 space-y-4">
+      <Card className="border-red-500/20 bg-red-950/15 p-6 space-y-4">
         <div className="flex items-center gap-3">
-          <ShieldAlert className="w-6 h-6 text-red-600" />
+          <div className="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 shrink-0">
+            <ShieldAlert className="w-5 h-5" />
+          </div>
           <div>
-            <h3 className="text-base font-bold text-red-600 dark:text-red-400">
+            <h3 className="text-base font-bold text-red-400">
               Danger Zone
             </h3>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-400">
               Permanently delete your account, private documents, and conversation history.
             </p>
           </div>

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { ArrowLeft, MessageSquare, FileText, CheckCircle2, AlertCircle } from "lucide-react";
+import { ArrowLeft, MessageSquare, FileText, CheckCircle2, AlertCircle, Sparkles, Hash, Calendar, HardDrive, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { StatusBadge } from "@/components/ui/badge";
@@ -51,7 +51,7 @@ export default function DocumentDetailPage() {
   if (isLoading) {
     return (
       <div className="p-8 max-w-4xl mx-auto flex items-center justify-center min-h-[400px]">
-        <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+        <div className="w-10 h-10 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -59,11 +59,11 @@ export default function DocumentDetailPage() {
   if (errorMsg || !document) {
     return (
       <div className="p-8 max-w-4xl mx-auto space-y-4">
-        <Link href="/app/documents" className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-800">
+        <Link href="/app/documents" className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-white transition-colors">
           <ArrowLeft className="w-4 h-4" /> Back to Documents
         </Link>
-        <Card className="p-8 text-center text-red-600">
-          <AlertCircle className="w-8 h-8 mx-auto mb-2" />
+        <Card className="p-8 text-center text-red-400 bg-red-950/20 border-red-500/30">
+          <AlertCircle className="w-8 h-8 mx-auto mb-2 text-red-400" />
           <p className="text-sm font-semibold">{errorMsg || "Document not found"}</p>
         </Card>
       </div>
@@ -75,7 +75,7 @@ export default function DocumentDetailPage() {
       <div className="flex items-center justify-between">
         <Link
           href="/app/documents"
-          className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
+          className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-white transition-colors"
         >
           <ArrowLeft className="w-4 h-4" /> Back to Documents
         </Link>
@@ -86,17 +86,17 @@ export default function DocumentDetailPage() {
         )}
       </div>
 
-      <Card className="space-y-4">
-        <div className="flex items-start justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-600 flex items-center justify-center">
-              <FileText className="w-5 h-5" />
+      <Card className="space-y-6">
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center shadow-lg shadow-blue-500/5">
+              <FileText className="w-6 h-6" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">
+              <h1 className="text-2xl font-black text-white tracking-tight">
                 {document.title}
               </h1>
-              <p className="text-xs text-slate-400 font-mono mt-0.5">
+              <p className="text-xs text-slate-400 font-mono mt-1">
                 ID: {document.id}
               </p>
             </div>
@@ -104,29 +104,33 @@ export default function DocumentDetailPage() {
           <StatusBadge status={document.status} />
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs">
-          <div>
-            <span className="text-slate-400 block mb-0.5">File Size</span>
-            <span className="font-semibold text-slate-700 dark:text-slate-200">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-white/[0.08] text-xs">
+          <div className="p-3 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+            <span className="text-slate-400 block mb-1 font-mono text-[11px] uppercase">Payload Size</span>
+            <span className="font-semibold text-white font-mono">
               {(document.byte_size / 1024).toFixed(1)} KB
             </span>
           </div>
-          <div>
-            <span className="text-slate-400 block mb-0.5">MIME Type</span>
-            <span className="font-semibold text-slate-700 dark:text-slate-200 truncate block">
-              {document.mime_type}
+          <div className="p-3 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+            <span className="text-slate-400 block mb-1 font-mono text-[11px] uppercase">Format</span>
+            <span className="font-semibold text-white truncate block">
+              {document.mime_type.split("/")[1] || document.mime_type}
             </span>
           </div>
-          <div>
-            <span className="text-slate-400 block mb-0.5">Index Generation</span>
-            <span className="font-semibold text-slate-700 dark:text-slate-200">
+          <div className="p-3 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+            <span className="text-slate-400 block mb-1 font-mono text-[11px] uppercase">Index Version</span>
+            <span className="font-semibold text-blue-400 font-mono">
               v{document.active_generation}
             </span>
           </div>
-          <div>
-            <span className="text-slate-400 block mb-0.5">Uploaded</span>
-            <span className="font-semibold text-slate-700 dark:text-slate-200">
-              {new Date(document.created_at).toLocaleDateString()}
+          <div className="p-3 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+            <span className="text-slate-400 block mb-1 font-mono text-[11px] uppercase">Uploaded</span>
+            <span className="font-semibold text-white">
+              {new Date(document.created_at).toLocaleDateString(undefined, {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+              })}
             </span>
           </div>
         </div>
@@ -134,11 +138,12 @@ export default function DocumentDetailPage() {
 
       {/* Extracted Excerpt / Content Preview */}
       <Card className="space-y-3">
-        <h2 className="text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">
-          Indexed Content Sample
+        <h2 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+          <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+          <span>Authoritatively Indexed Text Sample</span>
         </h2>
-        <div className="p-4 bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 rounded-xl max-h-96 overflow-y-auto">
-          <p className="text-sm text-slate-700 dark:text-slate-300 font-serif whitespace-pre-wrap leading-relaxed">
+        <div className="p-5 bg-[#05070B] border border-white/[0.08] rounded-2xl max-h-96 overflow-y-auto">
+          <p className="text-xs text-slate-300 font-mono whitespace-pre-wrap leading-relaxed">
             {sourceContent || "No extracted excerpt available yet."}
           </p>
         </div>

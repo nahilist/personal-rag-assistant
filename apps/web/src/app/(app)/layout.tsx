@@ -15,6 +15,7 @@ import {
   HardDrive,
   Bot,
   Sparkles,
+  Trash2,
 } from "lucide-react";
 import { api } from "@/lib/api/client";
 import { getStoredUser, clearAuthSession, getAuthToken } from "@/lib/auth/authStore";
@@ -79,6 +80,22 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const handleDeleteConversation = async (e: React.MouseEvent, convId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!confirm("Are you sure you want to delete this conversation?")) return;
+
+    try {
+      await api.deleteConversation(convId);
+      setConversations((prev) => prev.filter((c) => c.id !== convId));
+      if (pathname === `/app/chat/${convId}`) {
+        router.push("/app");
+      }
+    } catch (err: any) {
+      alert(err.message || "Failed to delete conversation.");
+    }
+  };
+
   const storageUsedMB = usage ? (usage.storage_bytes_used / (1024 * 1024)).toFixed(1) : "0.0";
   const storageLimitMB = usage ? (usage.storage_bytes_limit / (1024 * 1024)).toFixed(0) : "200";
 
@@ -139,7 +156,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </Link>
         </nav>
 
-        {/* Recent Conversations */}
+        {/* Recent Conversations with Delete Option */}
         <div className="flex-1 overflow-y-auto px-3 py-2 space-y-1 border-t border-white/[0.06]">
           <p className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500">
             Recent Grounded Chats
@@ -148,17 +165,30 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <p className="px-3 py-2 text-xs text-slate-500 italic">No conversations yet</p>
           ) : (
             conversations.map((c) => (
-              <Link
+              <div
                 key={c.id}
-                href={`/app/chat/${c.id}`}
-                className={`block px-3 py-2 rounded-xl text-xs truncate transition-all ${
+                className={`group flex items-center justify-between px-3 py-1.5 rounded-xl text-xs transition-all ${
                   pathname === `/app/chat/${c.id}`
                     ? "bg-white/[0.08] text-white font-medium border border-white/[0.08]"
                     : "text-slate-400 hover:text-slate-200 hover:bg-white/[0.03]"
                 }`}
               >
-                {c.title || "Untitled Chat"}
-              </Link>
+                <Link
+                  href={`/app/chat/${c.id}`}
+                  className="truncate flex-1 py-0.5 pr-2"
+                  title={c.title || "Untitled Chat"}
+                >
+                  {c.title || "Untitled Chat"}
+                </Link>
+                <button
+                  type="button"
+                  onClick={(e) => handleDeleteConversation(e, c.id)}
+                  className="opacity-0 group-hover:opacity-100 p-1 text-slate-500 hover:text-red-400 hover:bg-white/[0.08] rounded-md transition-all shrink-0"
+                  title="Delete conversation"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                </button>
+              </div>
             ))
           )}
         </div>
