@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { UploadCloud, File, AlertCircle, CheckCircle2 } from "lucide-react";
+import { UploadCloud, File, AlertCircle, CheckCircle2, Sparkles } from "lucide-react";
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
 import { api } from "@/lib/api/client";
@@ -40,21 +40,21 @@ export const DocumentUploadModal: React.FC<UploadModalProps> = ({
     setIsUploading(true);
     setErrorMsg(null);
     try {
-      setUploadProgress("Reserving storage quota...");
+      setUploadProgress("Reserving tenant quota & object key...");
       const reservation = await api.reserveUpload(
         selectedFile.name,
         selectedFile.size,
         selectedFile.type || "application/octet-stream"
       );
 
-      setUploadProgress("Uploading file payload...");
+      setUploadProgress("Uploading binary payload...");
       const arrayBuffer = await selectedFile.arrayBuffer();
       await api.uploadBinary(reservation.upload_url, arrayBuffer);
 
-      setUploadProgress("Finalizing & enqueuing for durable processing...");
+      setUploadProgress("Finalizing & enqueuing for background vectorization...");
       await api.completeUpload(reservation.document_id);
 
-      setUploadProgress("Complete!");
+      setUploadProgress("Complete! Processing enqueued.");
       setTimeout(() => {
         setIsUploading(false);
         setSelectedFile(null);
@@ -74,7 +74,7 @@ export const DocumentUploadModal: React.FC<UploadModalProps> = ({
       <div className="space-y-4">
         <div
           onClick={() => fileInputRef.current?.click()}
-          className="border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-blue-500 rounded-xl p-8 flex flex-col items-center justify-center cursor-pointer transition-colors bg-slate-50/50 dark:bg-slate-800/30"
+          className="border-2 border-dashed border-white/[0.12] hover:border-blue-500/50 rounded-2xl p-8 flex flex-col items-center justify-center cursor-pointer transition-all bg-white/[0.02] hover:bg-white/[0.04] group"
         >
           <input
             type="file"
@@ -83,23 +83,25 @@ export const DocumentUploadModal: React.FC<UploadModalProps> = ({
             accept=".pdf,.docx,.txt,.md"
             className="hidden"
           />
-          <UploadCloud className="w-10 h-10 text-slate-400 mb-2" />
-          <p className="text-sm font-medium text-slate-700 dark:text-slate-200">
-            Click to browse or drag and drop
+          <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-3 group-hover:scale-105 transition-transform">
+            <UploadCloud className="w-6 h-6" />
+          </div>
+          <p className="text-sm font-semibold text-white">
+            Click to select document or drag & drop
           </p>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Supported formats: PDF, DOCX, TXT, Markdown (Max 20 MB, 200 pages)
+          <p className="text-xs text-slate-400 mt-1">
+            PDF, DOCX, TXT, Markdown (Max 20 MB · Up to 200 pages)
           </p>
         </div>
 
         {selectedFile && (
-          <div className="flex items-center gap-3 p-3 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 rounded-lg">
-            <File className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0" />
+          <div className="flex items-center gap-3 p-3.5 bg-blue-500/10 border border-blue-500/20 rounded-xl">
+            <File className="w-5 h-5 text-blue-400 shrink-0" />
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-blue-900 dark:text-blue-100 truncate">
+              <p className="text-xs font-semibold text-white truncate">
                 {selectedFile.name}
               </p>
-              <p className="text-xs text-blue-700 dark:text-blue-300">
+              <p className="text-[11px] text-blue-300">
                 {(selectedFile.size / 1024).toFixed(1)} KB
               </p>
             </div>
@@ -107,14 +109,15 @@ export const DocumentUploadModal: React.FC<UploadModalProps> = ({
         )}
 
         {uploadProgress && (
-          <p className="text-xs font-medium text-blue-600 dark:text-blue-400">
-            {uploadProgress}
-          </p>
+          <div className="flex items-center gap-2 p-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-xs font-medium text-indigo-300">
+            <Sparkles className="w-4 h-4 text-indigo-400 animate-spin" />
+            <span>{uploadProgress}</span>
+          </div>
         )}
 
         {errorMsg && (
-          <div className="flex items-start gap-2 p-3 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 rounded-lg text-red-700 dark:text-red-300 text-xs">
-            <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+          <div className="flex items-start gap-2 p-3 bg-red-950/40 border border-red-500/30 rounded-xl text-red-300 text-xs">
+            <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-red-400" />
             <span>{errorMsg}</span>
           </div>
         )}
@@ -128,11 +131,10 @@ export const DocumentUploadModal: React.FC<UploadModalProps> = ({
             disabled={!selectedFile || isUploading}
             isLoading={isUploading}
           >
-            Upload & Process
+            Upload & Enqueue
           </Button>
         </div>
       </div>
     </Modal>
   );
 };
-

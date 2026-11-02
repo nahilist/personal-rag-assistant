@@ -13,6 +13,8 @@ import {
   Shield,
   Activity,
   HardDrive,
+  Bot,
+  Sparkles,
 } from "lucide-react";
 import { api } from "@/lib/api/client";
 import { getStoredUser, clearAuthSession, getAuthToken } from "@/lib/auth/authStore";
@@ -68,7 +70,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   const handleNewChat = async () => {
     try {
-      const conv = await api.createConversation("New Chat");
+      const conv = await api.createConversation("New Grounded Chat");
       if (conv?.id) {
         window.location.href = `/app/chat/${conv.id}`;
       }
@@ -81,22 +83,22 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const storageLimitMB = usage ? (usage.storage_bytes_limit / (1024 * 1024)).toFixed(0) : "200";
 
   return (
-    <div className="h-screen flex bg-slate-50 dark:bg-slate-950 overflow-hidden">
+    <div className="h-screen flex bg-[#07090E] text-slate-100 overflow-hidden">
       {/* Sidebar */}
-      <aside className="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col shrink-0">
+      <aside className="w-64 border-r border-white/[0.08] bg-[#0A0E18] flex flex-col shrink-0">
         {/* Brand */}
-        <div className="h-16 px-6 flex items-center justify-between border-b border-slate-100 dark:border-slate-800">
-          <Link href="/app" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-lg shadow-sm">
-              R
+        <div className="h-16 px-5 flex items-center justify-between border-b border-white/[0.08]">
+          <Link href="/app" className="flex items-center gap-2.5 group">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
+              <Bot className="w-4 h-4 text-white" />
             </div>
-            <span className="font-bold text-slate-900 dark:text-slate-100 text-sm">
+            <span className="font-bold text-white text-sm tracking-tight">
               Personal RAG
             </span>
           </Link>
           <button
             onClick={handleNewChat}
-            className="p-1.5 rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-950 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors"
+            className="p-1.5 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 hover:bg-blue-500/20 transition-all"
             title="Start new conversation"
           >
             <Plus className="w-4 h-4" />
@@ -107,52 +109,52 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <nav className="p-3 space-y-1">
           <Link
             href="/app"
-            className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
+            className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
               pathname === "/app"
-                ? "bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300"
-                : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                ? "bg-blue-500/15 text-blue-300 border border-blue-500/30 shadow-sm"
+                : "text-slate-400 hover:text-white hover:bg-white/[0.04]"
             }`}
           >
-            <MessageSquare className="w-4 h-4" /> Assistant Home
+            <MessageSquare className="w-4 h-4 text-blue-400" /> Assistant Home
           </Link>
           <Link
             href="/app/documents"
-            className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
+            className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
               pathname.startsWith("/app/documents")
-                ? "bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300"
-                : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                ? "bg-blue-500/15 text-blue-300 border border-blue-500/30 shadow-sm"
+                : "text-slate-400 hover:text-white hover:bg-white/[0.04]"
             }`}
           >
-            <FileText className="w-4 h-4" /> Documents Library
+            <FileText className="w-4 h-4 text-indigo-400" /> Documents Library
           </Link>
           <Link
             href="/app/settings"
-            className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
+            className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
               pathname === "/app/settings"
-                ? "bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300"
-                : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                ? "bg-blue-500/15 text-blue-300 border border-blue-500/30 shadow-sm"
+                : "text-slate-400 hover:text-white hover:bg-white/[0.04]"
             }`}
           >
-            <Settings className="w-4 h-4" /> Settings & Quotas
+            <Settings className="w-4 h-4 text-slate-400" /> Settings & Quotas
           </Link>
         </nav>
 
         {/* Recent Conversations */}
-        <div className="flex-1 overflow-y-auto px-3 py-2 space-y-1 border-t border-slate-100 dark:border-slate-800">
-          <p className="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">
-            Recent Chats
+        <div className="flex-1 overflow-y-auto px-3 py-2 space-y-1 border-t border-white/[0.06]">
+          <p className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500">
+            Recent Grounded Chats
           </p>
           {conversations.length === 0 ? (
-            <p className="px-3 py-2 text-xs text-slate-400 italic">No conversations yet</p>
+            <p className="px-3 py-2 text-xs text-slate-500 italic">No conversations yet</p>
           ) : (
             conversations.map((c) => (
               <Link
                 key={c.id}
                 href={`/app/chat/${c.id}`}
-                className={`block px-3 py-2 rounded-lg text-xs truncate transition-colors ${
+                className={`block px-3 py-2 rounded-xl text-xs truncate transition-all ${
                   pathname === `/app/chat/${c.id}`
-                    ? "bg-slate-100 dark:bg-slate-800 font-medium text-slate-900 dark:text-slate-100"
-                    : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/60"
+                    ? "bg-white/[0.08] text-white font-medium border border-white/[0.08]"
+                    : "text-slate-400 hover:text-slate-200 hover:bg-white/[0.03]"
                 }`}
               >
                 {c.title || "Untitled Chat"}
@@ -162,18 +164,18 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </div>
 
         {/* Quota Meter */}
-        <div className="p-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 space-y-2">
-          <div className="flex items-center justify-between text-[11px] font-medium text-slate-600 dark:text-slate-400">
+        <div className="p-4 border-t border-white/[0.08] bg-[#080B13]/80 space-y-2.5">
+          <div className="flex items-center justify-between text-[11px] font-medium text-slate-400">
             <span className="flex items-center gap-1.5">
-              <HardDrive className="w-3.5 h-3.5 text-slate-400" /> Storage
+              <HardDrive className="w-3.5 h-3.5 text-blue-400" /> Storage Used
             </span>
-            <span>
+            <span className="text-slate-300 font-mono">
               {storageUsedMB} / {storageLimitMB} MB
             </span>
           </div>
-          <div className="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+          <div className="w-full h-1.5 bg-white/[0.08] rounded-full overflow-hidden">
             <div
-              className="h-full bg-blue-600 rounded-full"
+              className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full"
               style={{
                 width: `${Math.min(
                   100,
@@ -183,22 +185,22 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             />
           </div>
 
-          <div className="flex items-center justify-between text-[11px] font-medium text-slate-600 dark:text-slate-400">
-            <span>Documents</span>
-            <span>
+          <div className="flex items-center justify-between text-[11px] font-medium text-slate-400">
+            <span>Documents Indexed</span>
+            <span className="text-slate-300 font-mono">
               {usage?.document_count || 0} / {usage?.document_limit || 20}
             </span>
           </div>
         </div>
 
         {/* User Profile / Logout */}
-        <div className="p-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between" suppressHydrationWarning>
-          <div className="flex items-center gap-2 overflow-hidden">
-            <div className="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0" suppressHydrationWarning>
+        <div className="p-3.5 border-t border-white/[0.08] flex items-center justify-between bg-[#080B13]" suppressHydrationWarning>
+          <div className="flex items-center gap-2.5 overflow-hidden">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-md" suppressHydrationWarning>
               {mounted && user?.display_name ? user.display_name.charAt(0).toUpperCase() : "U"}
             </div>
             <div className="truncate">
-              <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate" suppressHydrationWarning>
+              <p className="text-xs font-semibold text-white truncate" suppressHydrationWarning>
                 {mounted && user?.display_name ? user.display_name : "User"}
               </p>
               <p className="text-[10px] text-slate-400 truncate" suppressHydrationWarning>
@@ -208,7 +210,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </div>
           <button
             onClick={handleSignOut}
-            className="p-1.5 text-slate-400 hover:text-red-600 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="p-1.5 text-slate-400 hover:text-red-400 rounded-lg hover:bg-white/[0.05] transition-colors"
             title="Sign out"
           >
             <LogOut className="w-4 h-4" />
@@ -217,7 +219,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 flex flex-col min-w-0 overflow-y-auto">
+      <main className="flex-1 flex flex-col min-w-0 overflow-y-auto bg-[#07090E] relative">
+        <div className="absolute inset-0 bg-grid-pattern opacity-20 pointer-events-none -z-10" />
         {children}
       </main>
     </div>

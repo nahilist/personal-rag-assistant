@@ -10,6 +10,10 @@ import {
   ArrowRight,
   ShieldAlert,
   Clock,
+  Sparkles,
+  Bot,
+  FileText,
+  Layers,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -66,90 +70,99 @@ export default function AssistantHomePage() {
 
   return (
     <div className="p-8 max-w-6xl mx-auto space-y-8">
-      {/* Welcome Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-            Private Assistant Workspace
-          </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-            Grounded answers across {readyDocs.length} ready private documents
-          </p>
-        </div>
-        <div className="flex items-center gap-3">
-          <Button variant="outline" onClick={() => setIsUploadOpen(true)}>
-            <UploadCloud className="w-4 h-4 mr-2" /> Upload Document
-          </Button>
-          <Button onClick={() => handleStartChat()}>
-            <MessageSquare className="w-4 h-4 mr-2" /> New Grounded Chat
-          </Button>
+      {/* Welcome Banner */}
+      <div className="relative rounded-3xl p-8 glass-panel border border-white/[0.1] overflow-hidden bg-gradient-to-r from-blue-950/40 via-indigo-950/30 to-[#0C101B]/80 shadow-2xl">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 blur-[100px] pointer-events-none" />
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+          <div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/15 border border-blue-500/30 text-blue-300 text-xs font-semibold mb-3">
+              <Sparkles className="w-3.5 h-3.5 text-blue-400" /> Grounded Synthesis Active
+            </div>
+            <h1 className="text-3xl font-extrabold text-white tracking-tight">
+              Private Document Intelligence
+            </h1>
+            <p className="text-sm text-slate-400 mt-1.5 max-w-xl">
+              Ask questions across {readyDocs.length} ready private documents with verifiable chunk citations and zero hallucination.
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-3">
+            <Button variant="outline" onClick={() => setIsUploadOpen(true)}>
+              <UploadCloud className="w-4 h-4 mr-2 text-blue-400" /> Upload Document
+            </Button>
+            <Button onClick={() => handleStartChat()}>
+              <MessageSquare className="w-4 h-4 mr-2" /> Start New Chat
+            </Button>
+          </div>
         </div>
       </div>
 
       {/* Quick Status Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+        <Card className="flex items-center gap-4 hover:border-blue-500/30 transition-all">
+          <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center">
             <FileCheck className="w-6 h-6" />
           </div>
           <div>
-            <p className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            <p className="text-2xl font-black text-white">
               {readyDocs.length}
             </p>
-            <p className="text-xs text-slate-500 font-medium">Ready Documents</p>
+            <p className="text-xs text-slate-400 font-medium">Ready Documents</p>
           </div>
         </Card>
 
-        <Card className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center">
+        <Card className="flex items-center gap-4 hover:border-purple-500/30 transition-all">
+          <div className="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center">
             <MessageSquare className="w-6 h-6" />
           </div>
           <div>
-            <p className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            <p className="text-2xl font-black text-white">
               {conversations.length}
             </p>
-            <p className="text-xs text-slate-500 font-medium">Saved Conversations</p>
+            <p className="text-xs text-slate-400 font-medium">Saved Conversations</p>
           </div>
         </Card>
 
-        <Card className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+        <Card className="flex items-center gap-4 hover:border-emerald-500/30 transition-all">
+          <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center">
             <Clock className="w-6 h-6" />
           </div>
           <div>
-            <p className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            <p className="text-2xl font-black text-white">
               {(Array.isArray(documents) ? documents : []).filter((d) => ["queued", "extracting", "chunking", "embedding"].includes(d.status)).length}
             </p>
-            <p className="text-xs text-slate-500 font-medium">Processing Pipeline</p>
+            <p className="text-xs text-slate-400 font-medium">Processing Pipeline</p>
           </div>
         </Card>
       </div>
 
-      {/* Recent Documents Section */}
+      {/* Document Repository Section */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-            Document Repository
+          <h2 className="text-base font-bold text-white tracking-tight flex items-center gap-2">
+            <FileText className="w-4 h-4 text-blue-400" />
+            <span>Document Repository</span>
           </h2>
           <Link
             href="/app/documents"
-            className="text-xs font-semibold text-blue-600 hover:underline flex items-center gap-1"
+            className="text-xs font-semibold text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1"
           >
             View all documents <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
         {documents.length === 0 ? (
-          <Card className="text-center py-12">
-            <UploadCloud className="w-10 h-10 text-slate-300 mx-auto mb-3" />
-            <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+          <Card className="text-center py-16 border-dashed border-white/[0.12]">
+            <div className="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mx-auto mb-4">
+              <UploadCloud className="w-7 h-7" />
+            </div>
+            <h3 className="text-base font-bold text-white">
               No documents uploaded yet
             </h3>
-            <p className="text-xs text-slate-400 max-w-sm mx-auto mt-1 mb-4">
-              Upload PDF, DOCX, TXT or Markdown files to begin grounded retrieval.
+            <p className="text-xs text-slate-400 max-w-md mx-auto mt-1.5 mb-6 leading-relaxed">
+              Upload PDF, Word (DOCX), Markdown or Text files. They will be partitioned, embedded into pgvector, and grounded with exact citations.
             </p>
-            <Button size="sm" onClick={() => setIsUploadOpen(true)}>
-              Upload First Document
+            <Button size="md" onClick={() => setIsUploadOpen(true)}>
+              <UploadCloud className="w-4 h-4 mr-2" /> Upload Your First Document
             </Button>
           </Card>
         ) : (
@@ -157,16 +170,16 @@ export default function AssistantHomePage() {
             {documents.slice(0, 4).map((doc) => (
               <Card
                 key={doc.id}
-                className="flex items-center justify-between p-4 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
+                className="flex items-center justify-between p-4 hover:border-white/[0.16] transition-all group"
               >
                 <div className="space-y-1 min-w-0 pr-4">
                   <div className="flex items-center gap-2">
-                    <p className="text-sm font-medium text-slate-900 dark:text-slate-100 truncate">
+                    <p className="text-xs font-semibold text-white truncate group-hover:text-blue-400 transition-colors">
                       {doc.title}
                     </p>
                     <StatusBadge status={doc.status} />
                   </div>
-                  <p className="text-xs text-slate-400">
+                  <p className="text-[11px] text-slate-400 font-mono">
                     {(doc.byte_size / 1024).toFixed(1)} KB • Gen {doc.active_generation}
                   </p>
                 </div>
@@ -193,4 +206,3 @@ export default function AssistantHomePage() {
     </div>
   );
 }
-

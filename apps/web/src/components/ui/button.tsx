@@ -18,25 +18,25 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const baseClasses =
-    "inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
+    "inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#07090E] disabled:opacity-50 disabled:cursor-not-allowed";
 
   const sizeClasses = {
     sm: "px-3 py-1.5 text-xs",
-    md: "px-4 py-2 text-sm",
-    lg: "px-5 py-2.5 text-base",
+    md: "px-4 py-2.5 text-sm",
+    lg: "px-6 py-3 text-base",
   };
 
   const variantClasses = {
     primary:
-      "bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500 shadow-sm",
+      "bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 active:translate-y-0 focus:ring-blue-500",
     secondary:
-      "bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-100 focus:ring-slate-400",
+      "bg-white/[0.08] hover:bg-white/[0.12] text-slate-100 border border-white/[0.08] focus:ring-slate-400",
     danger:
-      "bg-red-600 hover:bg-red-700 text-white focus:ring-red-500 shadow-sm",
+      "bg-red-600 hover:bg-red-500 text-white shadow-lg shadow-red-600/25 focus:ring-red-500",
     outline:
-      "border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 focus:ring-slate-400",
+      "border border-white/[0.12] bg-white/[0.03] text-slate-200 hover:bg-white/[0.08] hover:text-white hover:border-white/20 focus:ring-slate-400",
     ghost:
-      "text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 focus:ring-slate-400",
+      "text-slate-400 hover:text-white hover:bg-white/[0.06] focus:ring-slate-400",
   };
 
   return (
@@ -50,26 +50,8 @@ export const Button: React.FC<ButtonProps> = ({
     >
       {isLoading ? (
         <span className="flex items-center gap-2">
-          <svg
-            className="animate-spin h-4 w-4 text-current"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              className="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="4"
-            />
-            <path
-              className="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8v8z"
-            />
-          </svg>
-          Loading...
+          <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+          <span>Loading...</span>
         </span>
       ) : (
         children
@@ -77,4 +59,3 @@ export const Button: React.FC<ButtonProps> = ({
     </button>
   );
 };
-

@@ -9,7 +9,7 @@ export const Card: React.FC<CardProps> = ({ children, className, ...props }) => 
     <div
       className={twMerge(
         clsx(
-          "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm p-6",
+          "bg-[#0C101B]/80 backdrop-blur-md border border-white/[0.08] rounded-2xl shadow-xl p-6 transition-all",
           className
         )
       )}
@@ -19,4 +19,3 @@ export const Card: React.FC<CardProps> = ({ children, className, ...props }) => 
     </div>
   );
 };
-

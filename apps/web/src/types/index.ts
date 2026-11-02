@@ -52,6 +52,7 @@ export interface MessageSource {
   page_end?: number | null;
   section?: string | null;
   excerpt: string;
+  similarity?: number | null;
 }
 
 export interface Message {

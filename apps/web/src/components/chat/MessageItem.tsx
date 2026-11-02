@@ -29,7 +29,7 @@ const renderInlineTokens = (
           key={idx}
           type="button"
           onClick={() => source && onSelectSource && onSelectSource(source)}
-          className="inline-flex items-center px-1.5 py-0.5 mx-0.5 text-xs font-semibold rounded-md bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-900 transition-colors cursor-pointer border border-blue-200 dark:border-blue-800 shadow-xs"
+          className="inline-flex items-center px-2 py-0.5 mx-0.5 text-xs font-semibold rounded-md bg-blue-500/15 text-blue-300 hover:bg-blue-500/25 transition-all cursor-pointer border border-blue-500/30 shadow-xs"
           title={
             source
               ? `Source: ${source.document_title || "Document"}${
@@ -198,8 +198,8 @@ export const MessageItem: React.FC<MessageItemProps> = ({
         <div
           className={`relative group rounded-2xl text-sm leading-relaxed ${
             isUser
-              ? "p-4 bg-blue-600 text-white rounded-tr-sm text-left inline-block shadow-sm"
-              : "p-5 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-tl-sm border border-slate-200 dark:border-slate-800 shadow-sm"
+              ? "p-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-tr-sm text-left inline-block shadow-lg shadow-blue-600/20"
+              : "p-5 bg-[#0C101B]/90 text-slate-100 rounded-tl-sm border border-white/[0.08] shadow-xl"
           }`}
         >
           {/* Copy button for assistant */}

@@ -7,27 +7,26 @@ interface BadgeProps {
 
 export const StatusBadge: React.FC<BadgeProps> = ({ status }) => {
   const styles: Record<string, string> = {
-    ready: "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-400 dark:border-emerald-800",
-    queued: "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-400 dark:border-amber-800",
-    extracting: "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/40 dark:text-blue-400 dark:border-blue-800",
-    chunking: "bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/40 dark:text-indigo-400 dark:border-indigo-800",
-    embedding: "bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-950/40 dark:text-purple-400 dark:border-purple-800",
-    uploading: "bg-slate-50 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700",
-    failed: "bg-red-50 text-red-700 border-red-200 dark:bg-red-950/40 dark:text-red-400 dark:border-red-800",
-    deleting: "bg-orange-50 text-orange-700 border-orange-200 dark:bg-orange-950/40 dark:text-orange-400 dark:border-orange-800",
-    deleted: "bg-gray-100 text-gray-500 border-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700",
+    ready: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30",
+    queued: "bg-amber-500/15 text-amber-300 border-amber-500/30",
+    extracting: "bg-blue-500/15 text-blue-300 border-blue-500/30 animate-pulse",
+    chunking: "bg-indigo-500/15 text-indigo-300 border-indigo-500/30 animate-pulse",
+    embedding: "bg-purple-500/15 text-purple-300 border-purple-500/30 animate-pulse",
+    uploading: "bg-slate-500/15 text-slate-300 border-slate-500/30",
+    failed: "bg-red-500/15 text-red-300 border-red-500/30",
+    deleting: "bg-orange-500/15 text-orange-300 border-orange-500/30",
+    deleted: "bg-gray-500/15 text-gray-400 border-gray-500/30",
   };
 
   const currentStyle =
-    styles[status] ||
-    "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300";
+    styles[status] || "bg-slate-500/15 text-slate-300 border-slate-500/30";
 
   return (
     <span
-      className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${currentStyle}`}
+      className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border ${currentStyle}`}
     >
-      {status}
+      <span className="w-1.5 h-1.5 rounded-full bg-current" />
+      <span className="capitalize">{status}</span>
     </span>
   );
 };
-

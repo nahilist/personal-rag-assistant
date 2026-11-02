@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Lock, Mail, ArrowRight, AlertCircle } from "lucide-react";
+import { Lock, Mail, ArrowRight, AlertCircle, Bot, Shield, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { setAuthSession } from "@/lib/auth/authStore";
 import { api } from "@/lib/api/client";
@@ -44,114 +44,136 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-slate-50 dark:bg-slate-950">
-      <div className="w-full max-w-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl p-8 space-y-6">
-        <div className="text-center space-y-2">
-          <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-xl mx-auto shadow-sm">
-            R
-          </div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-            Sign In to Personal RAG
+    <div className="min-h-screen flex items-center justify-center p-6 bg-[#07090E] relative overflow-hidden text-slate-100">
+      {/* Ambient background glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-tr from-blue-600/20 via-indigo-600/15 to-purple-600/10 blur-[130px] pointer-events-none -z-10" />
+      <div className="absolute inset-0 bg-grid-pattern opacity-30 pointer-events-none -z-10" />
+
+      <div className="w-full max-w-md glass-panel border border-white/[0.1] rounded-3xl shadow-2xl p-8 sm:p-10 space-y-7 relative bg-[#0C101B]/85">
+        {/* Brand Header */}
+        <div className="text-center space-y-3">
+          <Link href="/" className="inline-block group">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-500 flex items-center justify-center text-white font-bold text-xl mx-auto shadow-lg shadow-blue-500/30 group-hover:scale-105 transition-transform duration-300">
+              <Bot className="w-6 h-6 text-white" />
+            </div>
+          </Link>
+          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+            Welcome Back
           </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
-            Access your private documents and citations
+          <p className="text-xs sm:text-sm text-slate-400">
+            Sign in to access your private documents and citations
           </p>
         </div>
 
         {errorMsg && (
-          <div className="flex items-center gap-2 p-3 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 rounded-lg text-red-700 dark:text-red-300 text-xs">
-            <AlertCircle className="w-4 h-4 shrink-0" />
+          <div className="flex items-center gap-2.5 p-3.5 bg-red-950/40 border border-red-500/30 rounded-xl text-red-300 text-xs animate-shake">
+            <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
             <span>{errorMsg}</span>
           </div>
         )}
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+            <label className="block text-xs font-semibold text-slate-300 mb-1.5 uppercase tracking-wider">
               Email Address
             </label>
             <div className="relative">
-              <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+              <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="alice@example.com"
                 required
-                className="w-full pl-9 pr-4 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-white/[0.1] bg-white/[0.04] text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
               />
             </div>
           </div>
 
           <div>
-            <div className="flex justify-between items-center mb-1">
-              <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+            <div className="flex justify-between items-center mb-1.5">
+              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
                 Password
               </label>
               <Link
                 href="/auth/forgot-password"
-                className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
+                className="text-xs text-blue-400 hover:text-blue-300 transition-colors"
               >
                 Forgot password?
               </Link>
             </div>
             <div className="relative">
-              <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+              <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 required
-                className="w-full pl-9 pr-4 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-white/[0.1] bg-white/[0.04] text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
               />
             </div>
           </div>
 
-          <Button type="submit" className="w-full" isLoading={isLoading}>
-            Sign In
-          </Button>
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full mt-2 py-3 px-4 rounded-xl font-semibold text-sm bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 hover:shadow-blue-500/50 hover:-translate-y-0.5 active:translate-y-0 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+          >
+            {isLoading ? (
+              <span className="inline-block w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+            ) : (
+              <>
+                <span>Sign In</span>
+                <ArrowRight className="w-4 h-4" />
+              </>
+            )}
+          </button>
         </form>
 
-        <div className="relative my-4">
+        {/* Demo separator */}
+        <div className="relative my-6">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-slate-200 dark:border-slate-800" />
+            <div className="w-full border-t border-white/[0.08]" />
           </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-white dark:bg-slate-900 px-2 text-slate-400">
-              Instant Demo Access
+          <div className="relative flex justify-center text-xs uppercase tracking-wider font-semibold">
+            <span className="bg-[#0C101B] px-3 text-slate-500">
+              One-Click Demo Access
             </span>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-2">
-          <Button
-            variant="outline"
-            size="sm"
+        {/* Demo Fast Logins */}
+        <div className="grid grid-cols-2 gap-2.5">
+          <button
+            type="button"
             onClick={() =>
               handleDemoLogin("11111111-1111-1111-1111-111111111111", "alice@example.com")
             }
+            className="py-2.5 px-3 rounded-xl glass-card border border-white/[0.08] hover:border-blue-500/40 text-xs font-medium text-slate-300 hover:text-white transition-all flex items-center justify-center gap-1.5"
           >
-            Demo User Alice
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
+            <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+            <span>Alice (Demo)</span>
+          </button>
+          <button
+            type="button"
             onClick={() =>
               handleDemoLogin("22222222-2222-2222-2222-222222222222", "bob@example.com")
             }
+            className="py-2.5 px-3 rounded-xl glass-card border border-white/[0.08] hover:border-indigo-500/40 text-xs font-medium text-slate-300 hover:text-white transition-all flex items-center justify-center gap-1.5"
           >
-            Demo User Bob
-          </Button>
+            <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+            <span>Bob (Demo)</span>
+          </button>
         </div>
 
-        <p className="text-center text-xs text-slate-500 dark:text-slate-400">
-          Don't have an account?{" "}
+        <p className="text-center text-xs text-slate-400 pt-2">
+          Don&apos;t have an account yet?{" "}
           <Link
             href="/auth/signup"
-            className="text-blue-600 dark:text-blue-400 font-semibold hover:underline"
+            className="text-blue-400 font-semibold hover:text-blue-300 transition-colors"
           >
-            Create account
+            Create account free
           </Link>
         </p>
       </div>
