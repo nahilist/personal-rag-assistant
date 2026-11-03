@@ -7,7 +7,6 @@ import {
   Shield,
   FileCheck,
   Layers,
-  ArrowRight,
   Database,
   Lock,
   Sparkles,
@@ -25,14 +24,10 @@ import {
   CheckCircle2,
   FileText,
   Bot,
-  Monitor,
-  Smartphone,
-  ExternalLink,
 } from "lucide-react";
 
 export default function HomePage() {
   const router = useRouter();
-  const [activeDeviceView, setActiveDeviceView] = useState<"desktop" | "mobile">("desktop");
   const [inputQuery, setInputQuery] = useState("");
   const [modelMode, setModelMode] = useState<"Auto" | "Grounded" | "Deep">("Auto");
   const [isModelDropdownOpen, setIsModelDropdownOpen] = useState(false);
@@ -53,18 +48,20 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#07090E] text-slate-100 selection:bg-white selection:text-black relative overflow-x-hidden">
-      {/* Background Subtle Ambient Lighting */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[550px] bg-gradient-to-b from-white/[0.04] via-blue-500/[0.02] to-transparent blur-[160px] pointer-events-none -z-10" />
-      <div className="absolute top-[700px] -left-[200px] w-[600px] h-[600px] bg-white/[0.02] blur-[180px] pointer-events-none -z-10" />
+    <div className="min-h-screen w-full bg-[#07080B] text-slate-100 selection:bg-white selection:text-black relative overflow-x-hidden flex flex-col justify-between">
+      
+      {/* Cinematic Top Ambient Glow (Edge to Edge) */}
+      <div className="absolute top-0 right-1/4 w-[900px] h-[600px] bg-white/[0.03] blur-[180px] pointer-events-none -z-10" />
+      <div className="absolute top-1/3 left-0 w-[700px] h-[700px] bg-blue-600/[0.025] blur-[180px] pointer-events-none -z-10" />
 
-      {/* Top Floating Glass Navigation Bar */}
-      <header className="sticky top-0 z-50 w-full border-b border-white/[0.08] bg-[#07090E]/85 backdrop-blur-2xl">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          {/* Logo & Brand */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-8 h-8 rounded-xl bg-white/[0.08] border border-white/20 flex items-center justify-center text-white group-hover:scale-105 transition-all">
-              {/* Minimalist Geometric Emblem */}
+      {/* Top Floating Glass Navigation Bar (Corner-to-Corner Edge Bleed) */}
+      <header className="w-full z-50 border-b border-white/[0.07] bg-[#07080B]/80 backdrop-blur-2xl">
+        <div className="w-full px-6 sm:px-10 lg:px-16 xl:px-24 h-20 flex items-center justify-between">
+          
+          {/* Left Corner: Brand Logo */}
+          <Link href="/" className="flex items-center gap-3.5 group">
+            <div className="w-9 h-9 rounded-xl bg-white/[0.08] border border-white/20 flex items-center justify-center text-white group-hover:scale-105 transition-all shadow-md">
+              {/* Minimalist Geometric Vector Emblem */}
               <svg viewBox="0 0 100 100" fill="none" className="w-4 h-4 text-white">
                 <path
                   d="M 28 28 L 74 72 L 74 28 L 28 72"
@@ -76,16 +73,16 @@ export default function HomePage() {
               </svg>
             </div>
             <div className="flex items-center gap-2">
-              <span className="font-bold text-sm tracking-tight text-white">Personal RAG</span>
+              <span className="font-extrabold text-base tracking-tight text-white">Personal RAG</span>
               <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/[0.06] text-slate-400 border border-white/10">
                 PRO 2026
               </span>
             </div>
           </Link>
 
-          {/* Nav Items */}
-          <nav className="hidden md:flex items-center gap-8 text-xs font-medium text-slate-400">
-            <a href="#hero" className="hover:text-white transition-colors">Studio</a>
+          {/* Center Navigation Links */}
+          <nav className="hidden md:flex items-center gap-10 text-xs font-semibold tracking-wide text-slate-400 uppercase">
+            <a href="#hero" className="hover:text-white transition-colors">Overview</a>
             <a href="#features" className="hover:text-white transition-colors">Features</a>
             <a href="#architecture" className="hover:text-white transition-colors">Architecture</a>
             <Link href="/admin" className="hover:text-white transition-colors flex items-center gap-1.5">
@@ -94,8 +91,8 @@ export default function HomePage() {
             </Link>
           </nav>
 
-          {/* Action CTAs */}
-          <div className="flex items-center gap-3">
+          {/* Right Corner: Auth CTAs */}
+          <div className="flex items-center gap-4">
             <Link
               href="/auth/login"
               className="text-xs font-semibold text-slate-300 hover:text-white transition-colors px-3 py-2"
@@ -104,414 +101,120 @@ export default function HomePage() {
             </Link>
             <Link
               href="/auth/signup"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-white text-black hover:bg-slate-200 transition-all shadow-lg shadow-white/10 hover:scale-[1.02] active:scale-[0.98]"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-white text-black hover:bg-slate-200 transition-all shadow-xl shadow-white/10 hover:scale-[1.02] active:scale-[0.98]"
             >
               <span>Get Started</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
+              <ArrowUpRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
       </header>
 
-      {/* Hero Section: Full Desktop & Mobile Responsive Showcase */}
-      <section id="hero" className="pt-12 pb-24 px-4 sm:px-6 max-w-7xl mx-auto space-y-12">
-        
-        {/* Top Header & Metadata */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 text-left">
-          <div className="space-y-4 max-w-3xl">
-            {/* Top Pill Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-medium text-slate-300 w-fit">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>AI Assistant</span>
-              <span className="text-slate-500">•</span>
-              <span className="text-slate-400">Multi-Tenant Grounded Knowledge Engine</span>
-            </div>
-
-            {/* Headline */}
-            <div className="space-y-1">
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black text-white tracking-tight leading-[1.02]">
-                AI Assistant
-              </h1>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-light text-slate-400 tracking-tight leading-[1.05]">
-                Full Desktop & Mobile Experience
-              </h2>
-            </div>
-
-            {/* Subtitle */}
-            <p className="text-base sm:text-lg text-slate-400 max-w-2xl leading-relaxed font-normal pt-2">
-              Transform private PDFs, Word documents, and technical notes into verifiable answers.
-              Every factual assertion is grounded in real-time source chunk citations with zero cross-tenant leakage.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap items-center gap-4 pt-3">
-              <Link
-                href="/app"
-                className="px-6 py-3.5 rounded-2xl bg-white text-black font-semibold text-sm hover:bg-slate-200 transition-all flex items-center gap-2 shadow-xl shadow-white/10 group"
-              >
-                <span>Launch Assistant</span>
-                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </Link>
-              <a
-                href="#features"
-                className="px-6 py-3.5 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/10 font-medium text-sm transition-all flex items-center gap-2"
-              >
-                <span>Explore Architecture</span>
-                <ChevronRight className="w-4 h-4 text-slate-400" />
-              </a>
-            </div>
-          </div>
-
-          {/* Metadata Cards & Interactive View Switcher */}
-          <div className="flex flex-col sm:flex-row lg:flex-col items-start sm:items-center lg:items-end gap-4 shrink-0">
-            {/* View Switcher (Desktop vs Mobile Preview) */}
-            <div className="p-1.5 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-md flex items-center gap-1">
-              <button
-                type="button"
-                onClick={() => setActiveDeviceView("desktop")}
-                className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${
-                  activeDeviceView === "desktop"
-                    ? "bg-white text-black shadow-md"
-                    : "text-slate-400 hover:text-white"
-                }`}
-              >
-                <Monitor className="w-3.5 h-3.5" />
-                <span>Desktop Studio</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveDeviceView("mobile")}
-                className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${
-                  activeDeviceView === "mobile"
-                    ? "bg-white text-black shadow-md"
-                    : "text-slate-400 hover:text-white"
-                }`}
-              >
-                <Smartphone className="w-3.5 h-3.5" />
-                <span>Mobile App</span>
-              </button>
-            </div>
-
-            {/* Bottom-Left Metadata Cards (From Dribbble Spec) */}
-            <div className="grid grid-cols-3 gap-3 w-full sm:w-auto">
-              <div className="p-3.5 rounded-2xl bg-[#0D0F16]/90 border border-white/[0.08] text-left">
-                <span className="text-[10px] text-slate-500 block mb-0.5 font-mono">PROJECTS</span>
-                <span className="text-xs font-bold text-white block truncate">AI Assistant</span>
-              </div>
-              <div className="p-3.5 rounded-2xl bg-[#0D0F16]/90 border border-white/[0.08] text-left">
-                <span className="text-[10px] text-slate-500 block mb-0.5 font-mono">DESIGNER</span>
-                <span className="text-xs font-bold text-white block truncate">BlockAI Studio</span>
-              </div>
-              <div className="p-3.5 rounded-2xl bg-[#0D0F16]/90 border border-white/[0.08] text-left">
-                <span className="text-[10px] text-slate-500 block mb-0.5 font-mono">YEAR</span>
-                <span className="text-xs font-bold text-white block">2026</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Master Showcase Display: Dynamic Switch between Full Desktop Studio and Mobile App */}
-        <div className="w-full relative">
+      {/* Hero Section: CORNER-TO-CORNER FULL-BLEED Dribbble Presentation */}
+      <section id="hero" className="w-full flex-1 flex flex-col justify-center px-6 sm:px-10 lg:px-16 xl:px-24 py-8 lg:py-12">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center min-h-[calc(100vh-140px)]">
           
-          {/* Ambient Glow behind the display */}
-          <div className="absolute -inset-1 bg-gradient-to-r from-white/[0.08] via-blue-500/[0.05] to-white/[0.08] rounded-[36px] blur-3xl opacity-70 pointer-events-none -z-10" />
-
-          {/* VIEW 1: FULL EXPANSIVE DESKTOP STUDIO (Shows by default or when Desktop is toggled) */}
-          <div className={`${activeDeviceView === "desktop" ? "block" : "hidden lg:block"} w-full rounded-3xl bg-[#0B0D14]/95 border border-white/[0.12] shadow-[0_30px_100px_rgba(0,0,0,0.95)] overflow-hidden transition-all duration-500`}>
+          {/* Left Column: Massive Typography & Corner Metadata Cards (Span 7) */}
+          <div className="lg:col-span-7 flex flex-col justify-between h-full py-4 lg:py-8 space-y-10 text-left">
             
-            {/* Desktop Window Title Bar */}
-            <div className="h-12 px-5 border-b border-white/[0.08] bg-[#0E1018]/90 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-red-500/80 inline-block" />
-                <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
-                <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
-              </div>
-              
-              {/* Window Address / Session Indicator */}
-              <div className="flex items-center gap-2 px-3.5 py-1 rounded-xl bg-white/[0.04] border border-white/[0.08] text-xs text-slate-400 font-mono">
-                <Lock className="w-3 h-3 text-emerald-400" />
-                <span>personal-rag.internal/app/chat/studio</span>
+            {/* Top Tag & Massive Headlines */}
+            <div className="space-y-6">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-medium text-slate-300">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span>AI Assistant</span>
+                <span className="text-slate-500">•</span>
+                <span className="text-slate-400">Multi-Tenant Grounded Knowledge</span>
               </div>
 
-              {/* Status Indicator */}
-              <div className="flex items-center gap-2 text-xs text-emerald-400 font-medium">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="hidden sm:inline">Tenant Isolation Active</span>
+              {/* Master Headline (Exact Dribbble Styling & Scale) */}
+              <div className="space-y-1">
+                <h1 className="text-6xl sm:text-7xl md:text-8xl xl:text-9xl 2xl:text-[10rem] font-black text-white tracking-tight leading-[0.95]">
+                  AI Assistant
+                </h1>
+                <h2 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl 2xl:text-8xl font-light text-slate-400 tracking-tight leading-[1.02]">
+                  Mobile App Design
+                </h2>
+              </div>
+
+              {/* Description Paragraph */}
+              <p className="text-base sm:text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed font-normal pt-2">
+                Turn your private PDFs, technical specs, and notes into an interactive assistant.
+                Every factual assertion is grounded in verifiable chunk citations with zero data leakage.
+              </p>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center gap-4 pt-4">
+                <Link
+                  href="/app"
+                  className="px-8 py-4 rounded-2xl bg-white text-black font-bold text-sm hover:bg-slate-200 transition-all flex items-center gap-2.5 shadow-2xl shadow-white/10 group"
+                >
+                  <span>Launch Assistant</span>
+                  <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </Link>
+                <a
+                  href="#features"
+                  className="px-7 py-4 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/10 font-semibold text-sm transition-all flex items-center gap-2"
+                >
+                  <span>Explore System Specs</span>
+                  <ChevronRight className="w-4 h-4 text-slate-400" />
+                </a>
               </div>
             </div>
 
-            {/* Desktop Window 3-Column Studio Layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[580px]">
-              
-              {/* Column 1: Document Library & Partitioned Storage (3 cols) */}
-              <div className="hidden lg:flex lg:col-span-3 border-r border-white/[0.08] p-5 bg-[#090B12]/80 flex-col justify-between text-left">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                    <span>Indexed Knowledge</span>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/[0.06] text-white border border-white/10">
-                      3 Ready
-                    </span>
-                  </div>
-
-                  {/* Document Chips */}
-                  <div className="space-y-2">
-                    <div className="p-3 rounded-2xl bg-white/[0.06] border border-white/15 text-xs text-white flex items-start gap-3 shadow-md">
-                      <FileText className="w-4 h-4 text-white shrink-0 mt-0.5" />
-                      <div className="min-w-0 flex-1">
-                        <div className="font-semibold truncate">Security_Compliance_2026.pdf</div>
-                        <div className="text-[10px] text-slate-400 font-mono mt-0.5">38 Chunks · SHA-256 Valid</div>
-                      </div>
-                    </div>
-
-                    <div className="p-3 rounded-2xl bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.05] text-xs text-slate-300 flex items-start gap-3 transition-colors">
-                      <FileText className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
-                      <div className="min-w-0 flex-1">
-                        <div className="font-medium truncate">Cloud_Architecture_Specs.docx</div>
-                        <div className="text-[10px] text-slate-500 font-mono mt-0.5">24 Chunks · Ready</div>
-                      </div>
-                    </div>
-
-                    <div className="p-3 rounded-2xl bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.05] text-xs text-slate-300 flex items-start gap-3 transition-colors">
-                      <FileText className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
-                      <div className="min-w-0 flex-1">
-                        <div className="font-medium truncate">Disaster_Recovery_Plan.md</div>
-                        <div className="text-[10px] text-slate-500 font-mono mt-0.5">14 Chunks · Ready</div>
-                      </div>
-                    </div>
-                  </div>
+            {/* Bottom-Left Corner Metadata Cards (Exact Dribbble Reference Match) */}
+            <div className="pt-8">
+              <div className="grid grid-cols-3 gap-4 max-w-lg">
+                {/* Card 1 */}
+                <div className="p-4 sm:p-5 rounded-2xl bg-[#0F1117]/85 border border-white/[0.09] backdrop-blur-xl shadow-lg">
+                  <span className="text-[11px] text-slate-500 font-mono block mb-1 uppercase tracking-wider">Projects</span>
+                  <span className="text-sm sm:text-base font-bold text-white block truncate">AI assistant</span>
                 </div>
 
-                {/* Storage Meter */}
-                <div className="pt-4 border-t border-white/[0.08] space-y-2">
-                  <div className="flex justify-between text-[11px] text-slate-400 font-mono">
-                    <span>Tenant Storage</span>
-                    <span className="text-white">12.4 MB / 200 MB</span>
-                  </div>
-                  <div className="w-full h-1.5 bg-white/[0.08] rounded-full overflow-hidden">
-                    <div className="w-[12%] h-full bg-white rounded-full" />
-                  </div>
-                </div>
-              </div>
-
-              {/* Column 2: Center Conversational Canvas with Spotlight & Emblem (6 cols) */}
-              <div className="lg:col-span-6 p-6 flex flex-col justify-between bg-[#0B0D14] relative overflow-hidden text-left">
-                
-                {/* Luminous Spotlight Beam from Top */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-80 h-72 spotlight-cone pointer-events-none opacity-80" />
-                <div className="absolute top-8 left-1/2 -translate-x-1/2 w-48 h-48 bg-white/10 rounded-full blur-3xl pointer-events-none" />
-
-                {/* Center Hero Spotlight & Glowing Geometric Logo */}
-                <div className="relative z-10 flex flex-col items-center justify-center pt-2 pb-6 text-center space-y-4">
-                  {/* Geometric Emblem */}
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-white/30 rounded-full blur-2xl transform scale-150 pointer-events-none" />
-                    <svg
-                      viewBox="0 0 100 100"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-14 h-14 text-white relative z-10 glow-symbol transition-transform duration-500 hover:scale-105"
-                    >
-                      <path
-                        d="M 28 28 L 74 72 L 74 28 L 28 72"
-                        stroke="white"
-                        strokeWidth="6"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </div>
-
-                  <h3 className="text-xl sm:text-2xl font-light text-white tracking-tight">
-                    How can i help you today?
-                  </h3>
+                {/* Card 2 */}
+                <div className="p-4 sm:p-5 rounded-2xl bg-[#0F1117]/85 border border-white/[0.09] backdrop-blur-xl shadow-lg">
+                  <span className="text-[11px] text-slate-500 font-mono block mb-1 uppercase tracking-wider">Designer</span>
+                  <span className="text-sm sm:text-base font-bold text-white block truncate">BlockAI Studio</span>
                 </div>
 
-                {/* Grounded Message Flow */}
-                <div className="relative z-10 space-y-4 my-auto">
-                  {/* User Message Bubble */}
-                  <div className="flex justify-end">
-                    <div className="max-w-[85%] rounded-2xl rounded-tr-sm bg-white text-black p-3.5 text-xs sm:text-sm font-medium shadow-md">
-                      What are the tenant isolation guarantees and chunk eviction rules described in section 4.2?
-                    </div>
-                  </div>
-
-                  {/* Assistant Answer Bubble with Citations */}
-                  <div className="flex justify-start">
-                    <div className="max-w-[95%] rounded-2xl rounded-tl-sm bg-[#12141D] border border-white/15 p-4 text-xs sm:text-sm text-slate-200 space-y-2.5 shadow-xl">
-                      <div className="flex items-center justify-between text-xs font-semibold text-slate-300">
-                        <span className="flex items-center gap-1.5">
-                          <Bot className="w-4 h-4 text-white" />
-                          <span>Grounded Assistant Synthesis</span>
-                        </span>
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                          100% Verifiable
-                        </span>
-                      </div>
-                      <p className="text-slate-300 leading-relaxed text-xs">
-                        Tenant data is partitioned cryptographically at three discrete layers: Row-Level Security, vector query filters bounded by tenant UUID, and atomic storage isolation.
-                      </p>
-
-                      {/* Clickable Citation Pill */}
-                      <div className="pt-2 border-t border-white/[0.08] flex items-center gap-2">
-                        <span className="text-[11px] text-slate-500">Verified Citation:</span>
-                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-white/[0.08] border border-white/15 text-white text-xs font-mono">
-                          <FileText className="w-3 h-3 text-white" />
-                          <span>[1] Security_Compliance_2026.pdf · p. 14, §4.2</span>
-                          <span className="text-[10px] text-emerald-400 font-bold">96% Cosine Match</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Desktop Floating Composer Form */}
-                <form
-                  onSubmit={handleSendQuery}
-                  className="relative z-10 mt-6 rounded-2xl bg-[#141620]/95 backdrop-blur-xl border border-white/15 p-3 shadow-2xl transition-all hover:border-white/25 space-y-2"
-                >
-                  <input
-                    type="text"
-                    value={inputQuery}
-                    onChange={(e) => setInputQuery(e.target.value)}
-                    placeholder="What do you want to know from your private documents ?"
-                    className="w-full bg-transparent text-xs text-white placeholder-slate-400 focus:outline-none py-1 px-1 font-sans"
-                  />
-
-                  <div className="flex items-center justify-between pt-2 border-t border-white/[0.08]">
-                    <div className="relative">
-                      <button
-                        type="button"
-                        onClick={() => setIsModelDropdownOpen(!isModelDropdownOpen)}
-                        className="px-2.5 py-1 rounded-full bg-white/[0.08] hover:bg-white/[0.14] border border-white/10 text-[11px] font-medium text-slate-300 flex items-center gap-1.5 transition-colors"
-                      >
-                        <Zap className="w-3 h-3 text-white" />
-                        <span>{modelMode}</span>
-                        <span className="text-[9px] text-slate-400">⌵</span>
-                      </button>
-
-                      {isModelDropdownOpen && (
-                        <div className="absolute bottom-full mb-2 left-0 w-36 rounded-xl bg-[#1A1C24] border border-white/15 p-1 shadow-2xl text-[11px] space-y-0.5 z-30">
-                          <button
-                            type="button"
-                            onClick={() => { setModelMode("Auto"); setIsModelDropdownOpen(false); }}
-                            className={`w-full text-left px-2.5 py-1.5 rounded-lg ${modelMode === "Auto" ? "bg-white/10 text-white font-semibold" : "text-slate-400 hover:text-white"}`}
-                          >
-                            Auto (Default)
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => { setModelMode("Grounded"); setIsModelDropdownOpen(false); }}
-                            className={`w-full text-left px-2.5 py-1.5 rounded-lg ${modelMode === "Grounded" ? "bg-white/10 text-white font-semibold" : "text-slate-400 hover:text-white"}`}
-                          >
-                            Grounded RAG
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => { setModelMode("Deep"); setIsModelDropdownOpen(false); }}
-                            className={`w-full text-left px-2.5 py-1.5 rounded-lg ${modelMode === "Deep" ? "bg-white/10 text-white font-semibold" : "text-slate-400 hover:text-white"}`}
-                          >
-                            Deep Research
-                          </button>
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <button type="button" className="text-slate-400 hover:text-white p-1" title="Attach document">
-                        <Paperclip className="w-3.5 h-3.5" />
-                      </button>
-                      <button type="button" className="text-slate-400 hover:text-white p-1" title="Vector focus">
-                        <Crosshair className="w-3.5 h-3.5" />
-                      </button>
-                      <button type="button" className="text-slate-400 hover:text-white p-1" title="Voice input">
-                        <Mic className="w-3.5 h-3.5" />
-                      </button>
-                      <button
-                        type="submit"
-                        className="w-7 h-7 rounded-xl bg-white text-black hover:bg-slate-200 flex items-center justify-center transition-all shadow-md active:scale-95"
-                        title="Send query"
-                      >
-                        <ArrowUpRight className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                  </div>
-                </form>
-
-                {/* Prompt Suggestions */}
-                <div className="flex items-center gap-2 overflow-x-auto pt-2 no-scrollbar text-[10px]">
-                  {promptSuggestions.map((item, index) => {
-                    const Icon = item.icon;
-                    return (
-                      <button
-                        key={index}
-                        type="button"
-                        onClick={() => handleSelectPrompt(item.query)}
-                        className="px-2.5 py-1 rounded-full bg-white/[0.04] hover:bg-white/[0.1] border border-white/10 text-slate-300 hover:text-white whitespace-nowrap flex items-center gap-1.5 transition-colors shrink-0"
-                      >
-                        <Icon className="w-3 h-3 text-slate-400" />
-                        <span>{item.label}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Column 3: Live Source Inspector Drawer (3 cols) */}
-              <div className="hidden lg:flex lg:col-span-3 border-l border-white/[0.08] p-5 bg-[#090B12]/80 flex-col justify-between text-left">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                    <span>Source Inspector</span>
-                    <span className="text-[10px] text-emerald-400 font-mono">0.961 Similarity</span>
-                  </div>
-
-                  {/* Excerpt Card */}
-                  <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/[0.08] space-y-2 text-xs">
-                    <div className="font-semibold text-white flex items-center gap-1.5">
-                      <FileText className="w-3.5 h-3.5 text-white" />
-                      <span>Security_Compliance_2026.pdf</span>
-                    </div>
-                    <div className="text-[10px] text-slate-400 font-mono">Page 14 · Section 4.2 · Chunk #104</div>
-                    <p className="text-[11px] text-slate-300 italic font-serif leading-relaxed pt-1 border-t border-white/[0.06]">
-                      &ldquo;All extracted chunk embeddings are stored alongside tenant UUID. Vector query filters strictly enforce WHERE user_id = :current_user before ANN ranking.&rdquo;
-                    </p>
-                  </div>
-
-                  <div className="p-3 rounded-2xl bg-white/[0.02] border border-white/[0.05] text-[11px] text-slate-400 space-y-1 font-mono">
-                    <div>Hash: sha256:7f8a9b2c...</div>
-                    <div>Embedding: text-embedding-3</div>
-                    <div>Latency: 142ms (p95)</div>
-                  </div>
-                </div>
-
-                <div className="p-3 rounded-2xl bg-emerald-950/20 border border-emerald-500/20 text-[11px] text-emerald-300 flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>Provenance mathematically verified against source PDF bytes.</span>
+                {/* Card 3 */}
+                <div className="p-4 sm:p-5 rounded-2xl bg-[#0F1117]/85 border border-white/[0.09] backdrop-blur-xl shadow-lg">
+                  <span className="text-[11px] text-slate-500 font-mono block mb-1 uppercase tracking-wider">Year</span>
+                  <span className="text-sm sm:text-base font-bold text-white block">2026</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* VIEW 2: THE MOBILE APP SHOWCASE (Shown on mobile screens OR when Mobile is toggled) */}
-          <div className={`${activeDeviceView === "mobile" ? "flex" : "hidden"} flex-col items-center justify-center py-6 transition-all duration-500`}>
+          {/* Right Column: Towering Photorealistic Mobile Device On Matte Pedestal (Span 5) */}
+          <div className="lg:col-span-5 flex flex-col items-center justify-end relative h-full pt-8 lg:pt-0">
             
-            {/* Phone Chassis Container */}
-            <div className="w-[340px] sm:w-[380px] h-[720px] rounded-[52px] p-3 bg-gradient-to-b from-[#282A32] via-[#16171E] to-[#0A0B0F] border border-white/20 shadow-[0_30px_90px_rgba(0,0,0,0.95),0_0_40px_rgba(255,255,255,0.08)] relative ring-1 ring-white/10">
+            {/* Ambient Radial Backlight behind the flagship device */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[650px] bg-white/[0.07] rounded-full blur-[140px] pointer-events-none -z-10" />
+
+            {/* Towering Smartphone Chassis Container */}
+            <div className="w-[350px] sm:w-[400px] xl:w-[420px] h-[760px] sm:h-[820px] rounded-[56px] p-3.5 bg-gradient-to-b from-[#282A33] via-[#16171E] to-[#090A0E] border border-white/20 shadow-[0_30px_100px_rgba(0,0,0,0.98),0_0_50px_rgba(255,255,255,0.08)] relative ring-1 ring-white/10 z-10">
               
-              {/* Screen Inner */}
-              <div className="w-full h-full rounded-[42px] bg-[#0A0B0E] relative overflow-hidden flex flex-col justify-between p-5 text-white select-none">
+              {/* Screen Inner Display */}
+              <div className="w-full h-full rounded-[44px] bg-[#0A0B0F] relative overflow-hidden flex flex-col justify-between p-6 text-white select-none">
                 
-                {/* Spotlight Beam Streaming From Dynamic Island */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-80 spotlight-cone pointer-events-none opacity-90" />
-                <div className="absolute top-10 left-1/2 -translate-x-1/2 w-48 h-48 bg-white/15 rounded-full blur-3xl pointer-events-none" />
+                {/* Conical Spotlight Radiant Beam Streaming from Dynamic Island */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-72 sm:w-80 h-96 spotlight-cone pointer-events-none opacity-95" />
+                <div className="absolute top-12 left-1/2 -translate-x-1/2 w-52 h-52 bg-white/15 rounded-full blur-3xl pointer-events-none" />
 
                 {/* Top Status Bar */}
                 <div className="relative z-10 flex items-center justify-between text-xs font-semibold px-2 pt-1 text-slate-300">
-                  <span>9:41</span>
+                  <span className="tracking-tight font-sans">9:41</span>
+                  {/* Dynamic Island Notch */}
                   <div className="w-24 h-6 bg-black rounded-full flex items-center justify-end px-2 gap-1.5 shadow-inner">
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#121318] border border-white/10" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#14151B] border border-white/10" />
                     <div className="w-2 h-2 rounded-full bg-emerald-500/80" />
                   </div>
+                  {/* Signal & Battery Icons */}
                   <div className="flex items-center gap-1.5">
+                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                      <path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.33 19.64 10.61 20 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9z"/>
+                    </svg>
                     <div className="w-5 h-2.5 rounded-sm border border-slate-300 p-0.5 flex items-center">
                       <div className="h-full w-full bg-white rounded-2xs" />
                     </div>
@@ -519,34 +222,40 @@ export default function HomePage() {
                 </div>
 
                 {/* Mobile Top App Header */}
-                <div className="relative z-10 flex items-center justify-between px-1 mt-3">
+                <div className="relative z-10 flex items-center justify-between px-1 mt-4">
+                  {/* Menu Button */}
                   <button
                     type="button"
-                    className="w-9 h-9 rounded-full bg-white/[0.06] border border-white/10 flex items-center justify-center text-slate-300 hover:text-white"
+                    className="w-10 h-10 rounded-full bg-white/[0.06] border border-white/10 flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/[0.12] transition-colors"
                   >
-                    <div className="space-y-1 w-3.5">
+                    <div className="space-y-1 w-4">
                       <span className="block h-0.5 w-full bg-current rounded" />
                       <span className="block h-0.5 w-full bg-current rounded" />
                     </div>
                   </button>
-                  <span className="text-sm font-semibold text-slate-200">New Chat</span>
+
+                  {/* Header Title */}
+                  <span className="text-base font-semibold text-slate-200">New Chat</span>
+
+                  {/* Add New Chat Button */}
                   <button
                     type="button"
-                    className="w-9 h-9 rounded-xl bg-white/[0.06] border border-white/10 flex items-center justify-center text-slate-300 hover:text-white text-base"
+                    className="w-10 h-10 rounded-xl bg-white/[0.06] border border-white/10 flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/[0.12] transition-colors text-lg"
                   >
                     +
                   </button>
                 </div>
 
-                {/* Center Hero Area: The Radiant Emblem & "How can i help you today?" */}
-                <div className="relative z-10 flex flex-col items-center justify-center my-auto text-center space-y-6 pt-4">
+                {/* Center Hero Spotlight Area: The Radiant Emblem & Headline */}
+                <div className="relative z-10 flex flex-col items-center justify-center my-auto text-center space-y-6 pt-6">
+                  {/* Glowing Geometric Vector Emblem (Exact replica from Dribbble shot) */}
                   <div className="relative">
-                    <div className="absolute inset-0 bg-white/30 rounded-full blur-2xl transform scale-150 pointer-events-none" />
+                    <div className="absolute inset-0 bg-white/35 rounded-full blur-2xl transform scale-150 pointer-events-none" />
                     <svg
                       viewBox="0 0 100 100"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
-                      className="w-20 h-20 text-white relative z-10 glow-symbol"
+                      className="w-24 h-24 text-white relative z-10 glow-symbol transition-transform duration-500 hover:scale-110"
                     >
                       <path
                         d="M 28 28 L 74 72 L 74 28 L 28 72"
@@ -558,82 +267,138 @@ export default function HomePage() {
                     </svg>
                   </div>
 
+                  {/* Headline under emblem */}
                   <div className="space-y-1">
-                    <h3 className="text-2xl font-light tracking-tight text-white/95">
+                    <h3 className="text-2xl sm:text-3xl font-light tracking-tight text-white/95">
                       How can i help
                     </h3>
-                    <h3 className="text-2xl font-light tracking-tight text-white/95">
+                    <h3 className="text-2xl sm:text-3xl font-light tracking-tight text-white/95">
                       you today?
                     </h3>
                   </div>
                 </div>
 
                 {/* Bottom Interactive Area */}
-                <div className="relative z-10 space-y-3">
+                <div className="relative z-10 space-y-3.5">
+                  
+                  {/* Floating Translucent Glass Composer Card */}
                   <form
                     onSubmit={handleSendQuery}
-                    className="rounded-2xl bg-[#14151C]/90 backdrop-blur-xl border border-white/15 p-3 shadow-2xl space-y-2"
+                    className="rounded-2xl bg-[#14151D]/90 backdrop-blur-2xl border border-white/15 p-3.5 shadow-2xl transition-all hover:border-white/25"
                   >
+                    {/* Input Field */}
                     <input
                       type="text"
                       value={inputQuery}
                       onChange={(e) => setInputQuery(e.target.value)}
                       placeholder="What do you want to know ?"
-                      className="w-full bg-transparent text-xs text-white placeholder-slate-400 focus:outline-none py-1 px-1 font-sans"
+                      className="w-full bg-transparent text-xs sm:text-sm text-white placeholder-slate-400 focus:outline-none py-1 px-1 font-sans"
                     />
 
-                    <div className="flex items-center justify-between pt-2 border-t border-white/[0.08]">
-                      <span className="px-2.5 py-1 rounded-full bg-white/[0.08] text-[11px] text-slate-300 flex items-center gap-1.5">
-                        <Zap className="w-3 h-3 text-white" />
-                        <span>Auto ⌵</span>
-                      </span>
+                    {/* Bottom Controls Row */}
+                    <div className="flex items-center justify-between pt-2.5 mt-2 border-t border-white/[0.08]">
+                      
+                      {/* Left: Model Selector Pill */}
+                      <div className="relative">
+                        <button
+                          type="button"
+                          onClick={() => setIsModelDropdownOpen(!isModelDropdownOpen)}
+                          className="px-3 py-1 rounded-full bg-white/[0.08] hover:bg-white/[0.14] border border-white/10 text-xs font-medium text-slate-300 flex items-center gap-1.5 transition-colors"
+                        >
+                          <Zap className="w-3.5 h-3.5 text-white" />
+                          <span>{modelMode}</span>
+                          <span className="text-[10px] text-slate-400">⌵</span>
+                        </button>
 
-                      <div className="flex items-center gap-2">
-                        <Paperclip className="w-3.5 h-3.5 text-slate-400" />
-                        <Mic className="w-3.5 h-3.5 text-slate-400" />
+                        {/* Model Dropdown */}
+                        {isModelDropdownOpen && (
+                          <div className="absolute bottom-full mb-2 left-0 w-36 rounded-xl bg-[#1A1C24] border border-white/15 p-1 shadow-2xl text-xs space-y-0.5 z-30">
+                            <button
+                              type="button"
+                              onClick={() => { setModelMode("Auto"); setIsModelDropdownOpen(false); }}
+                              className={`w-full text-left px-2.5 py-1.5 rounded-lg ${modelMode === "Auto" ? "bg-white/10 text-white font-semibold" : "text-slate-400 hover:text-white"}`}
+                            >
+                              Auto (Default)
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => { setModelMode("Grounded"); setIsModelDropdownOpen(false); }}
+                              className={`w-full text-left px-2.5 py-1.5 rounded-lg ${modelMode === "Grounded" ? "bg-white/10 text-white font-semibold" : "text-slate-400 hover:text-white"}`}
+                            >
+                              Grounded RAG
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => { setModelMode("Deep"); setIsModelDropdownOpen(false); }}
+                              className={`w-full text-left px-2.5 py-1.5 rounded-lg ${modelMode === "Deep" ? "bg-white/10 text-white font-semibold" : "text-slate-400 hover:text-white"}`}
+                            >
+                              Deep Research
+                            </button>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Right: Tool Icons & Send Button */}
+                      <div className="flex items-center gap-2.5">
+                        <button type="button" className="text-slate-400 hover:text-white p-1" title="Attach document">
+                          <Paperclip className="w-4 h-4" />
+                        </button>
+                        <button type="button" className="text-slate-400 hover:text-white p-1" title="Vector focus">
+                          <Crosshair className="w-4 h-4" />
+                        </button>
+                        <button type="button" className="text-slate-400 hover:text-white p-1" title="Voice query">
+                          <Mic className="w-4 h-4" />
+                        </button>
+                        
+                        {/* Square Send Button with Up-Right Arrow [↗] */}
                         <button
                           type="submit"
-                          className="w-7 h-7 rounded-xl bg-white text-black flex items-center justify-center transition-all"
+                          className="w-8 h-8 rounded-xl bg-white/[0.15] hover:bg-white text-white hover:text-black border border-white/20 flex items-center justify-center transition-all shadow-md active:scale-95"
+                          title="Send message"
                         >
-                          <ArrowUpRight className="w-3.5 h-3.5" />
+                          <ArrowUpRight className="w-4 h-4" />
                         </button>
                       </div>
                     </div>
                   </form>
 
                   {/* Horizontal Scrollable Prompt Chips */}
-                  <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar text-[10px]">
-                    {promptSuggestions.map((item, index) => (
-                      <button
-                        key={index}
-                        type="button"
-                        onClick={() => handleSelectPrompt(item.query)}
-                        className="px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-slate-300 whitespace-nowrap"
-                      >
-                        {item.label}
-                      </button>
-                    ))}
+                  <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar text-[11px]">
+                    {promptSuggestions.map((item, index) => {
+                      const Icon = item.icon;
+                      return (
+                        <button
+                          key={index}
+                          type="button"
+                          onClick={() => handleSelectPrompt(item.query)}
+                          className="px-3 py-1.5 rounded-full bg-white/[0.04] hover:bg-white/[0.1] border border-white/10 text-slate-300 hover:text-white whitespace-nowrap flex items-center gap-1.5 transition-colors shrink-0"
+                        >
+                          <Icon className="w-3.5 h-3.5 text-slate-400" />
+                          <span>{item.label}</span>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Dark Matte Pedestal / Stand Base beneath phone */}
-            <div className="w-[320px] sm:w-[360px] h-8 bg-gradient-to-b from-[#181920] to-[#08090C] border-t border-white/15 rounded-t-xl -mt-3 shadow-2xl relative z-0" />
-            <div className="w-[380px] sm:w-[420px] h-4 bg-gradient-to-b from-[#101116] to-transparent rounded-full blur-md opacity-80" />
+            {/* Matte Pedestal Stage beneath the phone extending down to corner edge */}
+            <div className="w-[340px] sm:w-[390px] xl:w-[410px] h-10 bg-gradient-to-b from-[#181922] to-[#07080B] border-t border-white/15 rounded-t-xl -mt-4 shadow-2xl relative z-0" />
+            <div className="w-[420px] sm:w-[480px] h-6 bg-gradient-to-b from-[#101116] to-transparent rounded-full blur-xl opacity-90" />
           </div>
         </div>
       </section>
 
-      {/* Feature Bento Grid (Awwwards Style) */}
-      <section id="features" className="py-24 px-6 max-w-7xl mx-auto border-t border-white/[0.08]">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+      {/* Feature Bento Grid (Full Bleed Edge-to-Edge) */}
+      <section id="features" className="w-full py-28 px-6 sm:px-10 lg:px-16 xl:px-24 border-t border-white/[0.08] bg-[#07080B]">
+        <div className="text-left max-w-4xl mb-16">
           <h2 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Architected For Precision</h2>
-          <p className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
+          <p className="text-4xl md:text-6xl font-black tracking-tight text-white mb-4">
             Built From First Principles. <br />
             No Hallucinations Allowed.
           </p>
-          <p className="text-slate-400 text-sm md:text-base leading-relaxed">
+          <p className="text-slate-400 text-base md:text-lg leading-relaxed">
             Standard AI chatbots invent plausible-sounding details. Personal RAG binds every factual claim
             directly to immutable text chunks with exact provenance.
           </p>
@@ -641,15 +406,15 @@ export default function HomePage() {
 
         {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Card 1: Large Span */}
-          <div className="md:col-span-2 rounded-3xl glass-card p-8 border border-white/[0.08] hover:border-white/20 transition-all relative overflow-hidden group">
+          {/* Card 1 */}
+          <div className="md:col-span-2 rounded-3xl glass-card p-8 sm:p-10 border border-white/[0.08] hover:border-white/20 transition-all relative overflow-hidden group">
             <div className="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/10 flex items-center justify-center text-white mb-6">
               <FileCheck className="w-6 h-6" />
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">Verifiable Source Drawer</h3>
-            <p className="text-slate-400 text-sm leading-relaxed max-w-lg mb-6">
+            <h3 className="text-2xl font-bold text-white mb-2">Verifiable Source Drawer</h3>
+            <p className="text-slate-400 text-sm md:text-base leading-relaxed max-w-xl mb-6">
               Every sentence in generated answers links to an authoritatively extracted chunk. Click any
-              citation marker to instantly inspect the original document text, page number, and similarity score.
+              citation marker to instantly inspect original document text, page number, and similarity score.
             </p>
             <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06] font-mono text-xs text-slate-300">
               <div className="text-emerald-400 mb-1">$ rag.query(&quot;tenant isolation guarantee&quot;)</div>
@@ -658,48 +423,48 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Card 2: Security */}
-          <div className="rounded-3xl glass-card p-8 border border-white/[0.08] hover:border-white/20 transition-all group">
+          {/* Card 2 */}
+          <div className="rounded-3xl glass-card p-8 sm:p-10 border border-white/[0.08] hover:border-white/20 transition-all group">
             <div className="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/10 flex items-center justify-center text-white mb-6">
               <Shield className="w-6 h-6" />
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">Zero Cross-Tenant Leakage</h3>
-            <p className="text-slate-400 text-sm leading-relaxed">
+            <h3 className="text-2xl font-bold text-white mb-2">Zero Cross-Tenant Leakage</h3>
+            <p className="text-slate-400 text-sm md:text-base leading-relaxed">
               Enforced across schema design, Supabase Row-Level Security, and vector query filters. Your private
-              indices can never be scanned or discovered by another user.
+              indices can never be scanned or discovered by another account.
             </p>
           </div>
 
-          {/* Card 3: Formats */}
-          <div className="rounded-3xl glass-card p-8 border border-white/[0.08] hover:border-white/20 transition-all group">
+          {/* Card 3 */}
+          <div className="rounded-3xl glass-card p-8 sm:p-10 border border-white/[0.08] hover:border-white/20 transition-all group">
             <div className="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/10 flex items-center justify-center text-white mb-6">
               <Layers className="w-6 h-6" />
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">Universal Extraction</h3>
-            <p className="text-slate-400 text-sm leading-relaxed">
+            <h3 className="text-2xl font-bold text-white mb-2">Universal Extraction</h3>
+            <p className="text-slate-400 text-sm md:text-base leading-relaxed">
               Handles text PDFs, Microsoft Word (.docx), Markdown (.md), and plain text. Detects scanned or encrypted
               files with actionable error states.
             </p>
           </div>
 
-          {/* Card 4: Streaming */}
-          <div className="md:col-span-2 rounded-3xl glass-card p-8 border border-white/[0.08] hover:border-white/20 transition-all group">
+          {/* Card 4 */}
+          <div className="md:col-span-2 rounded-3xl glass-card p-8 sm:p-10 border border-white/[0.08] hover:border-white/20 transition-all group">
             <div className="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/10 flex items-center justify-center text-white mb-6">
               <Zap className="w-6 h-6" />
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">Ultra-Low Latency SSE Streaming</h3>
-            <p className="text-slate-400 text-sm leading-relaxed max-w-lg mb-6">
+            <h3 className="text-2xl font-bold text-white mb-2">Ultra-Low Latency SSE Streaming</h3>
+            <p className="text-slate-400 text-sm md:text-base leading-relaxed max-w-xl mb-6">
               Post-fetch Server-Sent Events (SSE) with periodic heartbeats ensure smooth token generation and
               prevent proxy timeouts during complex multi-document reasoning.
             </p>
             <div className="flex flex-wrap gap-4 text-xs font-mono">
-              <span className="px-3 py-1.5 rounded-xl bg-white/[0.04] text-slate-300 border border-white/[0.08]">
+              <span className="px-3.5 py-2 rounded-xl bg-white/[0.04] text-slate-300 border border-white/[0.08]">
                 TTFT: &lt; 150ms
               </span>
-              <span className="px-3 py-1.5 rounded-xl bg-white/[0.04] text-slate-300 border border-white/[0.08]">
+              <span className="px-3.5 py-2 rounded-xl bg-white/[0.04] text-slate-300 border border-white/[0.08]">
                 Heartbeat: 15s interval
               </span>
-              <span className="px-3 py-1.5 rounded-xl bg-white/[0.04] text-slate-300 border border-white/[0.08]">
+              <span className="px-3.5 py-2 rounded-xl bg-white/[0.04] text-slate-300 border border-white/[0.08]">
                 Backpressure: Resilient
               </span>
             </div>
@@ -707,92 +472,48 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Architecture Pipeline Section */}
-      <section id="architecture" className="py-20 px-6 max-w-7xl mx-auto border-t border-white/[0.08]">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">System Blueprint</h2>
-          <p className="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-4">
-            How The Grounded RAG Pipeline Works
-          </p>
-          <p className="text-slate-400 text-sm leading-relaxed">
-            From file upload to verifiable token generation, every operation runs inside bounded memory and durable transaction guarantees.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="p-6 rounded-3xl bg-[#0C101B] border border-white/[0.06] relative">
-            <div className="text-xs font-mono text-slate-400 font-bold mb-3">01 / INGESTION</div>
-            <h4 className="text-base font-bold text-white mb-2">Upload Reservation</h4>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Client requests server quota reservation. File uploads safely to tenant-isolated storage with SHA-256 validation.
-            </p>
-          </div>
-          <div className="p-6 rounded-3xl bg-[#0C101B] border border-white/[0.06] relative">
-            <div className="text-xs font-mono text-slate-400 font-bold mb-3">02 / CHUNKING</div>
-            <h4 className="text-base font-bold text-white mb-2">Bounded Chunking</h4>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Background workers divide documents into overlap-optimized sections with page and character-index provenance.
-            </p>
-          </div>
-          <div className="p-6 rounded-3xl bg-[#0C101B] border border-white/[0.06] relative">
-            <div className="text-xs font-mono text-slate-400 font-bold mb-3">03 / INDEXING</div>
-            <h4 className="text-base font-bold text-white mb-2">Vector Embeddings</h4>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Embeddings stored in PostgreSQL with pgvector. Indexed via HNSW / IVFFlat with composite tenant constraints.
-            </p>
-          </div>
-          <div className="p-6 rounded-3xl bg-[#0C101B] border border-white/[0.06] relative">
-            <div className="text-xs font-mono text-slate-400 font-bold mb-3">04 / GENERATION</div>
-            <h4 className="text-base font-bold text-white mb-2">Grounded Streaming</h4>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Retrieved context injects strictly verified sources. Model streams answer with server-resolvable citation references.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Target Capacity & Benchmark Metrics */}
-      <section className="py-16 px-6 max-w-7xl mx-auto border-t border-white/[0.08]">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      {/* Target Capacity & Benchmark Metrics (Full Bleed) */}
+      <section className="w-full py-20 px-6 sm:px-10 lg:px-16 xl:px-24 border-t border-white/[0.08] bg-[#06070A]">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-left">
           <div>
-            <div className="text-3xl md:text-5xl font-black text-white tracking-tight mb-1">1,000+</div>
-            <div className="text-xs font-medium text-slate-400 uppercase tracking-wider">Registered Capacity</div>
+            <div className="text-4xl md:text-6xl font-black text-white tracking-tight mb-1">1,000+</div>
+            <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Registered Capacity</div>
           </div>
           <div>
-            <div className="text-3xl md:text-5xl font-black text-white tracking-tight mb-1">&lt; 150ms</div>
-            <div className="text-xs font-medium text-slate-400 uppercase tracking-wider">Time To First Token</div>
+            <div className="text-4xl md:text-6xl font-black text-white tracking-tight mb-1">&lt; 150ms</div>
+            <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Time To First Token</div>
           </div>
           <div>
-            <div className="text-3xl md:text-5xl font-black text-emerald-400 tracking-tight mb-1">100%</div>
-            <div className="text-xs font-medium text-slate-400 uppercase tracking-wider">Verifiable Citations</div>
+            <div className="text-4xl md:text-6xl font-black text-emerald-400 tracking-tight mb-1">100%</div>
+            <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Verifiable Citations</div>
           </div>
           <div>
-            <div className="text-3xl md:text-5xl font-black text-slate-400 tracking-tight mb-1">0%</div>
-            <div className="text-xs font-medium text-slate-400 uppercase tracking-wider">Data Leakage Rate</div>
+            <div className="text-4xl md:text-6xl font-black text-slate-400 tracking-tight mb-1">0%</div>
+            <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Data Leakage Rate</div>
           </div>
         </div>
       </section>
 
       {/* Bottom Conversion CTA Banner */}
-      <section className="py-24 px-6 max-w-5xl mx-auto">
-        <div className="rounded-3xl bg-[#0E1017] border border-white/[0.12] p-10 md:p-16 text-center relative overflow-hidden shadow-2xl">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-white/[0.04] blur-[100px] pointer-events-none" />
-          <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
+      <section className="w-full py-24 px-6 sm:px-10 lg:px-16 xl:px-24 border-t border-white/[0.08]">
+        <div className="rounded-3xl bg-[#0D0F16] border border-white/[0.12] p-10 md:p-16 text-center relative overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-white/[0.03] blur-[120px] pointer-events-none" />
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight mb-4">
             Start Asking Your Documents.
           </h2>
-          <p className="text-slate-400 text-sm md:text-base max-w-xl mx-auto mb-8 leading-relaxed">
+          <p className="text-slate-400 text-sm md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
             Eliminate hallucinations. Empower your research and document workflows with citations you can always verify.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/auth/signup"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-white text-black hover:bg-slate-200 font-semibold text-sm shadow-xl shadow-white/10 transition-all"
+              className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white text-black hover:bg-slate-200 font-bold text-sm shadow-xl shadow-white/10 transition-all"
             >
               Create Free Account
             </Link>
             <Link
               href="/auth/login"
-              className="w-full sm:w-auto px-7 py-3.5 rounded-2xl glass-card text-slate-300 hover:text-white font-medium text-sm transition-all"
+              className="w-full sm:w-auto px-7 py-4 rounded-2xl glass-card text-slate-300 hover:text-white font-semibold text-sm transition-all"
             >
               Sign In Existing Account
             </Link>
@@ -800,11 +521,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-white/[0.08] py-12 px-6 text-xs text-slate-500 bg-[#06080C]">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      {/* Footer (Full Edge to Edge) */}
+      <footer className="w-full border-t border-white/[0.08] py-12 px-6 sm:px-10 lg:px-16 xl:px-24 text-xs text-slate-500 bg-[#06070A]">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <div className="w-6 h-6 rounded-lg bg-white/[0.08] border border-white/20 flex items-center justify-center text-white font-bold text-xs">
+            <div className="w-7 h-7 rounded-lg bg-white/[0.08] border border-white/20 flex items-center justify-center text-white font-bold text-xs">
               R
             </div>
             <span className="font-semibold text-slate-300">Personal RAG Assistant</span>
