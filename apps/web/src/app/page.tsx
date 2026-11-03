@@ -24,6 +24,7 @@ import {
   CheckCircle2,
   FileText,
   Bot,
+  Mail,
 } from "lucide-react";
 
 export default function HomePage() {
@@ -64,7 +65,7 @@ export default function HomePage() {
               {/* Minimalist Geometric Vector Emblem */}
               <svg viewBox="0 0 100 100" fill="none" className="w-4 h-4 text-white">
                 <path
-                  d="M 28 28 L 74 72 L 74 28 L 28 72"
+                  d="M 28 28 L 72 72 L 72 28 L 28 72 Z"
                   stroke="currentColor"
                   strokeWidth="8"
                   strokeLinecap="round"
@@ -84,6 +85,7 @@ export default function HomePage() {
           <nav className="hidden md:flex items-center gap-10 text-xs font-semibold tracking-wide text-slate-400 uppercase">
             <a href="#hero" className="hover:text-white transition-colors">Hero</a>
             <a href="#overview" className="hover:text-white transition-colors">Overview</a>
+            <a href="#identity" className="hover:text-white transition-colors">Identity</a>
             <Link href="/admin" className="hover:text-white transition-colors flex items-center gap-1.5">
               <Activity className="w-3.5 h-3.5 text-emerald-400" />
               <span>Metrics</span>
@@ -249,7 +251,7 @@ export default function HomePage() {
                       className="w-24 h-24 text-white relative z-10 glow-symbol transition-transform duration-500 hover:scale-110"
                     >
                       <path
-                        d="M 28 28 L 74 72 L 74 28 L 28 72"
+                        d="M 28 28 L 72 72 L 72 28 L 28 72 Z"
                         stroke="white"
                         strokeWidth="6"
                         strokeLinecap="round"
@@ -410,7 +412,7 @@ export default function HomePage() {
                   className="w-32 h-32 sm:w-40 sm:h-40 xl:w-48 xl:h-48 text-white relative z-10 glow-symbol hover:scale-105 transition-transform duration-500"
                 >
                   <path
-                    d="M 28 28 L 74 72 L 74 28 L 28 72"
+                    d="M 28 28 L 72 72 L 72 28 L 28 72 Z"
                     stroke="white"
                     strokeWidth="7"
                     strokeLinecap="round"
@@ -452,6 +454,203 @@ export default function HomePage() {
               <div>
                 <span className="text-xs sm:text-sm text-slate-400 font-medium block">Year</span>
                 <span className="text-xl sm:text-2xl md:text-3xl font-bold text-white tracking-tight mt-1.5 block">2026</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Slide 3: Logo Blueprint & Mobile Auth Experience (Exact Dribbble Reference Match) */}
+      <section id="identity" className="w-full px-6 sm:px-10 lg:px-16 xl:px-24 py-20 lg:py-28 border-t border-white/[0.08] bg-[#07080B]">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch">
+          
+          {/* Card 1: The Logo Architectural Blueprint System */}
+          <div className="rounded-[36px] bg-[#090A0F] border border-white/[0.1] p-8 sm:p-12 relative overflow-hidden flex flex-col justify-between min-h-[580px] sm:min-h-[660px] shadow-2xl text-left">
+            {/* Top Badge: Logo */}
+            <div>
+              <div className="inline-flex items-center px-6 py-2.5 rounded-2xl bg-white/[0.05] border border-white/10 text-sm font-semibold text-white backdrop-blur-xl shadow-md w-fit">
+                Logo
+              </div>
+            </div>
+
+            {/* Center: The Blueprint Grid & Glowing Emblem */}
+            <div className="relative w-full max-w-[380px] sm:max-w-[440px] aspect-square mx-auto flex items-center justify-center my-auto">
+              
+              {/* Architectural Construction Grid SVG (Double Tangent Dashed Geometry Lines) */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-40" viewBox="0 0 400 400" fill="none">
+                {/* Outer Vertical Tangents */}
+                <line x1="60" y1="0" x2="60" y2="400" stroke="white" strokeWidth="1" strokeDasharray="4 4" />
+                <line x1="340" y1="0" x2="340" y2="400" stroke="white" strokeWidth="1" strokeDasharray="4 4" />
+                
+                {/* Inner Vertical Tangents (Touching Glyph Vertices) */}
+                <line x1="95" y1="0" x2="95" y2="400" stroke="white" strokeWidth="1.2" strokeDasharray="5 5" />
+                <line x1="305" y1="0" x2="305" y2="400" stroke="white" strokeWidth="1.2" strokeDasharray="5 5" />
+
+                {/* Outer Horizontal Tangents */}
+                <line x1="0" y1="60" x2="400" y2="60" stroke="white" strokeWidth="1" strokeDasharray="4 4" />
+                <line x1="0" y1="340" x2="400" y2="340" stroke="white" strokeWidth="1" strokeDasharray="4 4" />
+
+                {/* Inner Horizontal Tangents (Touching Glyph Vertices) */}
+                <line x1="0" y1="95" x2="400" y2="95" stroke="white" strokeWidth="1.2" strokeDasharray="5 5" />
+                <line x1="0" y1="305" x2="400" y2="305" stroke="white" strokeWidth="1.2" strokeDasharray="5 5" />
+
+                {/* Corner-to-Corner Diagonal Tangents */}
+                <line x1="0" y1="0" x2="400" y2="400" stroke="white" strokeWidth="1.2" strokeDasharray="6 6" />
+                <line x1="0" y1="400" x2="400" y2="0" stroke="white" strokeWidth="1.2" strokeDasharray="6 6" />
+
+                {/* Center Orthogonal Construction Axes */}
+                <line x1="200" y1="0" x2="200" y2="400" stroke="white" strokeWidth="1" strokeDasharray="3 3" opacity="0.4" />
+                <line x1="0" y1="200" x2="400" y2="200" stroke="white" strokeWidth="1" strokeDasharray="3 3" opacity="0.4" />
+              </svg>
+
+              {/* Central Radiant Glow Behind Emblem */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-white/20 rounded-full blur-3xl pointer-events-none" />
+
+              {/* Iconic Geometric Emblem (Closed loop bowtie) */}
+              <svg
+                viewBox="0 0 100 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-44 h-44 sm:w-52 sm:h-52 text-white relative z-10 glow-symbol hover:scale-105 transition-transform duration-500"
+              >
+                <path
+                  d="M 28 28 L 72 72 L 72 28 L 28 72 Z"
+                  stroke="white"
+                  strokeWidth="8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+          </div>
+
+          {/* Card 2: Mobile Auth & Onboarding Experience */}
+          <div className="rounded-[36px] bg-[#090A0F] border border-white/[0.1] p-6 sm:p-12 relative overflow-hidden flex flex-col items-center justify-center min-h-[580px] sm:min-h-[660px] shadow-2xl">
+            
+            {/* Ambient Dark Stardust Atmosphere & Bottom Mist */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/[0.05] via-transparent to-transparent pointer-events-none" />
+            <div className="absolute -bottom-10 inset-x-0 h-64 bg-[radial-gradient(ellipse_at_bottom,_rgba(255,255,255,0.08)_0%,_rgba(0,0,0,0.85)_60%,_rgba(0,0,0,0.98)_100%)] pointer-events-none z-10" />
+            {/* Subtle sparkling stardust particles at bottom */}
+            <div className="absolute bottom-6 left-12 w-1.5 h-1.5 bg-white/40 rounded-full blur-2xs pointer-events-none z-10" />
+            <div className="absolute bottom-16 right-16 w-1 h-1 bg-white/50 rounded-full blur-2xs pointer-events-none z-10" />
+            <div className="absolute bottom-10 right-28 w-2 h-2 bg-white/25 rounded-full blur-xs pointer-events-none z-10" />
+            <div className="absolute bottom-20 left-24 w-1 h-1 bg-white/35 rounded-full blur-2xs pointer-events-none z-10" />
+
+            {/* Smartphone Device Mockup */}
+            <div className="w-[300px] sm:w-[330px] min-h-[590px] rounded-[48px] p-2.5 bg-gradient-to-b from-[#353742] via-[#1A1B22] to-[#0A0B0E] border border-white/20 shadow-[0_25px_80px_rgba(0,0,0,0.95)] relative ring-1 ring-white/10 z-20 flex flex-col">
+              
+              {/* Screen Display */}
+              <div className="w-full flex-1 rounded-[40px] bg-[#08090D] p-5 sm:p-6 flex flex-col justify-between text-white select-none relative overflow-hidden text-center border border-white/[0.06]">
+                
+                {/* Top Status Bar */}
+                <div className="flex items-center justify-between text-[11px] font-semibold px-2 text-slate-300">
+                  <span>9:41</span>
+                  {/* Dynamic Island Pill */}
+                  <div className="w-18 h-4.5 bg-black rounded-full flex items-center justify-end px-2 gap-1 shadow-inner border border-white/5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/80" />
+                  </div>
+                  {/* Signal & Battery */}
+                  <div className="flex items-center gap-1.5">
+                    <div className="flex items-end gap-0.5 h-2.5">
+                      <span className="w-0.5 h-1 bg-slate-300 rounded-2xs" />
+                      <span className="w-0.5 h-1.5 bg-slate-300 rounded-2xs" />
+                      <span className="w-0.5 h-2 bg-slate-300 rounded-2xs" />
+                      <span className="w-0.5 h-2.5 bg-slate-300 rounded-2xs" />
+                    </div>
+                    <div className="w-5 h-2.5 rounded-sm border border-slate-300 p-0.5 flex items-center">
+                      <div className="h-full w-full bg-white rounded-2xs" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Top Center: Iconic Emblem with Glow */}
+                <div className="flex flex-col items-center pt-3 sm:pt-4 relative">
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-white/20 rounded-full blur-2xl pointer-events-none" />
+                  <svg
+                    viewBox="0 0 100 100"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-16 h-16 sm:w-18 sm:h-18 text-white glow-symbol relative z-10"
+                  >
+                    <path
+                      d="M 28 28 L 72 72 L 72 28 L 28 72 Z"
+                      stroke="white"
+                      strokeWidth="8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+
+                {/* Headline & Privacy Note */}
+                <div className="space-y-1.5 px-1">
+                  <h3 className="text-base sm:text-[17px] font-bold text-white tracking-tight leading-snug">
+                    Sign up below to unlock the full potential of Insight AI.
+                  </h3>
+                  <p className="text-[11px] text-slate-400">
+                    By continuing, you agree to our{" "}
+                    <Link href="/auth/login" className="underline text-slate-300 hover:text-white transition-colors">
+                      privacy policy
+                    </Link>
+                    .
+                  </p>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="space-y-2.5 pt-1">
+                  {/* Apple Button */}
+                  <Link
+                    href="/auth/signup"
+                    className="w-full py-3 px-4 rounded-xl bg-white text-black font-semibold text-xs flex items-center justify-center gap-2 hover:bg-slate-200 transition-all shadow-md active:scale-95"
+                  >
+                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                      <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-1.99.6-2.63 1.35-.57.65-1.06 1.72-.93 2.74 1 .08 2.02-.49 2.64-1.24z"/>
+                    </svg>
+                    <span>Continue with Apple</span>
+                  </Link>
+
+                  {/* Google Button */}
+                  <Link
+                    href="/auth/signup"
+                    className="w-full py-3 px-4 rounded-xl bg-white text-black font-semibold text-xs flex items-center justify-center gap-2 hover:bg-slate-200 transition-all shadow-md active:scale-95"
+                  >
+                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24">
+                      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+                      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+                    </svg>
+                    <span>Continue with Google</span>
+                  </Link>
+
+                  {/* Email Input Field */}
+                  <div className="relative">
+                    <div className="flex items-center gap-2 p-3 rounded-xl bg-white/[0.04] border border-white/10 text-xs text-slate-300">
+                      <Mail className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                      <input
+                        type="email"
+                        placeholder="enter your mail"
+                        className="w-full bg-transparent text-xs text-white placeholder-slate-500 focus:outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Continue With Email Button */}
+                  <Link
+                    href="/auth/signup"
+                    className="w-full py-3 px-4 rounded-xl bg-[#181921] hover:bg-[#20222C] text-slate-300 hover:text-white font-medium text-xs block transition-all active:scale-95 border border-white/5"
+                  >
+                    Continue with email
+                  </Link>
+                </div>
+
+                {/* Close Link & Home Bar */}
+                <div className="pt-2 flex flex-col items-center gap-2">
+                  <Link href="#hero" className="text-xs text-slate-400 hover:text-white transition-colors">
+                    Close
+                  </Link>
+                  <div className="w-28 h-1 bg-white/20 rounded-full mt-1" />
+                </div>
               </div>
             </div>
           </div>
