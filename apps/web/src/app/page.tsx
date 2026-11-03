@@ -82,9 +82,8 @@ export default function HomePage() {
 
           {/* Center Navigation Links */}
           <nav className="hidden md:flex items-center gap-10 text-xs font-semibold tracking-wide text-slate-400 uppercase">
-            <a href="#hero" className="hover:text-white transition-colors">Overview</a>
-            <a href="#features" className="hover:text-white transition-colors">Features</a>
-            <a href="#architecture" className="hover:text-white transition-colors">Architecture</a>
+            <a href="#hero" className="hover:text-white transition-colors">Hero</a>
+            <a href="#overview" className="hover:text-white transition-colors">Overview</a>
             <Link href="/admin" className="hover:text-white transition-colors flex items-center gap-1.5">
               <Activity className="w-3.5 h-3.5 text-emerald-400" />
               <span>Metrics</span>
@@ -153,10 +152,10 @@ export default function HomePage() {
                   <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </Link>
                 <a
-                  href="#features"
+                  href="#overview"
                   className="px-7 py-4 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/10 font-semibold text-sm transition-all flex items-center gap-2"
                 >
-                  <span>Explore System Specs</span>
+                  <span>Explore Overview</span>
                   <ChevronRight className="w-4 h-4 text-slate-400" />
                 </a>
               </div>
@@ -463,137 +462,6 @@ export default function HomePage() {
                 <span className="text-xl sm:text-2xl md:text-3xl font-bold text-white tracking-tight mt-1.5 block">2026</span>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Feature Bento Grid (Full Bleed Edge-to-Edge) */}
-      <section id="features" className="w-full py-28 px-6 sm:px-10 lg:px-16 xl:px-24 border-t border-white/[0.08] bg-[#07080B]">
-        <div className="text-left max-w-4xl mb-16">
-          <h2 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Architected For Precision</h2>
-          <p className="text-4xl md:text-6xl font-black tracking-tight text-white mb-4">
-            Built From First Principles. <br />
-            No Hallucinations Allowed.
-          </p>
-          <p className="text-slate-400 text-base md:text-lg leading-relaxed">
-            Standard AI chatbots invent plausible-sounding details. Personal RAG binds every factual claim
-            directly to immutable text chunks with exact provenance.
-          </p>
-        </div>
-
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Card 1 */}
-          <div className="md:col-span-2 rounded-3xl glass-card p-8 sm:p-10 border border-white/[0.08] hover:border-white/20 transition-all relative overflow-hidden group">
-            <div className="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/10 flex items-center justify-center text-white mb-6">
-              <FileCheck className="w-6 h-6" />
-            </div>
-            <h3 className="text-2xl font-bold text-white mb-2">Verifiable Source Drawer</h3>
-            <p className="text-slate-400 text-sm md:text-base leading-relaxed max-w-xl mb-6">
-              Every sentence in generated answers links to an authoritatively extracted chunk. Click any
-              citation marker to instantly inspect original document text, page number, and similarity score.
-            </p>
-            <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06] font-mono text-xs text-slate-300">
-              <div className="text-emerald-400 mb-1">$ rag.query(&quot;tenant isolation guarantee&quot;)</div>
-              <div className="text-slate-400">&gt; Candidate Chunks: 5 retrieved (recall@5 = 1.0)</div>
-              <div className="text-slate-400">&gt; Verified Grounding: Exact match on Page 14 §4.2</div>
-            </div>
-          </div>
-
-          {/* Card 2 */}
-          <div className="rounded-3xl glass-card p-8 sm:p-10 border border-white/[0.08] hover:border-white/20 transition-all group">
-            <div className="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/10 flex items-center justify-center text-white mb-6">
-              <Shield className="w-6 h-6" />
-            </div>
-            <h3 className="text-2xl font-bold text-white mb-2">Zero Cross-Tenant Leakage</h3>
-            <p className="text-slate-400 text-sm md:text-base leading-relaxed">
-              Enforced across schema design, Supabase Row-Level Security, and vector query filters. Your private
-              indices can never be scanned or discovered by another account.
-            </p>
-          </div>
-
-          {/* Card 3 */}
-          <div className="rounded-3xl glass-card p-8 sm:p-10 border border-white/[0.08] hover:border-white/20 transition-all group">
-            <div className="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/10 flex items-center justify-center text-white mb-6">
-              <Layers className="w-6 h-6" />
-            </div>
-            <h3 className="text-2xl font-bold text-white mb-2">Universal Extraction</h3>
-            <p className="text-slate-400 text-sm md:text-base leading-relaxed">
-              Handles text PDFs, Microsoft Word (.docx), Markdown (.md), and plain text. Detects scanned or encrypted
-              files with actionable error states.
-            </p>
-          </div>
-
-          {/* Card 4 */}
-          <div className="md:col-span-2 rounded-3xl glass-card p-8 sm:p-10 border border-white/[0.08] hover:border-white/20 transition-all group">
-            <div className="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/10 flex items-center justify-center text-white mb-6">
-              <Zap className="w-6 h-6" />
-            </div>
-            <h3 className="text-2xl font-bold text-white mb-2">Ultra-Low Latency SSE Streaming</h3>
-            <p className="text-slate-400 text-sm md:text-base leading-relaxed max-w-xl mb-6">
-              Post-fetch Server-Sent Events (SSE) with periodic heartbeats ensure smooth token generation and
-              prevent proxy timeouts during complex multi-document reasoning.
-            </p>
-            <div className="flex flex-wrap gap-4 text-xs font-mono">
-              <span className="px-3.5 py-2 rounded-xl bg-white/[0.04] text-slate-300 border border-white/[0.08]">
-                TTFT: &lt; 150ms
-              </span>
-              <span className="px-3.5 py-2 rounded-xl bg-white/[0.04] text-slate-300 border border-white/[0.08]">
-                Heartbeat: 15s interval
-              </span>
-              <span className="px-3.5 py-2 rounded-xl bg-white/[0.04] text-slate-300 border border-white/[0.08]">
-                Backpressure: Resilient
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Target Capacity & Benchmark Metrics (Full Bleed) */}
-      <section className="w-full py-20 px-6 sm:px-10 lg:px-16 xl:px-24 border-t border-white/[0.08] bg-[#06070A]">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-left">
-          <div>
-            <div className="text-4xl md:text-6xl font-black text-white tracking-tight mb-1">1,000+</div>
-            <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Registered Capacity</div>
-          </div>
-          <div>
-            <div className="text-4xl md:text-6xl font-black text-white tracking-tight mb-1">&lt; 150ms</div>
-            <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Time To First Token</div>
-          </div>
-          <div>
-            <div className="text-4xl md:text-6xl font-black text-emerald-400 tracking-tight mb-1">100%</div>
-            <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Verifiable Citations</div>
-          </div>
-          <div>
-            <div className="text-4xl md:text-6xl font-black text-slate-400 tracking-tight mb-1">0%</div>
-            <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Data Leakage Rate</div>
-          </div>
-        </div>
-      </section>
-
-      {/* Bottom Conversion CTA Banner */}
-      <section className="w-full py-24 px-6 sm:px-10 lg:px-16 xl:px-24 border-t border-white/[0.08]">
-        <div className="rounded-3xl bg-[#0D0F16] border border-white/[0.12] p-10 md:p-16 text-center relative overflow-hidden shadow-2xl">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-white/[0.03] blur-[120px] pointer-events-none" />
-          <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight mb-4">
-            Start Asking Your Documents.
-          </h2>
-          <p className="text-slate-400 text-sm md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
-            Eliminate hallucinations. Empower your research and document workflows with citations you can always verify.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/auth/signup"
-              className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white text-black hover:bg-slate-200 font-bold text-sm shadow-xl shadow-white/10 transition-all"
-            >
-              Create Free Account
-            </Link>
-            <Link
-              href="/auth/login"
-              className="w-full sm:w-auto px-7 py-4 rounded-2xl glass-card text-slate-300 hover:text-white font-semibold text-sm transition-all"
-            >
-              Sign In Existing Account
-            </Link>
           </div>
         </div>
       </section>
