@@ -1,5 +1,8 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Shield,
   FileCheck,
@@ -8,49 +11,79 @@ import {
   Database,
   Lock,
   Sparkles,
-  Cpu,
-  FileText,
-  Search,
-  CheckCircle2,
-  Terminal,
   Zap,
   ChevronRight,
-  ExternalLink,
-  Bot,
+  ArrowUpRight,
+  Paperclip,
+  Mic,
+  Crosshair,
+  Lightbulb,
+  Clapperboard,
+  BarChart3,
+  Search,
   Activity,
+  CheckCircle2,
+  FileText,
+  Bot,
 } from "lucide-react";
 
 export default function HomePage() {
-  return (
-    <div className="min-h-screen bg-[#07090E] text-slate-100 selection:bg-blue-600 selection:text-white relative overflow-hidden">
-      {/* Background Decorative Ambient Lighting */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[550px] bg-gradient-to-b from-blue-600/20 via-indigo-600/10 to-transparent blur-[140px] pointer-events-none -z-10" />
-      <div className="absolute top-[600px] -left-[200px] w-[500px] h-[500px] bg-purple-600/10 blur-[130px] pointer-events-none -z-10" />
-      <div className="absolute top-[800px] -right-[200px] w-[600px] h-[600px] bg-blue-500/10 blur-[150px] pointer-events-none -z-10" />
-      
-      {/* Subtle Matrix Grid */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none -z-10" />
+  const router = useRouter();
+  const [inputQuery, setInputQuery] = useState("");
+  const [modelMode, setModelMode] = useState<"Auto" | "Grounded" | "Deep">("Auto");
+  const [isModelDropdownOpen, setIsModelDropdownOpen] = useState(false);
 
-      {/* Top Floating Glass Navigation */}
-      <header className="sticky top-0 z-50 w-full border-b border-white/[0.08] bg-[#07090E]/80 backdrop-blur-xl">
+  const promptSuggestions = [
+    { label: "Generate ideas", icon: Lightbulb, query: "Generate ideas for document synthesis and vector indexing" },
+    { label: "Motion concept", icon: Clapperboard, query: "Summarize the animation and UI layout principles in Section 2" },
+    { label: "Market analysis", icon: BarChart3, query: "Analyze the technical benchmarks and system latency guarantees" },
+  ];
+
+  const handleSelectPrompt = (query: string) => {
+    setInputQuery(query);
+  };
+
+  const handleSendQuery = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    router.push("/auth/signup");
+  };
+
+  return (
+    <div className="min-h-screen bg-[#07090E] text-slate-100 selection:bg-white selection:text-black relative overflow-x-hidden">
+      {/* Background Subtle Ambient Lighting */}
+      <div className="absolute top-0 right-1/4 w-[700px] h-[550px] bg-white/[0.03] blur-[160px] pointer-events-none -z-10" />
+      <div className="absolute top-[600px] -left-[200px] w-[500px] h-[500px] bg-blue-600/[0.04] blur-[150px] pointer-events-none -z-10" />
+
+      {/* Top Floating Glass Navigation Bar */}
+      <header className="sticky top-0 z-50 w-full border-b border-white/[0.08] bg-[#07090E]/80 backdrop-blur-2xl">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          {/* Logo */}
+          {/* Logo & Brand */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform duration-300">
-              <Bot className="w-5 h-5 text-white" />
+            <div className="w-8 h-8 rounded-xl bg-white/[0.08] border border-white/20 flex items-center justify-center text-white group-hover:scale-105 transition-all">
+              {/* Minimalist Geometric Emblem */}
+              <svg viewBox="0 0 100 100" fill="none" className="w-4 h-4 text-white">
+                <path
+                  d="M 28 28 L 74 72 L 74 28 L 28 72"
+                  stroke="currentColor"
+                  strokeWidth="8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-base tracking-tight text-white flex items-center gap-1.5">
-                Personal RAG <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">PRO</span>
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-sm tracking-tight text-white">Personal RAG</span>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/[0.06] text-slate-400 border border-white/10">
+                PRO 2026
               </span>
             </div>
           </Link>
 
           {/* Nav Items */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
+          <nav className="hidden md:flex items-center gap-8 text-xs font-medium text-slate-400">
+            <a href="#hero" className="hover:text-white transition-colors">Overview</a>
             <a href="#features" className="hover:text-white transition-colors">Features</a>
             <a href="#architecture" className="hover:text-white transition-colors">Architecture</a>
-            <a href="#security" className="hover:text-white transition-colors">Security</a>
             <Link href="/admin" className="hover:text-white transition-colors flex items-center gap-1.5">
               <Activity className="w-3.5 h-3.5 text-emerald-400" />
               <span>Metrics</span>
@@ -58,221 +91,311 @@ export default function HomePage() {
           </nav>
 
           {/* Action CTAs */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <Link
               href="/auth/login"
-              className="text-sm font-medium text-slate-300 hover:text-white transition-colors px-3 py-2"
+              className="text-xs font-semibold text-slate-300 hover:text-white transition-colors px-3 py-2"
             >
               Sign In
             </Link>
             <Link
               href="/auth/signup"
-              className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-semibold rounded-xl group bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-500 text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-white text-black hover:bg-slate-200 transition-all shadow-lg shadow-white/10 hover:scale-[1.02] active:scale-[0.98]"
             >
-              <span className="px-4 py-2 rounded-[10px] bg-[#07090E]/20 group-hover:bg-transparent transition-colors flex items-center gap-1.5">
-                Get Started Free <ArrowRight className="w-3.5 h-3.5" />
-              </span>
+              <span>Get Started</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="pt-20 pb-28 px-6 max-w-7xl mx-auto flex flex-col items-center text-center">
-        {/* Dynamic Announcement Pill */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-card border border-white/10 text-xs font-medium text-slate-300 mb-8 shadow-sm hover:border-blue-500/30 transition-all cursor-default">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
-          <span className="text-slate-400">Enterprise Ready</span>
-          <span className="text-white font-semibold">Grounded Citations & Zero Cross-User Leakage</span>
-          <ChevronRight className="w-3.5 h-3.5 text-slate-500" />
-        </div>
-
-        {/* Master Headline */}
-        <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight max-w-5xl leading-[1.1] mb-6">
-          Your Private Knowledge, <br className="hidden sm:inline" />
-          <span className="gradient-text-vibrant">Verifiable Source Answers.</span>
-        </h1>
-
-        {/* Subtitle */}
-        <p className="text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed mb-10 font-normal">
-          Upload complex PDFs, Word docs, and technical specifications. Ask complex questions and receive
-          real-time streaming answers grounded in authoritative, clickable source citations.
-        </p>
-
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-16">
-          <Link
-            href="/app"
-            className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm shadow-xl shadow-blue-600/30 hover:shadow-blue-500/50 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2 group"
-          >
-            <Sparkles className="w-4 h-4 text-blue-200" />
-            <span>Open Assistant</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
-          <Link
-            href="/admin"
-            className="w-full sm:w-auto px-6 py-3.5 rounded-xl glass-card text-slate-300 hover:text-white font-medium text-sm hover:border-white/20 transition-all flex items-center justify-center gap-2"
-          >
-            <Activity className="w-4 h-4 text-emerald-400" />
-            <span>System Telemetry & Health</span>
-          </Link>
-        </div>
-
-        {/* Supported Technology Badges */}
-        <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs font-medium text-slate-500 uppercase tracking-wider mb-20 border-y border-white/[0.05] py-5 w-full max-w-4xl">
-          <span className="flex items-center gap-2 hover:text-slate-300 transition-colors">
-            <Database className="w-4 h-4 text-blue-400" /> PostgreSQL + pgvector
-          </span>
-          <span className="flex items-center gap-2 hover:text-slate-300 transition-colors">
-            <Shield className="w-4 h-4 text-emerald-400" /> Row-Level Security (RLS)
-          </span>
-          <span className="flex items-center gap-2 hover:text-slate-300 transition-colors">
-            <Zap className="w-4 h-4 text-amber-400" /> FastAPI Async Engine
-          </span>
-          <span className="flex items-center gap-2 hover:text-slate-300 transition-colors">
-            <Lock className="w-4 h-4 text-purple-400" /> Tenant-Isolated Storage
-          </span>
-        </div>
-
-        {/* The Dribbble Showstopper: Interactive Hero UI Showcase */}
-        <div className="w-full max-w-5xl mx-auto relative group">
-          {/* Ambient Glow behind the mockup */}
-          <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-500/30 via-indigo-500/30 to-purple-500/30 rounded-3xl blur-2xl opacity-60 group-hover:opacity-80 transition duration-700 pointer-events-none" />
-
-          {/* Glass Window Container */}
-          <div className="relative rounded-2xl glass-panel border border-white/[0.12] shadow-2xl overflow-hidden text-left bg-[#0B0F19]/90">
-            {/* Window Top Navigation Bar */}
-            <div className="h-11 px-4 border-b border-white/[0.08] bg-[#0E1322]/80 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-red-500/80 inline-block" />
-                <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
-                <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
-              </div>
-              <div className="flex items-center gap-2 px-3 py-1 rounded-md bg-white/[0.04] border border-white/[0.06] text-xs text-slate-400 font-mono">
-                <Lock className="w-3 h-3 text-emerald-400" />
-                <span>personal-rag.internal/app/chat/active</span>
-              </div>
-              <div className="text-[11px] text-slate-400 font-medium">Session #2904 · Verified Grounding</div>
+      {/* Hero Section: Exact Dribbble / Awwwards Mobile App Design Showcase */}
+      <section id="hero" className="pt-12 pb-24 px-6 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center min-h-[760px]">
+          
+          {/* Left Column: Bold Typography & Project Metadata Cards */}
+          <div className="lg:col-span-7 flex flex-col justify-center space-y-8 text-left">
+            {/* Top Pill */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-medium text-slate-300 w-fit">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>AI Assistant</span>
+              <span className="text-slate-500">•</span>
+              <span className="text-slate-400">Multi-Tenant Grounded Knowledge</span>
             </div>
 
-            {/* Application Mockup Layout */}
-            <div className="grid grid-cols-1 md:grid-cols-12 min-h-[460px]">
-              {/* Left Sidebar Mockup */}
-              <div className="hidden md:block md:col-span-4 border-r border-white/[0.08] p-4 bg-[#090D16]/70">
-                <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 px-2 flex items-center justify-between">
-                  <span>Indexed Documents</span>
-                  <span className="text-[10px] bg-blue-500/10 text-blue-400 px-1.5 py-0.5 rounded">3 Ready</span>
-                </div>
-                <div className="space-y-2">
-                  <div className="p-2.5 rounded-xl bg-blue-500/10 border border-blue-500/20 text-xs text-white flex items-start gap-2.5">
-                    <FileText className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
-                    <div className="flex-1 min-w-0">
-                      <div className="font-semibold truncate">Security_Compliance_2026.pdf</div>
-                      <div className="text-[10px] text-slate-400 mt-0.5">38 Chunks · SHA-256 Verified</div>
-                    </div>
-                  </div>
-                  <div className="p-2.5 rounded-xl hover:bg-white/[0.03] border border-transparent text-xs text-slate-300 flex items-start gap-2.5 transition-colors">
-                    <FileText className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
-                    <div className="flex-1 min-w-0">
-                      <div className="font-medium truncate">Cloud_Architecture_Specs.docx</div>
-                      <div className="text-[10px] text-slate-500 mt-0.5">24 Chunks · Ready</div>
-                    </div>
-                  </div>
-                  <div className="p-2.5 rounded-xl hover:bg-white/[0.03] border border-transparent text-xs text-slate-300 flex items-start gap-2.5 transition-colors">
-                    <FileText className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
-                    <div className="flex-1 min-w-0">
-                      <div className="font-medium truncate">Disaster_Recovery_Plan.md</div>
-                      <div className="text-[10px] text-slate-500 mt-0.5">14 Chunks · Ready</div>
-                    </div>
-                  </div>
-                </div>
+            {/* Giant Title matching screenshot */}
+            <div className="space-y-2">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black text-white tracking-tight leading-[1.02]">
+                AI Assistant
+              </h1>
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-light text-slate-400 tracking-tight leading-[1.05]">
+                Mobile App Design
+              </h2>
+            </div>
 
-                {/* Tenant Security Indicator */}
-                <div className="mt-8 p-3 rounded-xl bg-emerald-950/20 border border-emerald-500/20 text-xs text-emerald-300">
-                  <div className="font-semibold flex items-center gap-1.5 mb-1">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> User Isolation Active
-                  </div>
-                  <p className="text-[11px] text-emerald-400/80 leading-relaxed">
-                    Tenant UUID filter enforced at vector layer. Zero possibility of cross-account data leak.
-                  </p>
-                </div>
+            {/* Subtitle Description */}
+            <p className="text-base sm:text-lg text-slate-400 max-w-xl leading-relaxed font-normal">
+              Turn your private PDFs, technical specs, and notes into an interactive assistant.
+              Every factual assertion is grounded in verifiable chunk citations with zero data leakage.
+            </p>
+
+            {/* Primary Action Buttons */}
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <Link
+                href="/app"
+                className="px-6 py-3.5 rounded-2xl bg-white text-black font-semibold text-sm hover:bg-slate-200 transition-all flex items-center gap-2 shadow-xl shadow-white/10 group"
+              >
+                <span>Launch Assistant</span>
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </Link>
+              <a
+                href="#features"
+                className="px-6 py-3.5 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/10 font-medium text-sm transition-all flex items-center gap-2"
+              >
+                <span>Explore System Specs</span>
+                <ChevronRight className="w-4 h-4 text-slate-400" />
+              </a>
+            </div>
+
+            {/* Bottom-Left Metadata Cards (Exact match to Dribbble screenshot) */}
+            <div className="grid grid-cols-3 gap-4 pt-8 max-w-lg border-t border-white/[0.08]">
+              {/* Card 1 */}
+              <div className="p-4 rounded-2xl bg-[#0D0F16]/90 border border-white/[0.08] backdrop-blur-md">
+                <span className="text-[11px] text-slate-500 block mb-1">Projects</span>
+                <span className="text-sm font-bold text-white block truncate">AI assistant</span>
               </div>
 
-              {/* Main Chat Workspace Mockup */}
-              <div className="md:col-span-8 p-6 flex flex-col justify-between bg-[#0B0F19]/90">
-                <div className="space-y-4">
-                  {/* User Question */}
-                  <div className="flex justify-end">
-                    <div className="max-w-[85%] rounded-2xl rounded-tr-sm bg-blue-600 text-white p-3.5 text-xs sm:text-sm font-medium shadow-md">
-                      What are the tenant isolation guarantees and chunk eviction rules described in section 4.2?
-                    </div>
+              {/* Card 2 */}
+              <div className="p-4 rounded-2xl bg-[#0D0F16]/90 border border-white/[0.08] backdrop-blur-md">
+                <span className="text-[11px] text-slate-500 block mb-1">Designer</span>
+                <span className="text-sm font-bold text-white block truncate">BlockAI Studio</span>
+              </div>
+
+              {/* Card 3 */}
+              <div className="p-4 rounded-2xl bg-[#0D0F16]/90 border border-white/[0.08] backdrop-blur-md">
+                <span className="text-[11px] text-slate-500 block mb-1">Year</span>
+                <span className="text-sm font-bold text-white block">2026</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: The Photorealistic Mobile Device Showcase on Matte Pedestal */}
+          <div className="lg:col-span-5 flex flex-col items-center justify-center relative">
+            
+            {/* Ambient Backlight Bloom behind the phone */}
+            <div className="absolute w-[340px] h-[550px] bg-white/[0.08] rounded-full blur-[120px] pointer-events-none -z-10" />
+
+            {/* Phone Chassis Container */}
+            <div className="w-[340px] sm:w-[380px] h-[720px] rounded-[52px] p-3 bg-gradient-to-b from-[#282A32] via-[#16171E] to-[#0A0B0F] border border-white/20 shadow-[0_30px_90px_rgba(0,0,0,0.95),0_0_40px_rgba(255,255,255,0.08)] relative ring-1 ring-white/10">
+              
+              {/* Screen Inner */}
+              <div className="w-full h-full rounded-[42px] bg-[#0A0B0E] relative overflow-hidden flex flex-col justify-between p-5 text-white select-none">
+                
+                {/* Spotlight Beam Streaming From Dynamic Island */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-80 spotlight-cone pointer-events-none opacity-90" />
+                <div className="absolute top-10 left-1/2 -translate-x-1/2 w-48 h-48 bg-white/15 rounded-full blur-3xl pointer-events-none" />
+
+                {/* Top Status Bar */}
+                <div className="relative z-10 flex items-center justify-between text-xs font-semibold px-2 pt-1 text-slate-300">
+                  <span>9:41</span>
+                  {/* Dynamic Island Notch */}
+                  <div className="w-24 h-6 bg-black rounded-full flex items-center justify-end px-2 gap-1.5 shadow-inner">
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#121318] border border-white/10" />
+                    <div className="w-2 h-2 rounded-full bg-emerald-500/80" />
                   </div>
-
-                  {/* Assistant Answer with Citations */}
-                  <div className="flex justify-start">
-                    <div className="max-w-[95%] rounded-2xl rounded-tl-sm glass-card border border-white/[0.08] p-4 text-xs sm:text-sm text-slate-200 space-y-3">
-                      <div className="flex items-center gap-2 text-xs font-semibold text-blue-400">
-                        <Bot className="w-4 h-4" />
-                        <span>Grounded Assistant Synthesis</span>
-                        <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                          100% Provenance
-                        </span>
-                      </div>
-                      <p className="text-slate-300 leading-relaxed">
-                        According to the architecture standards, tenant data is partitioned cryptographically at three discrete layers:
-                      </p>
-                      <ul className="space-y-1.5 text-xs text-slate-300 pl-2">
-                        <li className="flex items-start gap-1.5">
-                          <span className="text-blue-400 font-bold">•</span>
-                          <span><strong>Row-Level Security:</strong> Database queries apply verified JWT claims on all operations.</span>
-                        </li>
-                        <li className="flex items-start gap-1.5">
-                          <span className="text-blue-400 font-bold">•</span>
-                          <span><strong>Vector Indexing:</strong> pgvector ANN similarity scans are strictly bounded by user ownership tokens.</span>
-                        </li>
-                      </ul>
-
-                      {/* Clickable Citation Pill */}
-                      <div className="pt-2 border-t border-white/[0.06] flex flex-wrap items-center gap-2">
-                        <span className="text-[11px] text-slate-400 font-medium">Verified Sources:</span>
-                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-blue-500/15 border border-blue-500/30 text-blue-300 text-xs font-mono hover:bg-blue-500/25 transition-colors cursor-pointer">
-                          <FileText className="w-3 h-3 text-blue-400" />
-                          <span>[1] Security_Compliance_2026.pdf · p. 14, §4.2</span>
-                          <span className="text-[10px] text-emerald-400 font-bold">96% Match</span>
-                        </div>
-                      </div>
+                  {/* Signal & Battery Icons */}
+                  <div className="flex items-center gap-1.5">
+                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                      <path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.33 19.64 10.61 20 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9z"/>
+                    </svg>
+                    <div className="w-5 h-2.5 rounded-sm border border-slate-300 p-0.5 flex items-center">
+                      <div className="h-full w-full bg-white rounded-2xs" />
                     </div>
-                  </div>
-
-                  {/* Highlighted Citation Drawer Preview Card */}
-                  <div className="p-3 rounded-xl bg-gradient-to-r from-blue-950/30 to-indigo-950/20 border border-blue-500/30 text-xs">
-                    <div className="flex items-center justify-between text-blue-300 font-semibold mb-1">
-                      <span className="flex items-center gap-1">
-                        <Search className="w-3 h-3 text-blue-400" /> Source Inspector Excerpt
-                      </span>
-                      <span className="text-[10px] font-mono text-slate-400">Chunk #104 · Cosine: 0.961</span>
-                    </div>
-                    <p className="text-[11px] text-slate-300 italic font-serif leading-relaxed">
-                      &ldquo;All extracted chunk embeddings are stored alongside the tenant UUID. Lease reconciler cycles continuously purge orphaned indices within 300 seconds of document removal.&rdquo;
-                    </p>
                   </div>
                 </div>
 
-                {/* Mock Input Field */}
-                <div className="mt-4 pt-3 border-t border-white/[0.08] flex items-center gap-2">
-                  <div className="flex-1 py-2 px-3 rounded-xl bg-white/[0.03] border border-white/[0.08] text-xs text-slate-400 flex items-center justify-between">
-                    <span>Ask any question across your uploaded documents...</span>
-                    <kbd className="px-1.5 py-0.5 rounded bg-white/[0.08] text-[10px] font-mono text-slate-400">↵ Enter</kbd>
+                {/* Mobile Top App Header */}
+                <div className="relative z-10 flex items-center justify-between px-1 mt-3">
+                  {/* Menu Button */}
+                  <button
+                    type="button"
+                    className="w-9 h-9 rounded-full bg-white/[0.06] border border-white/10 flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/[0.12] transition-colors"
+                  >
+                    <div className="space-y-1 w-3.5">
+                      <span className="block h-0.5 w-full bg-current rounded" />
+                      <span className="block h-0.5 w-full bg-current rounded" />
+                    </div>
+                  </button>
+
+                  {/* Header Title */}
+                  <span className="text-sm font-semibold text-slate-200">New Chat</span>
+
+                  {/* Add New Chat Button */}
+                  <button
+                    type="button"
+                    className="w-9 h-9 rounded-xl bg-white/[0.06] border border-white/10 flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/[0.12] transition-colors text-base"
+                  >
+                    +
+                  </button>
+                </div>
+
+                {/* Center Hero Area: The Radiant Emblem & "How can i help you today?" */}
+                <div className="relative z-10 flex flex-col items-center justify-center my-auto text-center space-y-6 pt-4">
+                  {/* Glowing Geometric Vector Emblem (Exact replica from Dribbble shot) */}
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-white/30 rounded-full blur-2xl transform scale-150 pointer-events-none" />
+                    <svg
+                      viewBox="0 0 100 100"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-20 h-20 text-white relative z-10 glow-symbol transition-transform duration-500 hover:scale-110"
+                    >
+                      <path
+                        d="M 28 28 L 74 72 L 74 28 L 28 72"
+                        stroke="white"
+                        strokeWidth="6"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
                   </div>
-                  <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white cursor-pointer hover:bg-blue-500 transition-colors">
-                    <ArrowRight className="w-4 h-4" />
+
+                  {/* Headline under emblem */}
+                  <div className="space-y-1">
+                    <h3 className="text-2xl font-light tracking-tight text-white/95">
+                      How can i help
+                    </h3>
+                    <h3 className="text-2xl font-light tracking-tight text-white/95">
+                      you today?
+                    </h3>
+                  </div>
+                </div>
+
+                {/* Bottom Interactive Area */}
+                <div className="relative z-10 space-y-3">
+                  
+                  {/* Floating Translucent Glass Composer Card */}
+                  <form
+                    onSubmit={handleSendQuery}
+                    className="rounded-2xl bg-[#14151C]/90 backdrop-blur-xl border border-white/15 p-3 shadow-2xl transition-all hover:border-white/25"
+                  >
+                    {/* Input Field */}
+                    <input
+                      type="text"
+                      value={inputQuery}
+                      onChange={(e) => setInputQuery(e.target.value)}
+                      placeholder="What do you want to know ?"
+                      className="w-full bg-transparent text-xs text-white placeholder-slate-400 focus:outline-none py-1 px-1 font-sans"
+                    />
+
+                    {/* Bottom Controls Row */}
+                    <div className="flex items-center justify-between pt-2.5 mt-2 border-t border-white/[0.08]">
+                      
+                      {/* Left: Model Selector Pill */}
+                      <div className="relative">
+                        <button
+                          type="button"
+                          onClick={() => setIsModelDropdownOpen(!isModelDropdownOpen)}
+                          className="px-2.5 py-1 rounded-full bg-white/[0.08] hover:bg-white/[0.14] border border-white/10 text-[11px] font-medium text-slate-300 flex items-center gap-1.5 transition-colors"
+                        >
+                          <Zap className="w-3 h-3 text-white" />
+                          <span>{modelMode}</span>
+                          <span className="text-[9px] text-slate-400">⌵</span>
+                        </button>
+
+                        {/* Model Selector Dropdown */}
+                        {isModelDropdownOpen && (
+                          <div className="absolute bottom-full mb-2 left-0 w-36 rounded-xl bg-[#1A1C24] border border-white/15 p-1 shadow-2xl text-[11px] space-y-0.5 z-30">
+                            <button
+                              type="button"
+                              onClick={() => { setModelMode("Auto"); setIsModelDropdownOpen(false); }}
+                              className={`w-full text-left px-2.5 py-1.5 rounded-lg ${modelMode === "Auto" ? "bg-white/10 text-white font-semibold" : "text-slate-400 hover:text-white"}`}
+                            >
+                              Auto (Default)
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => { setModelMode("Grounded"); setIsModelDropdownOpen(false); }}
+                              className={`w-full text-left px-2.5 py-1.5 rounded-lg ${modelMode === "Grounded" ? "bg-white/10 text-white font-semibold" : "text-slate-400 hover:text-white"}`}
+                            >
+                              Grounded RAG
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => { setModelMode("Deep"); setIsModelDropdownOpen(false); }}
+                              className={`w-full text-left px-2.5 py-1.5 rounded-lg ${modelMode === "Deep" ? "bg-white/10 text-white font-semibold" : "text-slate-400 hover:text-white"}`}
+                            >
+                              Deep Research
+                            </button>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Right: Tools & Send Button */}
+                      <div className="flex items-center gap-2">
+                        {/* Attachment Icon */}
+                        <button
+                          type="button"
+                          className="text-slate-400 hover:text-white transition-colors p-1"
+                          title="Attach document"
+                        >
+                          <Paperclip className="w-3.5 h-3.5" />
+                        </button>
+
+                        {/* Focus/Target Icon */}
+                        <button
+                          type="button"
+                          className="text-slate-400 hover:text-white transition-colors p-1"
+                          title="Vector focus"
+                        >
+                          <Crosshair className="w-3.5 h-3.5" />
+                        </button>
+
+                        {/* Mic Icon */}
+                        <button
+                          type="button"
+                          className="text-slate-400 hover:text-white transition-colors p-1"
+                          title="Voice query"
+                        >
+                          <Mic className="w-3.5 h-3.5" />
+                        </button>
+
+                        {/* Square Send Button with Up-Right Arrow [↗] */}
+                        <button
+                          type="submit"
+                          className="w-7 h-7 rounded-xl bg-white/[0.14] hover:bg-white text-white hover:text-black border border-white/20 flex items-center justify-center transition-all shadow-md active:scale-95"
+                          title="Send message"
+                        >
+                          <ArrowUpRight className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+
+                  {/* Horizontal Scrollable Prompt Suggestion Chips */}
+                  <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar text-[10px]">
+                    {promptSuggestions.map((item, index) => {
+                      const Icon = item.icon;
+                      return (
+                        <button
+                          key={index}
+                          type="button"
+                          onClick={() => handleSelectPrompt(item.query)}
+                          className="px-2.5 py-1 rounded-full bg-white/[0.04] hover:bg-white/[0.1] border border-white/10 text-slate-300 hover:text-white whitespace-nowrap flex items-center gap-1.5 transition-colors shrink-0"
+                        >
+                          <Icon className="w-3 h-3 text-slate-400" />
+                          <span>{item.label}</span>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
             </div>
+
+            {/* Dark Matte Pedestal / Stand Base beneath phone */}
+            <div className="w-[320px] sm:w-[360px] h-8 bg-gradient-to-b from-[#181920] to-[#08090C] border-t border-white/15 rounded-t-xl -mt-3 shadow-2xl relative z-0" />
+            <div className="w-[380px] sm:w-[420px] h-4 bg-gradient-to-b from-[#101116] to-transparent rounded-full blur-md opacity-80" />
           </div>
         </div>
       </section>
@@ -280,7 +403,7 @@ export default function HomePage() {
       {/* Feature Bento Grid (Awwwards Style) */}
       <section id="features" className="py-24 px-6 max-w-7xl mx-auto border-t border-white/[0.08]">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-3">Architected For Precision</h2>
+          <h2 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Architected For Precision</h2>
           <p className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
             Built From First Principles. <br />
             No Hallucinations Allowed.
@@ -294,8 +417,8 @@ export default function HomePage() {
         {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Card 1: Large Span */}
-          <div className="md:col-span-2 rounded-2xl glass-card p-8 border border-white/[0.08] hover:border-blue-500/30 transition-all relative overflow-hidden group">
-            <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-6">
+          <div className="md:col-span-2 rounded-3xl glass-card p-8 border border-white/[0.08] hover:border-white/20 transition-all relative overflow-hidden group">
+            <div className="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/10 flex items-center justify-center text-white mb-6">
               <FileCheck className="w-6 h-6" />
             </div>
             <h3 className="text-xl font-bold text-white mb-2">Verifiable Source Drawer</h3>
@@ -303,16 +426,16 @@ export default function HomePage() {
               Every sentence in generated answers links to an authoritatively extracted chunk. Click any
               citation marker to instantly inspect the original document text, page number, and similarity score.
             </p>
-            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] font-mono text-xs text-slate-300">
-              <div className="text-emerald-400 mb-1">$ rag.query(&quot;eviction policy&quot;)</div>
+            <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06] font-mono text-xs text-slate-300">
+              <div className="text-emerald-400 mb-1">$ rag.query(&quot;tenant isolation guarantee&quot;)</div>
               <div className="text-slate-400">&gt; Candidate Chunks: 5 retrieved (recall@5 = 1.0)</div>
               <div className="text-slate-400">&gt; Verified Grounding: Exact match on Page 14 §4.2</div>
             </div>
           </div>
 
           {/* Card 2: Security */}
-          <div className="rounded-2xl glass-card p-8 border border-white/[0.08] hover:border-emerald-500/30 transition-all group">
-            <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-6">
+          <div className="rounded-3xl glass-card p-8 border border-white/[0.08] hover:border-white/20 transition-all group">
+            <div className="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/10 flex items-center justify-center text-white mb-6">
               <Shield className="w-6 h-6" />
             </div>
             <h3 className="text-xl font-bold text-white mb-2">Zero Cross-Tenant Leakage</h3>
@@ -323,8 +446,8 @@ export default function HomePage() {
           </div>
 
           {/* Card 3: Formats */}
-          <div className="rounded-2xl glass-card p-8 border border-white/[0.08] hover:border-purple-500/30 transition-all group">
-            <div className="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-6">
+          <div className="rounded-3xl glass-card p-8 border border-white/[0.08] hover:border-white/20 transition-all group">
+            <div className="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/10 flex items-center justify-center text-white mb-6">
               <Layers className="w-6 h-6" />
             </div>
             <h3 className="text-xl font-bold text-white mb-2">Universal Extraction</h3>
@@ -335,8 +458,8 @@ export default function HomePage() {
           </div>
 
           {/* Card 4: Streaming */}
-          <div className="md:col-span-2 rounded-2xl glass-card p-8 border border-white/[0.08] hover:border-indigo-500/30 transition-all group">
-            <div className="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-6">
+          <div className="md:col-span-2 rounded-3xl glass-card p-8 border border-white/[0.08] hover:border-white/20 transition-all group">
+            <div className="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/10 flex items-center justify-center text-white mb-6">
               <Zap className="w-6 h-6" />
             </div>
             <h3 className="text-xl font-bold text-white mb-2">Ultra-Low Latency SSE Streaming</h3>
@@ -345,13 +468,13 @@ export default function HomePage() {
               prevent proxy timeouts during complex multi-document reasoning.
             </p>
             <div className="flex flex-wrap gap-4 text-xs font-mono">
-              <span className="px-3 py-1.5 rounded-lg bg-white/[0.04] text-slate-300 border border-white/[0.08]">
+              <span className="px-3 py-1.5 rounded-xl bg-white/[0.04] text-slate-300 border border-white/[0.08]">
                 TTFT: &lt; 150ms
               </span>
-              <span className="px-3 py-1.5 rounded-lg bg-white/[0.04] text-slate-300 border border-white/[0.08]">
+              <span className="px-3 py-1.5 rounded-xl bg-white/[0.04] text-slate-300 border border-white/[0.08]">
                 Heartbeat: 15s interval
               </span>
-              <span className="px-3 py-1.5 rounded-lg bg-white/[0.04] text-slate-300 border border-white/[0.08]">
+              <span className="px-3 py-1.5 rounded-xl bg-white/[0.04] text-slate-300 border border-white/[0.08]">
                 Backpressure: Resilient
               </span>
             </div>
@@ -362,7 +485,7 @@ export default function HomePage() {
       {/* Architecture Pipeline Section */}
       <section id="architecture" className="py-20 px-6 max-w-7xl mx-auto border-t border-white/[0.08]">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-3">System Blueprint</h2>
+          <h2 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">System Blueprint</h2>
           <p className="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-4">
             How The Grounded RAG Pipeline Works
           </p>
@@ -372,29 +495,29 @@ export default function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="p-6 rounded-2xl bg-[#0C101B] border border-white/[0.06] relative">
-            <div className="text-xs font-mono text-blue-400 font-bold mb-3">01 / INGESTION</div>
+          <div className="p-6 rounded-3xl bg-[#0C101B] border border-white/[0.06] relative">
+            <div className="text-xs font-mono text-slate-400 font-bold mb-3">01 / INGESTION</div>
             <h4 className="text-base font-bold text-white mb-2">Upload Reservation</h4>
             <p className="text-xs text-slate-400 leading-relaxed">
               Client requests server quota reservation. File uploads safely to tenant-isolated storage with SHA-256 validation.
             </p>
           </div>
-          <div className="p-6 rounded-2xl bg-[#0C101B] border border-white/[0.06] relative">
-            <div className="text-xs font-mono text-indigo-400 font-bold mb-3">02 / CHUNKING</div>
+          <div className="p-6 rounded-3xl bg-[#0C101B] border border-white/[0.06] relative">
+            <div className="text-xs font-mono text-slate-400 font-bold mb-3">02 / CHUNKING</div>
             <h4 className="text-base font-bold text-white mb-2">Bounded Chunking</h4>
             <p className="text-xs text-slate-400 leading-relaxed">
               Background workers divide documents into overlap-optimized sections with page and character-index provenance.
             </p>
           </div>
-          <div className="p-6 rounded-2xl bg-[#0C101B] border border-white/[0.06] relative">
-            <div className="text-xs font-mono text-purple-400 font-bold mb-3">03 / INDEXING</div>
+          <div className="p-6 rounded-3xl bg-[#0C101B] border border-white/[0.06] relative">
+            <div className="text-xs font-mono text-slate-400 font-bold mb-3">03 / INDEXING</div>
             <h4 className="text-base font-bold text-white mb-2">Vector Embeddings</h4>
             <p className="text-xs text-slate-400 leading-relaxed">
               Embeddings stored in PostgreSQL with pgvector. Indexed via HNSW / IVFFlat with composite tenant constraints.
             </p>
           </div>
-          <div className="p-6 rounded-2xl bg-[#0C101B] border border-white/[0.06] relative">
-            <div className="text-xs font-mono text-emerald-400 font-bold mb-3">04 / GENERATION</div>
+          <div className="p-6 rounded-3xl bg-[#0C101B] border border-white/[0.06] relative">
+            <div className="text-xs font-mono text-slate-400 font-bold mb-3">04 / GENERATION</div>
             <h4 className="text-base font-bold text-white mb-2">Grounded Streaming</h4>
             <p className="text-xs text-slate-400 leading-relaxed">
               Retrieved context injects strictly verified sources. Model streams answer with server-resolvable citation references.
@@ -411,7 +534,7 @@ export default function HomePage() {
             <div className="text-xs font-medium text-slate-400 uppercase tracking-wider">Registered Capacity</div>
           </div>
           <div>
-            <div className="text-3xl md:text-5xl font-black text-blue-400 tracking-tight mb-1">&lt; 150ms</div>
+            <div className="text-3xl md:text-5xl font-black text-white tracking-tight mb-1">&lt; 150ms</div>
             <div className="text-xs font-medium text-slate-400 uppercase tracking-wider">Time To First Token</div>
           </div>
           <div>
@@ -419,7 +542,7 @@ export default function HomePage() {
             <div className="text-xs font-medium text-slate-400 uppercase tracking-wider">Verifiable Citations</div>
           </div>
           <div>
-            <div className="text-3xl md:text-5xl font-black text-purple-400 tracking-tight mb-1">0%</div>
+            <div className="text-3xl md:text-5xl font-black text-slate-400 tracking-tight mb-1">0%</div>
             <div className="text-xs font-medium text-slate-400 uppercase tracking-wider">Data Leakage Rate</div>
           </div>
         </div>
@@ -427,24 +550,24 @@ export default function HomePage() {
 
       {/* Bottom Conversion CTA Banner */}
       <section className="py-24 px-6 max-w-5xl mx-auto">
-        <div className="rounded-3xl bg-gradient-to-br from-blue-900/40 via-indigo-950/30 to-[#07090E] border border-blue-500/30 p-10 md:p-16 text-center relative overflow-hidden shadow-2xl">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/20 blur-[100px] pointer-events-none" />
+        <div className="rounded-3xl bg-[#0E1017] border border-white/[0.12] p-10 md:p-16 text-center relative overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-80 h-80 bg-white/[0.04] blur-[100px] pointer-events-none" />
           <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
             Start Asking Your Documents.
           </h2>
-          <p className="text-slate-300 text-sm md:text-base max-w-xl mx-auto mb-8 leading-relaxed">
+          <p className="text-slate-400 text-sm md:text-base max-w-xl mx-auto mb-8 leading-relaxed">
             Eliminate hallucinations. Empower your research and document workflows with citations you can always verify.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/auth/signup"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm shadow-xl shadow-blue-500/25 transition-all"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-white text-black hover:bg-slate-200 font-semibold text-sm shadow-xl shadow-white/10 transition-all"
             >
               Create Free Account
             </Link>
             <Link
               href="/auth/login"
-              className="w-full sm:w-auto px-7 py-3.5 rounded-xl glass-card text-slate-300 hover:text-white font-medium text-sm transition-all"
+              className="w-full sm:w-auto px-7 py-3.5 rounded-2xl glass-card text-slate-300 hover:text-white font-medium text-sm transition-all"
             >
               Sign In Existing Account
             </Link>
@@ -456,7 +579,7 @@ export default function HomePage() {
       <footer className="border-t border-white/[0.08] py-12 px-6 text-xs text-slate-500 bg-[#06080C]">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <div className="w-6 h-6 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-xs">
+            <div className="w-6 h-6 rounded-lg bg-white/[0.08] border border-white/20 flex items-center justify-center text-white font-bold text-xs">
               R
             </div>
             <span className="font-semibold text-slate-300">Personal RAG Assistant</span>
