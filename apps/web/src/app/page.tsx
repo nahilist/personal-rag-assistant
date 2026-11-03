@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 import {
   Shield,
   FileCheck,
@@ -26,6 +27,10 @@ import {
   Bot,
   Mail,
 } from "lucide-react";
+
+const ElectricLogo = dynamic(() => import("@/components/ui/ElectricLogo"), {
+  ssr: false,
+});
 
 export default function HomePage() {
   const router = useRouter();
@@ -473,11 +478,11 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Center: The Blueprint Grid & Glowing Emblem */}
+            {/* Center: The Blueprint Grid & Glowing Electric Emblem */}
             <div className="relative w-full max-w-[380px] sm:max-w-[440px] aspect-square mx-auto flex items-center justify-center my-auto">
               
               {/* Architectural Construction Grid SVG (Double Tangent Dashed Geometry Lines) */}
-              <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-40" viewBox="0 0 400 400" fill="none">
+              <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-40 z-0" viewBox="0 0 400 400" fill="none">
                 {/* Outer Vertical Tangents */}
                 <line x1="60" y1="0" x2="60" y2="400" stroke="white" strokeWidth="1" strokeDasharray="4 4" />
                 <line x1="340" y1="0" x2="340" y2="400" stroke="white" strokeWidth="1" strokeDasharray="4 4" />
@@ -504,23 +509,23 @@ export default function HomePage() {
               </svg>
 
               {/* Central Radiant Glow Behind Emblem */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-white/20 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#ad6dff]/15 rounded-full blur-3xl pointer-events-none" />
 
-              {/* Iconic Geometric Emblem (Closed loop bowtie) */}
-              <svg
-                viewBox="0 0 100 100"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-44 h-44 sm:w-52 sm:h-52 text-white relative z-10 glow-symbol hover:scale-105 transition-transform duration-500"
-              >
-                <path
-                  d="M 28 28 L 72 72 L 72 28 L 28 72 Z"
-                  stroke="white"
-                  strokeWidth="8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+              {/* ElectricLogo Interactive WebGL Component */}
+              <div className="w-full h-full relative z-10 flex items-center justify-center">
+                <ElectricLogo
+                  src="/logo.svg"
+                  color="#ecc7ff"
+                  glowColor="#ad6dff"
+                  scale={0.7}
+                  strands={4}
+                  bend={0.6}
+                  crackle={1.5}
+                  arcs={1}
+                  speed={2.5}
+                  interactive
                 />
-              </svg>
+              </div>
             </div>
           </div>
 
