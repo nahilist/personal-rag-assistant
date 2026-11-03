@@ -116,16 +116,8 @@ export default function HomePage() {
           {/* Left Column: Massive Typography & Corner Metadata Cards (Span 7) */}
           <div className="lg:col-span-7 flex flex-col justify-between h-full py-4 lg:py-8 space-y-10 text-left">
             
-            {/* Top Tag & Massive Headlines */}
+            {/* Top Massive Headlines */}
             <div className="space-y-6">
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-medium text-slate-300">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>AI Assistant</span>
-                <span className="text-slate-500">•</span>
-                <span className="text-slate-400">Multi-Tenant Grounded Knowledge</span>
-              </div>
-
               {/* Master Headline (Exact Dribbble Styling & Scale) */}
               <div className="space-y-1">
                 <h1 className="text-6xl sm:text-7xl md:text-8xl xl:text-9xl 2xl:text-[10rem] font-black text-white tracking-tight leading-[0.95]">
