@@ -25,10 +25,14 @@ import {
   CheckCircle2,
   FileText,
   Bot,
+  Monitor,
+  Smartphone,
+  ExternalLink,
 } from "lucide-react";
 
 export default function HomePage() {
   const router = useRouter();
+  const [activeDeviceView, setActiveDeviceView] = useState<"desktop" | "mobile">("desktop");
   const [inputQuery, setInputQuery] = useState("");
   const [modelMode, setModelMode] = useState<"Auto" | "Grounded" | "Deep">("Auto");
   const [isModelDropdownOpen, setIsModelDropdownOpen] = useState(false);
@@ -51,11 +55,11 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-[#07090E] text-slate-100 selection:bg-white selection:text-black relative overflow-x-hidden">
       {/* Background Subtle Ambient Lighting */}
-      <div className="absolute top-0 right-1/4 w-[700px] h-[550px] bg-white/[0.03] blur-[160px] pointer-events-none -z-10" />
-      <div className="absolute top-[600px] -left-[200px] w-[500px] h-[500px] bg-blue-600/[0.04] blur-[150px] pointer-events-none -z-10" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[550px] bg-gradient-to-b from-white/[0.04] via-blue-500/[0.02] to-transparent blur-[160px] pointer-events-none -z-10" />
+      <div className="absolute top-[700px] -left-[200px] w-[600px] h-[600px] bg-white/[0.02] blur-[180px] pointer-events-none -z-10" />
 
       {/* Top Floating Glass Navigation Bar */}
-      <header className="sticky top-0 z-50 w-full border-b border-white/[0.08] bg-[#07090E]/80 backdrop-blur-2xl">
+      <header className="sticky top-0 z-50 w-full border-b border-white/[0.08] bg-[#07090E]/85 backdrop-blur-2xl">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           {/* Logo & Brand */}
           <Link href="/" className="flex items-center gap-3 group">
@@ -81,7 +85,7 @@ export default function HomePage() {
 
           {/* Nav Items */}
           <nav className="hidden md:flex items-center gap-8 text-xs font-medium text-slate-400">
-            <a href="#hero" className="hover:text-white transition-colors">Overview</a>
+            <a href="#hero" className="hover:text-white transition-colors">Studio</a>
             <a href="#features" className="hover:text-white transition-colors">Features</a>
             <a href="#architecture" className="hover:text-white transition-colors">Architecture</a>
             <Link href="/admin" className="hover:text-white transition-colors flex items-center gap-1.5">
@@ -109,38 +113,38 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* Hero Section: Exact Dribbble / Awwwards Mobile App Design Showcase */}
-      <section id="hero" className="pt-12 pb-24 px-6 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center min-h-[760px]">
-          
-          {/* Left Column: Bold Typography & Project Metadata Cards */}
-          <div className="lg:col-span-7 flex flex-col justify-center space-y-8 text-left">
-            {/* Top Pill */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-medium text-slate-300 w-fit">
+      {/* Hero Section: Full Desktop & Mobile Responsive Showcase */}
+      <section id="hero" className="pt-12 pb-24 px-4 sm:px-6 max-w-7xl mx-auto space-y-12">
+        
+        {/* Top Header & Metadata */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 text-left">
+          <div className="space-y-4 max-w-3xl">
+            {/* Top Pill Badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-medium text-slate-300 w-fit">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>AI Assistant</span>
               <span className="text-slate-500">•</span>
-              <span className="text-slate-400">Multi-Tenant Grounded Knowledge</span>
+              <span className="text-slate-400">Multi-Tenant Grounded Knowledge Engine</span>
             </div>
 
-            {/* Giant Title matching screenshot */}
-            <div className="space-y-2">
+            {/* Headline */}
+            <div className="space-y-1">
               <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black text-white tracking-tight leading-[1.02]">
                 AI Assistant
               </h1>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-light text-slate-400 tracking-tight leading-[1.05]">
-                Mobile App Design
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-light text-slate-400 tracking-tight leading-[1.05]">
+                Full Desktop & Mobile Experience
               </h2>
             </div>
 
-            {/* Subtitle Description */}
-            <p className="text-base sm:text-lg text-slate-400 max-w-xl leading-relaxed font-normal">
-              Turn your private PDFs, technical specs, and notes into an interactive assistant.
-              Every factual assertion is grounded in verifiable chunk citations with zero data leakage.
+            {/* Subtitle */}
+            <p className="text-base sm:text-lg text-slate-400 max-w-2xl leading-relaxed font-normal pt-2">
+              Transform private PDFs, Word documents, and technical notes into verifiable answers.
+              Every factual assertion is grounded in real-time source chunk citations with zero cross-tenant leakage.
             </p>
 
-            {/* Primary Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap items-center gap-4 pt-3">
               <Link
                 href="/app"
                 className="px-6 py-3.5 rounded-2xl bg-white text-black font-semibold text-sm hover:bg-slate-200 transition-all flex items-center gap-2 shadow-xl shadow-white/10 group"
@@ -152,39 +156,344 @@ export default function HomePage() {
                 href="#features"
                 className="px-6 py-3.5 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/10 font-medium text-sm transition-all flex items-center gap-2"
               >
-                <span>Explore System Specs</span>
+                <span>Explore Architecture</span>
                 <ChevronRight className="w-4 h-4 text-slate-400" />
               </a>
             </div>
+          </div>
 
-            {/* Bottom-Left Metadata Cards (Exact match to Dribbble screenshot) */}
-            <div className="grid grid-cols-3 gap-4 pt-8 max-w-lg border-t border-white/[0.08]">
-              {/* Card 1 */}
-              <div className="p-4 rounded-2xl bg-[#0D0F16]/90 border border-white/[0.08] backdrop-blur-md">
-                <span className="text-[11px] text-slate-500 block mb-1">Projects</span>
-                <span className="text-sm font-bold text-white block truncate">AI assistant</span>
+          {/* Metadata Cards & Interactive View Switcher */}
+          <div className="flex flex-col sm:flex-row lg:flex-col items-start sm:items-center lg:items-end gap-4 shrink-0">
+            {/* View Switcher (Desktop vs Mobile Preview) */}
+            <div className="p-1.5 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-md flex items-center gap-1">
+              <button
+                type="button"
+                onClick={() => setActiveDeviceView("desktop")}
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${
+                  activeDeviceView === "desktop"
+                    ? "bg-white text-black shadow-md"
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                <Monitor className="w-3.5 h-3.5" />
+                <span>Desktop Studio</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveDeviceView("mobile")}
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${
+                  activeDeviceView === "mobile"
+                    ? "bg-white text-black shadow-md"
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                <Smartphone className="w-3.5 h-3.5" />
+                <span>Mobile App</span>
+              </button>
+            </div>
+
+            {/* Bottom-Left Metadata Cards (From Dribbble Spec) */}
+            <div className="grid grid-cols-3 gap-3 w-full sm:w-auto">
+              <div className="p-3.5 rounded-2xl bg-[#0D0F16]/90 border border-white/[0.08] text-left">
+                <span className="text-[10px] text-slate-500 block mb-0.5 font-mono">PROJECTS</span>
+                <span className="text-xs font-bold text-white block truncate">AI Assistant</span>
+              </div>
+              <div className="p-3.5 rounded-2xl bg-[#0D0F16]/90 border border-white/[0.08] text-left">
+                <span className="text-[10px] text-slate-500 block mb-0.5 font-mono">DESIGNER</span>
+                <span className="text-xs font-bold text-white block truncate">BlockAI Studio</span>
+              </div>
+              <div className="p-3.5 rounded-2xl bg-[#0D0F16]/90 border border-white/[0.08] text-left">
+                <span className="text-[10px] text-slate-500 block mb-0.5 font-mono">YEAR</span>
+                <span className="text-xs font-bold text-white block">2026</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Master Showcase Display: Dynamic Switch between Full Desktop Studio and Mobile App */}
+        <div className="w-full relative">
+          
+          {/* Ambient Glow behind the display */}
+          <div className="absolute -inset-1 bg-gradient-to-r from-white/[0.08] via-blue-500/[0.05] to-white/[0.08] rounded-[36px] blur-3xl opacity-70 pointer-events-none -z-10" />
+
+          {/* VIEW 1: FULL EXPANSIVE DESKTOP STUDIO (Shows by default or when Desktop is toggled) */}
+          <div className={`${activeDeviceView === "desktop" ? "block" : "hidden lg:block"} w-full rounded-3xl bg-[#0B0D14]/95 border border-white/[0.12] shadow-[0_30px_100px_rgba(0,0,0,0.95)] overflow-hidden transition-all duration-500`}>
+            
+            {/* Desktop Window Title Bar */}
+            <div className="h-12 px-5 border-b border-white/[0.08] bg-[#0E1018]/90 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full bg-red-500/80 inline-block" />
+                <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
+                <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
+              </div>
+              
+              {/* Window Address / Session Indicator */}
+              <div className="flex items-center gap-2 px-3.5 py-1 rounded-xl bg-white/[0.04] border border-white/[0.08] text-xs text-slate-400 font-mono">
+                <Lock className="w-3 h-3 text-emerald-400" />
+                <span>personal-rag.internal/app/chat/studio</span>
               </div>
 
-              {/* Card 2 */}
-              <div className="p-4 rounded-2xl bg-[#0D0F16]/90 border border-white/[0.08] backdrop-blur-md">
-                <span className="text-[11px] text-slate-500 block mb-1">Designer</span>
-                <span className="text-sm font-bold text-white block truncate">BlockAI Studio</span>
+              {/* Status Indicator */}
+              <div className="flex items-center gap-2 text-xs text-emerald-400 font-medium">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="hidden sm:inline">Tenant Isolation Active</span>
+              </div>
+            </div>
+
+            {/* Desktop Window 3-Column Studio Layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[580px]">
+              
+              {/* Column 1: Document Library & Partitioned Storage (3 cols) */}
+              <div className="hidden lg:flex lg:col-span-3 border-r border-white/[0.08] p-5 bg-[#090B12]/80 flex-col justify-between text-left">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                    <span>Indexed Knowledge</span>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/[0.06] text-white border border-white/10">
+                      3 Ready
+                    </span>
+                  </div>
+
+                  {/* Document Chips */}
+                  <div className="space-y-2">
+                    <div className="p-3 rounded-2xl bg-white/[0.06] border border-white/15 text-xs text-white flex items-start gap-3 shadow-md">
+                      <FileText className="w-4 h-4 text-white shrink-0 mt-0.5" />
+                      <div className="min-w-0 flex-1">
+                        <div className="font-semibold truncate">Security_Compliance_2026.pdf</div>
+                        <div className="text-[10px] text-slate-400 font-mono mt-0.5">38 Chunks · SHA-256 Valid</div>
+                      </div>
+                    </div>
+
+                    <div className="p-3 rounded-2xl bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.05] text-xs text-slate-300 flex items-start gap-3 transition-colors">
+                      <FileText className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
+                      <div className="min-w-0 flex-1">
+                        <div className="font-medium truncate">Cloud_Architecture_Specs.docx</div>
+                        <div className="text-[10px] text-slate-500 font-mono mt-0.5">24 Chunks · Ready</div>
+                      </div>
+                    </div>
+
+                    <div className="p-3 rounded-2xl bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.05] text-xs text-slate-300 flex items-start gap-3 transition-colors">
+                      <FileText className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
+                      <div className="min-w-0 flex-1">
+                        <div className="font-medium truncate">Disaster_Recovery_Plan.md</div>
+                        <div className="text-[10px] text-slate-500 font-mono mt-0.5">14 Chunks · Ready</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Storage Meter */}
+                <div className="pt-4 border-t border-white/[0.08] space-y-2">
+                  <div className="flex justify-between text-[11px] text-slate-400 font-mono">
+                    <span>Tenant Storage</span>
+                    <span className="text-white">12.4 MB / 200 MB</span>
+                  </div>
+                  <div className="w-full h-1.5 bg-white/[0.08] rounded-full overflow-hidden">
+                    <div className="w-[12%] h-full bg-white rounded-full" />
+                  </div>
+                </div>
               </div>
 
-              {/* Card 3 */}
-              <div className="p-4 rounded-2xl bg-[#0D0F16]/90 border border-white/[0.08] backdrop-blur-md">
-                <span className="text-[11px] text-slate-500 block mb-1">Year</span>
-                <span className="text-sm font-bold text-white block">2026</span>
+              {/* Column 2: Center Conversational Canvas with Spotlight & Emblem (6 cols) */}
+              <div className="lg:col-span-6 p-6 flex flex-col justify-between bg-[#0B0D14] relative overflow-hidden text-left">
+                
+                {/* Luminous Spotlight Beam from Top */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-80 h-72 spotlight-cone pointer-events-none opacity-80" />
+                <div className="absolute top-8 left-1/2 -translate-x-1/2 w-48 h-48 bg-white/10 rounded-full blur-3xl pointer-events-none" />
+
+                {/* Center Hero Spotlight & Glowing Geometric Logo */}
+                <div className="relative z-10 flex flex-col items-center justify-center pt-2 pb-6 text-center space-y-4">
+                  {/* Geometric Emblem */}
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-white/30 rounded-full blur-2xl transform scale-150 pointer-events-none" />
+                    <svg
+                      viewBox="0 0 100 100"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-14 h-14 text-white relative z-10 glow-symbol transition-transform duration-500 hover:scale-105"
+                    >
+                      <path
+                        d="M 28 28 L 74 72 L 74 28 L 28 72"
+                        stroke="white"
+                        strokeWidth="6"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+
+                  <h3 className="text-xl sm:text-2xl font-light text-white tracking-tight">
+                    How can i help you today?
+                  </h3>
+                </div>
+
+                {/* Grounded Message Flow */}
+                <div className="relative z-10 space-y-4 my-auto">
+                  {/* User Message Bubble */}
+                  <div className="flex justify-end">
+                    <div className="max-w-[85%] rounded-2xl rounded-tr-sm bg-white text-black p-3.5 text-xs sm:text-sm font-medium shadow-md">
+                      What are the tenant isolation guarantees and chunk eviction rules described in section 4.2?
+                    </div>
+                  </div>
+
+                  {/* Assistant Answer Bubble with Citations */}
+                  <div className="flex justify-start">
+                    <div className="max-w-[95%] rounded-2xl rounded-tl-sm bg-[#12141D] border border-white/15 p-4 text-xs sm:text-sm text-slate-200 space-y-2.5 shadow-xl">
+                      <div className="flex items-center justify-between text-xs font-semibold text-slate-300">
+                        <span className="flex items-center gap-1.5">
+                          <Bot className="w-4 h-4 text-white" />
+                          <span>Grounded Assistant Synthesis</span>
+                        </span>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                          100% Verifiable
+                        </span>
+                      </div>
+                      <p className="text-slate-300 leading-relaxed text-xs">
+                        Tenant data is partitioned cryptographically at three discrete layers: Row-Level Security, vector query filters bounded by tenant UUID, and atomic storage isolation.
+                      </p>
+
+                      {/* Clickable Citation Pill */}
+                      <div className="pt-2 border-t border-white/[0.08] flex items-center gap-2">
+                        <span className="text-[11px] text-slate-500">Verified Citation:</span>
+                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-white/[0.08] border border-white/15 text-white text-xs font-mono">
+                          <FileText className="w-3 h-3 text-white" />
+                          <span>[1] Security_Compliance_2026.pdf · p. 14, §4.2</span>
+                          <span className="text-[10px] text-emerald-400 font-bold">96% Cosine Match</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Desktop Floating Composer Form */}
+                <form
+                  onSubmit={handleSendQuery}
+                  className="relative z-10 mt-6 rounded-2xl bg-[#141620]/95 backdrop-blur-xl border border-white/15 p-3 shadow-2xl transition-all hover:border-white/25 space-y-2"
+                >
+                  <input
+                    type="text"
+                    value={inputQuery}
+                    onChange={(e) => setInputQuery(e.target.value)}
+                    placeholder="What do you want to know from your private documents ?"
+                    className="w-full bg-transparent text-xs text-white placeholder-slate-400 focus:outline-none py-1 px-1 font-sans"
+                  />
+
+                  <div className="flex items-center justify-between pt-2 border-t border-white/[0.08]">
+                    <div className="relative">
+                      <button
+                        type="button"
+                        onClick={() => setIsModelDropdownOpen(!isModelDropdownOpen)}
+                        className="px-2.5 py-1 rounded-full bg-white/[0.08] hover:bg-white/[0.14] border border-white/10 text-[11px] font-medium text-slate-300 flex items-center gap-1.5 transition-colors"
+                      >
+                        <Zap className="w-3 h-3 text-white" />
+                        <span>{modelMode}</span>
+                        <span className="text-[9px] text-slate-400">⌵</span>
+                      </button>
+
+                      {isModelDropdownOpen && (
+                        <div className="absolute bottom-full mb-2 left-0 w-36 rounded-xl bg-[#1A1C24] border border-white/15 p-1 shadow-2xl text-[11px] space-y-0.5 z-30">
+                          <button
+                            type="button"
+                            onClick={() => { setModelMode("Auto"); setIsModelDropdownOpen(false); }}
+                            className={`w-full text-left px-2.5 py-1.5 rounded-lg ${modelMode === "Auto" ? "bg-white/10 text-white font-semibold" : "text-slate-400 hover:text-white"}`}
+                          >
+                            Auto (Default)
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => { setModelMode("Grounded"); setIsModelDropdownOpen(false); }}
+                            className={`w-full text-left px-2.5 py-1.5 rounded-lg ${modelMode === "Grounded" ? "bg-white/10 text-white font-semibold" : "text-slate-400 hover:text-white"}`}
+                          >
+                            Grounded RAG
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => { setModelMode("Deep"); setIsModelDropdownOpen(false); }}
+                            className={`w-full text-left px-2.5 py-1.5 rounded-lg ${modelMode === "Deep" ? "bg-white/10 text-white font-semibold" : "text-slate-400 hover:text-white"}`}
+                          >
+                            Deep Research
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <button type="button" className="text-slate-400 hover:text-white p-1" title="Attach document">
+                        <Paperclip className="w-3.5 h-3.5" />
+                      </button>
+                      <button type="button" className="text-slate-400 hover:text-white p-1" title="Vector focus">
+                        <Crosshair className="w-3.5 h-3.5" />
+                      </button>
+                      <button type="button" className="text-slate-400 hover:text-white p-1" title="Voice input">
+                        <Mic className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        type="submit"
+                        className="w-7 h-7 rounded-xl bg-white text-black hover:bg-slate-200 flex items-center justify-center transition-all shadow-md active:scale-95"
+                        title="Send query"
+                      >
+                        <ArrowUpRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                </form>
+
+                {/* Prompt Suggestions */}
+                <div className="flex items-center gap-2 overflow-x-auto pt-2 no-scrollbar text-[10px]">
+                  {promptSuggestions.map((item, index) => {
+                    const Icon = item.icon;
+                    return (
+                      <button
+                        key={index}
+                        type="button"
+                        onClick={() => handleSelectPrompt(item.query)}
+                        className="px-2.5 py-1 rounded-full bg-white/[0.04] hover:bg-white/[0.1] border border-white/10 text-slate-300 hover:text-white whitespace-nowrap flex items-center gap-1.5 transition-colors shrink-0"
+                      >
+                        <Icon className="w-3 h-3 text-slate-400" />
+                        <span>{item.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Column 3: Live Source Inspector Drawer (3 cols) */}
+              <div className="hidden lg:flex lg:col-span-3 border-l border-white/[0.08] p-5 bg-[#090B12]/80 flex-col justify-between text-left">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                    <span>Source Inspector</span>
+                    <span className="text-[10px] text-emerald-400 font-mono">0.961 Similarity</span>
+                  </div>
+
+                  {/* Excerpt Card */}
+                  <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/[0.08] space-y-2 text-xs">
+                    <div className="font-semibold text-white flex items-center gap-1.5">
+                      <FileText className="w-3.5 h-3.5 text-white" />
+                      <span>Security_Compliance_2026.pdf</span>
+                    </div>
+                    <div className="text-[10px] text-slate-400 font-mono">Page 14 · Section 4.2 · Chunk #104</div>
+                    <p className="text-[11px] text-slate-300 italic font-serif leading-relaxed pt-1 border-t border-white/[0.06]">
+                      &ldquo;All extracted chunk embeddings are stored alongside tenant UUID. Vector query filters strictly enforce WHERE user_id = :current_user before ANN ranking.&rdquo;
+                    </p>
+                  </div>
+
+                  <div className="p-3 rounded-2xl bg-white/[0.02] border border-white/[0.05] text-[11px] text-slate-400 space-y-1 font-mono">
+                    <div>Hash: sha256:7f8a9b2c...</div>
+                    <div>Embedding: text-embedding-3</div>
+                    <div>Latency: 142ms (p95)</div>
+                  </div>
+                </div>
+
+                <div className="p-3 rounded-2xl bg-emerald-950/20 border border-emerald-500/20 text-[11px] text-emerald-300 flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>Provenance mathematically verified against source PDF bytes.</span>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column: The Photorealistic Mobile Device Showcase on Matte Pedestal */}
-          <div className="lg:col-span-5 flex flex-col items-center justify-center relative">
+          {/* VIEW 2: THE MOBILE APP SHOWCASE (Shown on mobile screens OR when Mobile is toggled) */}
+          <div className={`${activeDeviceView === "mobile" ? "flex" : "hidden"} flex-col items-center justify-center py-6 transition-all duration-500`}>
             
-            {/* Ambient Backlight Bloom behind the phone */}
-            <div className="absolute w-[340px] h-[550px] bg-white/[0.08] rounded-full blur-[120px] pointer-events-none -z-10" />
-
             {/* Phone Chassis Container */}
             <div className="w-[340px] sm:w-[380px] h-[720px] rounded-[52px] p-3 bg-gradient-to-b from-[#282A32] via-[#16171E] to-[#0A0B0F] border border-white/20 shadow-[0_30px_90px_rgba(0,0,0,0.95),0_0_40px_rgba(255,255,255,0.08)] relative ring-1 ring-white/10">
               
@@ -198,16 +507,11 @@ export default function HomePage() {
                 {/* Top Status Bar */}
                 <div className="relative z-10 flex items-center justify-between text-xs font-semibold px-2 pt-1 text-slate-300">
                   <span>9:41</span>
-                  {/* Dynamic Island Notch */}
                   <div className="w-24 h-6 bg-black rounded-full flex items-center justify-end px-2 gap-1.5 shadow-inner">
                     <div className="w-2.5 h-2.5 rounded-full bg-[#121318] border border-white/10" />
                     <div className="w-2 h-2 rounded-full bg-emerald-500/80" />
                   </div>
-                  {/* Signal & Battery Icons */}
                   <div className="flex items-center gap-1.5">
-                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                      <path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.33 19.64 10.61 20 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9z"/>
-                    </svg>
                     <div className="w-5 h-2.5 rounded-sm border border-slate-300 p-0.5 flex items-center">
                       <div className="h-full w-full bg-white rounded-2xs" />
                     </div>
@@ -216,24 +520,19 @@ export default function HomePage() {
 
                 {/* Mobile Top App Header */}
                 <div className="relative z-10 flex items-center justify-between px-1 mt-3">
-                  {/* Menu Button */}
                   <button
                     type="button"
-                    className="w-9 h-9 rounded-full bg-white/[0.06] border border-white/10 flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/[0.12] transition-colors"
+                    className="w-9 h-9 rounded-full bg-white/[0.06] border border-white/10 flex items-center justify-center text-slate-300 hover:text-white"
                   >
                     <div className="space-y-1 w-3.5">
                       <span className="block h-0.5 w-full bg-current rounded" />
                       <span className="block h-0.5 w-full bg-current rounded" />
                     </div>
                   </button>
-
-                  {/* Header Title */}
                   <span className="text-sm font-semibold text-slate-200">New Chat</span>
-
-                  {/* Add New Chat Button */}
                   <button
                     type="button"
-                    className="w-9 h-9 rounded-xl bg-white/[0.06] border border-white/10 flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/[0.12] transition-colors text-base"
+                    className="w-9 h-9 rounded-xl bg-white/[0.06] border border-white/10 flex items-center justify-center text-slate-300 hover:text-white text-base"
                   >
                     +
                   </button>
@@ -241,14 +540,13 @@ export default function HomePage() {
 
                 {/* Center Hero Area: The Radiant Emblem & "How can i help you today?" */}
                 <div className="relative z-10 flex flex-col items-center justify-center my-auto text-center space-y-6 pt-4">
-                  {/* Glowing Geometric Vector Emblem (Exact replica from Dribbble shot) */}
                   <div className="relative">
                     <div className="absolute inset-0 bg-white/30 rounded-full blur-2xl transform scale-150 pointer-events-none" />
                     <svg
                       viewBox="0 0 100 100"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
-                      className="w-20 h-20 text-white relative z-10 glow-symbol transition-transform duration-500 hover:scale-110"
+                      className="w-20 h-20 text-white relative z-10 glow-symbol"
                     >
                       <path
                         d="M 28 28 L 74 72 L 74 28 L 28 72"
@@ -260,7 +558,6 @@ export default function HomePage() {
                     </svg>
                   </div>
 
-                  {/* Headline under emblem */}
                   <div className="space-y-1">
                     <h3 className="text-2xl font-light tracking-tight text-white/95">
                       How can i help
@@ -273,13 +570,10 @@ export default function HomePage() {
 
                 {/* Bottom Interactive Area */}
                 <div className="relative z-10 space-y-3">
-                  
-                  {/* Floating Translucent Glass Composer Card */}
                   <form
                     onSubmit={handleSendQuery}
-                    className="rounded-2xl bg-[#14151C]/90 backdrop-blur-xl border border-white/15 p-3 shadow-2xl transition-all hover:border-white/25"
+                    className="rounded-2xl bg-[#14151C]/90 backdrop-blur-xl border border-white/15 p-3 shadow-2xl space-y-2"
                   >
-                    {/* Input Field */}
                     <input
                       type="text"
                       value={inputQuery}
@@ -288,83 +582,18 @@ export default function HomePage() {
                       className="w-full bg-transparent text-xs text-white placeholder-slate-400 focus:outline-none py-1 px-1 font-sans"
                     />
 
-                    {/* Bottom Controls Row */}
-                    <div className="flex items-center justify-between pt-2.5 mt-2 border-t border-white/[0.08]">
-                      
-                      {/* Left: Model Selector Pill */}
-                      <div className="relative">
-                        <button
-                          type="button"
-                          onClick={() => setIsModelDropdownOpen(!isModelDropdownOpen)}
-                          className="px-2.5 py-1 rounded-full bg-white/[0.08] hover:bg-white/[0.14] border border-white/10 text-[11px] font-medium text-slate-300 flex items-center gap-1.5 transition-colors"
-                        >
-                          <Zap className="w-3 h-3 text-white" />
-                          <span>{modelMode}</span>
-                          <span className="text-[9px] text-slate-400">⌵</span>
-                        </button>
+                    <div className="flex items-center justify-between pt-2 border-t border-white/[0.08]">
+                      <span className="px-2.5 py-1 rounded-full bg-white/[0.08] text-[11px] text-slate-300 flex items-center gap-1.5">
+                        <Zap className="w-3 h-3 text-white" />
+                        <span>Auto ⌵</span>
+                      </span>
 
-                        {/* Model Selector Dropdown */}
-                        {isModelDropdownOpen && (
-                          <div className="absolute bottom-full mb-2 left-0 w-36 rounded-xl bg-[#1A1C24] border border-white/15 p-1 shadow-2xl text-[11px] space-y-0.5 z-30">
-                            <button
-                              type="button"
-                              onClick={() => { setModelMode("Auto"); setIsModelDropdownOpen(false); }}
-                              className={`w-full text-left px-2.5 py-1.5 rounded-lg ${modelMode === "Auto" ? "bg-white/10 text-white font-semibold" : "text-slate-400 hover:text-white"}`}
-                            >
-                              Auto (Default)
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => { setModelMode("Grounded"); setIsModelDropdownOpen(false); }}
-                              className={`w-full text-left px-2.5 py-1.5 rounded-lg ${modelMode === "Grounded" ? "bg-white/10 text-white font-semibold" : "text-slate-400 hover:text-white"}`}
-                            >
-                              Grounded RAG
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => { setModelMode("Deep"); setIsModelDropdownOpen(false); }}
-                              className={`w-full text-left px-2.5 py-1.5 rounded-lg ${modelMode === "Deep" ? "bg-white/10 text-white font-semibold" : "text-slate-400 hover:text-white"}`}
-                            >
-                              Deep Research
-                            </button>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Right: Tools & Send Button */}
                       <div className="flex items-center gap-2">
-                        {/* Attachment Icon */}
-                        <button
-                          type="button"
-                          className="text-slate-400 hover:text-white transition-colors p-1"
-                          title="Attach document"
-                        >
-                          <Paperclip className="w-3.5 h-3.5" />
-                        </button>
-
-                        {/* Focus/Target Icon */}
-                        <button
-                          type="button"
-                          className="text-slate-400 hover:text-white transition-colors p-1"
-                          title="Vector focus"
-                        >
-                          <Crosshair className="w-3.5 h-3.5" />
-                        </button>
-
-                        {/* Mic Icon */}
-                        <button
-                          type="button"
-                          className="text-slate-400 hover:text-white transition-colors p-1"
-                          title="Voice query"
-                        >
-                          <Mic className="w-3.5 h-3.5" />
-                        </button>
-
-                        {/* Square Send Button with Up-Right Arrow [↗] */}
+                        <Paperclip className="w-3.5 h-3.5 text-slate-400" />
+                        <Mic className="w-3.5 h-3.5 text-slate-400" />
                         <button
                           type="submit"
-                          className="w-7 h-7 rounded-xl bg-white/[0.14] hover:bg-white text-white hover:text-black border border-white/20 flex items-center justify-center transition-all shadow-md active:scale-95"
-                          title="Send message"
+                          className="w-7 h-7 rounded-xl bg-white text-black flex items-center justify-center transition-all"
                         >
                           <ArrowUpRight className="w-3.5 h-3.5" />
                         </button>
@@ -372,22 +601,18 @@ export default function HomePage() {
                     </div>
                   </form>
 
-                  {/* Horizontal Scrollable Prompt Suggestion Chips */}
+                  {/* Horizontal Scrollable Prompt Chips */}
                   <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar text-[10px]">
-                    {promptSuggestions.map((item, index) => {
-                      const Icon = item.icon;
-                      return (
-                        <button
-                          key={index}
-                          type="button"
-                          onClick={() => handleSelectPrompt(item.query)}
-                          className="px-2.5 py-1 rounded-full bg-white/[0.04] hover:bg-white/[0.1] border border-white/10 text-slate-300 hover:text-white whitespace-nowrap flex items-center gap-1.5 transition-colors shrink-0"
-                        >
-                          <Icon className="w-3 h-3 text-slate-400" />
-                          <span>{item.label}</span>
-                        </button>
-                      );
-                    })}
+                    {promptSuggestions.map((item, index) => (
+                      <button
+                        key={index}
+                        type="button"
+                        onClick={() => handleSelectPrompt(item.query)}
+                        className="px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-slate-300 whitespace-nowrap"
+                      >
+                        {item.label}
+                      </button>
+                    ))}
                   </div>
                 </div>
               </div>
