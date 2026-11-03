@@ -390,6 +390,83 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Overview Presentation Slide (Exact Replica from Dribbble Reference) */}
+      <section id="overview" className="w-full min-h-[85vh] flex flex-col justify-between px-6 sm:px-10 lg:px-16 xl:px-24 py-24 sm:py-32 relative overflow-hidden bg-[#07080B] border-t border-white/[0.08]">
+        
+        {/* Diagonal Volumetric Lighting / Gobo Rays in Bottom Corners */}
+        <div className="absolute bottom-0 left-0 w-[550px] h-[400px] volumetric-rays-left pointer-events-none opacity-85 -z-10" />
+        <div className="absolute bottom-0 right-0 w-[550px] h-[400px] volumetric-rays-right pointer-events-none opacity-85 -z-10" />
+
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-stretch justify-between relative z-10 flex-1">
+          
+          {/* Left Column: Overview Badge (Top) & Massive Emblem (Bottom) */}
+          <div className="lg:col-span-5 flex flex-col justify-between h-full space-y-16 lg:space-y-32 text-left">
+            {/* Top: Overview Badge Pill */}
+            <div>
+              <div className="inline-flex items-center px-6 py-3 rounded-2xl bg-[#12141C]/80 border border-white/15 text-sm font-semibold text-white backdrop-blur-xl shadow-lg">
+                Overview
+              </div>
+            </div>
+
+            {/* Bottom: The Iconic Glowing Geometric Emblem */}
+            <div className="pt-8">
+              <div className="relative w-fit">
+                <div className="absolute inset-0 bg-white/25 rounded-full blur-3xl transform scale-150 pointer-events-none" />
+                <svg
+                  viewBox="0 0 100 100"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-32 h-32 sm:w-40 sm:h-40 xl:w-48 xl:h-48 text-white relative z-10 glow-symbol hover:scale-105 transition-transform duration-500"
+                >
+                  <path
+                    d="M 28 28 L 74 72 L 74 28 L 28 72"
+                    stroke="white"
+                    strokeWidth="7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Narrative Copy (Top) & 2x2 Metadata Grid (Bottom) */}
+          <div className="lg:col-span-7 flex flex-col justify-between h-full space-y-16 lg:space-y-24 text-left">
+            {/* Top Narrative Copy */}
+            <p className="text-xl sm:text-2xl lg:text-3xl font-light text-slate-300 leading-relaxed max-w-3xl pt-2">
+              This project presents a modern AI assistant web interface designed to deliver a seamless, intelligent, and immersive user experience. The interface focuses on clarity, speed, and interaction, allowing users to generate ideas, explore motion concepts, analyze markets, and ask AI-powered questions from a single unified workspace
+            </p>
+
+            {/* Bottom 2x2 Project Specifications Grid */}
+            <div className="grid grid-cols-2 gap-x-12 sm:gap-x-20 gap-y-10 max-w-xl pt-10">
+              {/* Item 1 */}
+              <div>
+                <span className="text-xs sm:text-sm text-slate-400 font-medium block">Project Type</span>
+                <span className="text-xl sm:text-2xl md:text-3xl font-bold text-white tracking-tight mt-1.5 block">AI Chat Bot</span>
+              </div>
+
+              {/* Item 2 */}
+              <div>
+                <span className="text-xs sm:text-sm text-slate-400 font-medium block">Platform Name</span>
+                <span className="text-xl sm:text-2xl md:text-3xl font-bold text-white tracking-tight mt-1.5 block">AI assistant</span>
+              </div>
+
+              {/* Item 3 */}
+              <div>
+                <span className="text-xs sm:text-sm text-slate-400 font-medium block">Timeline</span>
+                <span className="text-xl sm:text-2xl md:text-3xl font-bold text-white tracking-tight mt-1.5 block">3-4 Weeks</span>
+              </div>
+
+              {/* Item 4 */}
+              <div>
+                <span className="text-xs sm:text-sm text-slate-400 font-medium block">Year</span>
+                <span className="text-xl sm:text-2xl md:text-3xl font-bold text-white tracking-tight mt-1.5 block">2026</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Feature Bento Grid (Full Bleed Edge-to-Edge) */}
       <section id="features" className="w-full py-28 px-6 sm:px-10 lg:px-16 xl:px-24 border-t border-white/[0.08] bg-[#07080B]">
         <div className="text-left max-w-4xl mb-16">

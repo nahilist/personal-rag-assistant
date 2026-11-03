@@ -63,6 +63,31 @@ body {
   filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 35px rgba(255, 255, 255, 0.45));
 }
 
+/* Volumetric corner rays (Gobo lighting) */
+.volumetric-rays-left {
+  background: repeating-linear-gradient(
+    40deg,
+    rgba(255, 255, 255, 0.07) 0px,
+    rgba(255, 255, 255, 0.07) 16px,
+    transparent 16px,
+    transparent 44px
+  );
+  mask-image: radial-gradient(ellipse at 0% 100%, black 25%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 0% 100%, black 25%, transparent 75%);
+}
+
+.volumetric-rays-right {
+  background: repeating-linear-gradient(
+    -40deg,
+    rgba(255, 255, 255, 0.07) 0px,
+    rgba(255, 255, 255, 0.07) 16px,
+    transparent 16px,
+    transparent 44px
+  );
+  mask-image: radial-gradient(ellipse at 100% 100%, black 25%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 100% 100%, black 25%, transparent 75%);
+}
+
 .gradient-text {
   background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
   -webkit-background-clip: text;
