@@ -125,14 +125,17 @@ export default function HomePage() {
             
             {/* Top Massive Headlines */}
             <div className="space-y-6">
-              {/* Master Headline (Exact Dribbble Styling & Scale) */}
-              <div className="space-y-1">
-                <h1 className="text-6xl sm:text-7xl md:text-8xl xl:text-9xl 2xl:text-[10rem] font-black text-white tracking-tight leading-[0.95]">
-                  AI Assistant
+              {/* Master Headline (Personal RAG / AI Assistant / Mobile App Design) */}
+              <div className="space-y-1 sm:space-y-2">
+                <h1 className="text-5xl sm:text-6xl md:text-7xl xl:text-8xl 2xl:text-9xl font-black text-white tracking-tight leading-[0.95]">
+                  Personal RAG
                 </h1>
-                <h2 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl 2xl:text-8xl font-light text-slate-400 tracking-tight leading-[1.02]">
-                  Mobile App Design
+                <h2 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl 2xl:text-8xl font-bold text-white/95 tracking-tight leading-[1.0]">
+                  AI Assistant
                 </h2>
+                <h3 className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl font-light text-slate-400 tracking-tight leading-[1.02]">
+                  Mobile App Design
+                </h3>
               </div>
 
               {/* Description Paragraph */}

@@ -40,3 +40,6 @@ test_personal_rag.db
 .DS_Store
 Thumbs.db
 
+
+.vercel
+.env*
