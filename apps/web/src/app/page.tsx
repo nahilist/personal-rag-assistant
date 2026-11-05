@@ -54,19 +54,15 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#07080B] text-slate-100 selection:bg-white selection:text-black relative overflow-x-hidden flex flex-col justify-between">
+    <div className="min-h-screen w-full bg-[#050608] text-slate-100 selection:bg-white selection:text-black relative overflow-x-hidden flex flex-col justify-between">
       
-      {/* Cinematic Top Ambient Glow (Edge to Edge) */}
-      <div className="absolute top-0 right-1/4 w-[900px] h-[600px] bg-white/[0.03] blur-[180px] pointer-events-none -z-10" />
-      <div className="absolute top-1/3 left-0 w-[700px] h-[700px] bg-blue-600/[0.025] blur-[180px] pointer-events-none -z-10" />
-
-      {/* Top Floating Glass Navigation Bar (Corner-to-Corner Edge Bleed) */}
-      <header className="w-full z-50 border-b border-white/[0.07] bg-[#07080B]/80 backdrop-blur-2xl">
+      {/* Top Floating Glass Navigation Bar */}
+      <header className="w-full z-50 border-b border-white/[0.07] bg-[#050608]/85 backdrop-blur-2xl">
         <div className="w-full px-6 sm:px-10 lg:px-16 xl:px-24 h-20 flex items-center justify-between">
           
           {/* Left Corner: Brand Logo */}
           <Link href="/" className="flex items-center gap-3.5 group">
-            <div className="w-9 h-9 rounded-xl bg-white/[0.08] border border-white/20 flex items-center justify-center text-white group-hover:scale-105 transition-all shadow-md">
+            <div className="w-9 h-9 rounded-[10px] bg-white/[0.08] border border-white/20 flex items-center justify-center text-white group-hover:scale-105 transition-all shadow-md">
               {/* Minimalist Geometric Vector Emblem */}
               <svg viewBox="0 0 100 100" fill="none" className="w-4 h-4 text-white">
                 <path
@@ -107,7 +103,7 @@ export default function HomePage() {
             </Link>
             <Link
               href="/auth/signup"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-white text-black hover:bg-slate-200 transition-all shadow-xl shadow-white/10 hover:scale-[1.02] active:scale-[0.98]"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] text-xs font-bold bg-white text-black hover:bg-slate-200 transition-all shadow-xl shadow-white/10 hover:scale-[1.02] active:scale-[0.98]"
             >
               <span>Get Started</span>
               <ArrowUpRight className="w-4 h-4" />
@@ -116,8 +112,16 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* Hero Section: CORNER-TO-CORNER FULL-BLEED Dribbble Presentation */}
-      <section id="hero" className="w-full flex-1 flex flex-col justify-center px-6 sm:px-10 lg:px-16 xl:px-24 py-8 lg:py-12">
+      {/* Main Framed Showcase Container: Hero se Footer tak 10px Border Radius & Halka Black */}
+      <main className="w-full flex-1 px-2 sm:px-4 lg:px-6 xl:px-8 py-3 sm:py-5 flex flex-col">
+        <div className="w-full max-w-[1920px] mx-auto rounded-[10px] border border-white/[0.09] bg-[#090A0F] shadow-[0_25px_100px_rgba(0,0,0,0.9)] relative overflow-hidden flex flex-col flex-1 justify-between">
+          
+          {/* Cinematic Ambient Lighting (Inside Framed Page) */}
+          <div className="absolute top-0 right-1/4 w-[900px] h-[600px] bg-white/[0.03] blur-[180px] pointer-events-none -z-10" />
+          <div className="absolute top-1/3 left-0 w-[700px] h-[700px] bg-blue-600/[0.025] blur-[180px] pointer-events-none -z-10" />
+
+          {/* Hero Section */}
+          <section id="hero" className="w-full flex-1 flex flex-col justify-center px-6 sm:px-10 lg:px-16 xl:px-24 py-8 lg:py-12">
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center min-h-[calc(100vh-140px)]">
           
           {/* Left Column: Massive Typography & Corner Metadata Cards (Span 7) */}
@@ -145,14 +149,14 @@ export default function HomePage() {
               <div className="flex flex-wrap items-center gap-4 pt-4">
                 <Link
                   href="/app"
-                  className="px-8 py-4 rounded-2xl bg-white text-black font-bold text-sm hover:bg-slate-200 transition-all flex items-center gap-2.5 shadow-2xl shadow-white/10 group"
+                  className="px-8 py-4 rounded-[10px] bg-white text-black font-bold text-sm hover:bg-slate-200 transition-all flex items-center gap-2.5 shadow-2xl shadow-white/10 group"
                 >
                   <span>Launch Assistant</span>
                   <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </Link>
                 <a
                   href="#overview"
-                  className="px-7 py-4 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/10 font-semibold text-sm transition-all flex items-center gap-2"
+                  className="px-7 py-4 rounded-[10px] bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/10 font-semibold text-sm transition-all flex items-center gap-2"
                 >
                   <span>Explore Overview</span>
                   <ChevronRight className="w-4 h-4 text-slate-400" />
@@ -164,19 +168,19 @@ export default function HomePage() {
             <div className="pt-8">
               <div className="grid grid-cols-3 gap-4 max-w-lg">
                 {/* Card 1 */}
-                <div className="p-4 sm:p-5 rounded-2xl bg-[#0F1117]/85 border border-white/[0.09] backdrop-blur-xl shadow-lg">
+                <div className="p-4 sm:p-5 rounded-[10px] bg-[#10121A]/85 border border-white/[0.09] backdrop-blur-xl shadow-lg">
                   <span className="text-[11px] text-slate-500 font-mono block mb-1 uppercase tracking-wider">Projects</span>
                   <span className="text-sm sm:text-base font-bold text-white block truncate">AI assistant</span>
                 </div>
 
                 {/* Card 2 */}
-                <div className="p-4 sm:p-5 rounded-2xl bg-[#0F1117]/85 border border-white/[0.09] backdrop-blur-xl shadow-lg">
+                <div className="p-4 sm:p-5 rounded-[10px] bg-[#10121A]/85 border border-white/[0.09] backdrop-blur-xl shadow-lg">
                   <span className="text-[11px] text-slate-500 font-mono block mb-1 uppercase tracking-wider">Designer</span>
                   <span className="text-sm sm:text-base font-bold text-white block truncate">BlockAI Studio</span>
                 </div>
 
                 {/* Card 3 */}
-                <div className="p-4 sm:p-5 rounded-2xl bg-[#0F1117]/85 border border-white/[0.09] backdrop-blur-xl shadow-lg">
+                <div className="p-4 sm:p-5 rounded-[10px] bg-[#10121A]/85 border border-white/[0.09] backdrop-blur-xl shadow-lg">
                   <span className="text-[11px] text-slate-500 font-mono block mb-1 uppercase tracking-wider">Year</span>
                   <span className="text-sm sm:text-base font-bold text-white block">2026</span>
                 </div>
@@ -389,7 +393,7 @@ export default function HomePage() {
       </section>
 
       {/* Overview Presentation Slide (Exact Replica from Dribbble Reference) */}
-      <section id="overview" className="w-full min-h-[85vh] flex flex-col justify-between px-6 sm:px-10 lg:px-16 xl:px-24 py-24 sm:py-32 relative overflow-hidden bg-[#07080B] border-t border-white/[0.08]">
+      <section id="overview" className="w-full min-h-[85vh] flex flex-col justify-between px-6 sm:px-10 lg:px-16 xl:px-24 py-24 sm:py-32 relative overflow-hidden bg-[#090A0F] border-t border-white/[0.07]">
         
         {/* Diagonal Volumetric Lighting / Gobo Rays in Bottom Corners */}
         <div className="absolute bottom-0 left-0 w-[550px] h-[400px] volumetric-rays-left pointer-events-none opacity-85 -z-10" />
@@ -401,7 +405,7 @@ export default function HomePage() {
           <div className="lg:col-span-5 flex flex-col justify-between h-full space-y-16 lg:space-y-32 text-left">
             {/* Top: Overview Badge Pill */}
             <div>
-              <div className="inline-flex items-center px-6 py-3 rounded-2xl bg-[#12141C]/80 border border-white/15 text-sm font-semibold text-white backdrop-blur-xl shadow-lg">
+              <div className="inline-flex items-center px-6 py-3 rounded-[10px] bg-[#12141C]/80 border border-white/15 text-sm font-semibold text-white backdrop-blur-xl shadow-lg">
                 Overview
               </div>
             </div>
@@ -466,14 +470,14 @@ export default function HomePage() {
       </section>
 
       {/* Slide 3: Logo Blueprint & Mobile Auth Experience (Exact Dribbble Reference Match) */}
-      <section id="identity" className="w-full px-6 sm:px-10 lg:px-16 xl:px-24 py-20 lg:py-28 border-t border-white/[0.08] bg-[#07080B]">
+      <section id="identity" className="w-full px-6 sm:px-10 lg:px-16 xl:px-24 py-20 lg:py-28 border-t border-white/[0.07] bg-[#090A0F]">
         <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch">
           
           {/* Card 1: The Logo Architectural Blueprint System */}
-          <div className="rounded-[36px] bg-[#090A0F] border border-white/[0.1] p-8 sm:p-12 relative overflow-hidden flex flex-col justify-between min-h-[580px] sm:min-h-[660px] shadow-2xl text-left">
+          <div className="rounded-[10px] bg-[#0B0C12] border border-white/[0.09] p-8 sm:p-12 relative overflow-hidden flex flex-col justify-between min-h-[580px] sm:min-h-[660px] shadow-2xl text-left">
             {/* Top Badge: Logo */}
             <div>
-              <div className="inline-flex items-center px-6 py-2.5 rounded-2xl bg-white/[0.05] border border-white/10 text-sm font-semibold text-white backdrop-blur-xl shadow-md w-fit">
+              <div className="inline-flex items-center px-6 py-2.5 rounded-[10px] bg-white/[0.05] border border-white/10 text-sm font-semibold text-white backdrop-blur-xl shadow-md w-fit">
                 Logo
               </div>
             </div>
@@ -530,7 +534,7 @@ export default function HomePage() {
           </div>
 
           {/* Card 2: Mobile Auth & Onboarding Experience */}
-          <div className="rounded-[36px] bg-[#090A0F] border border-white/[0.1] p-6 sm:p-12 relative overflow-hidden flex flex-col items-center justify-center min-h-[580px] sm:min-h-[660px] shadow-2xl">
+          <div className="rounded-[10px] bg-[#0B0C12] border border-white/[0.09] p-6 sm:p-12 relative overflow-hidden flex flex-col items-center justify-center min-h-[580px] sm:min-h-[660px] shadow-2xl">
             
             {/* Ambient Dark Stardust Atmosphere & Bottom Mist */}
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/[0.05] via-transparent to-transparent pointer-events-none" />
@@ -606,7 +610,7 @@ export default function HomePage() {
                   {/* Apple Button */}
                   <Link
                     href="/auth/signup"
-                    className="w-full py-3 px-4 rounded-xl bg-white text-black font-semibold text-xs flex items-center justify-center gap-2 hover:bg-slate-200 transition-all shadow-md active:scale-95"
+                    className="w-full py-3 px-4 rounded-[10px] bg-white text-black font-semibold text-xs flex items-center justify-center gap-2 hover:bg-slate-200 transition-all shadow-md active:scale-95"
                   >
                     <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                       <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-1.99.6-2.63 1.35-.57.65-1.06 1.72-.93 2.74 1 .08 2.02-.49 2.64-1.24z"/>
@@ -617,7 +621,7 @@ export default function HomePage() {
                   {/* Google Button */}
                   <Link
                     href="/auth/signup"
-                    className="w-full py-3 px-4 rounded-xl bg-white text-black font-semibold text-xs flex items-center justify-center gap-2 hover:bg-slate-200 transition-all shadow-md active:scale-95"
+                    className="w-full py-3 px-4 rounded-[10px] bg-white text-black font-semibold text-xs flex items-center justify-center gap-2 hover:bg-slate-200 transition-all shadow-md active:scale-95"
                   >
                     <svg className="w-3.5 h-3.5" viewBox="0 0 24 24">
                       <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -630,7 +634,7 @@ export default function HomePage() {
 
                   {/* Email Input Field */}
                   <div className="relative">
-                    <div className="flex items-center gap-2 p-3 rounded-xl bg-white/[0.04] border border-white/10 text-xs text-slate-300">
+                    <div className="flex items-center gap-2 p-3 rounded-[10px] bg-white/[0.04] border border-white/10 text-xs text-slate-300">
                       <Mail className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                       <input
                         type="email"
@@ -643,7 +647,7 @@ export default function HomePage() {
                   {/* Continue With Email Button */}
                   <Link
                     href="/auth/signup"
-                    className="w-full py-3 px-4 rounded-xl bg-[#181921] hover:bg-[#20222C] text-slate-300 hover:text-white font-medium text-xs block transition-all active:scale-95 border border-white/5"
+                    className="w-full py-3 px-4 rounded-[10px] bg-[#181921] hover:bg-[#20222C] text-slate-300 hover:text-white font-medium text-xs block transition-all active:scale-95 border border-white/5"
                   >
                     Continue with email
                   </Link>
@@ -662,11 +666,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Footer (Full Edge to Edge) */}
-      <footer className="w-full border-t border-white/[0.08] py-12 px-6 sm:px-10 lg:px-16 xl:px-24 text-xs text-slate-500 bg-[#06070A]">
+      {/* Footer (Hero se Footer tak Showcase Frame) */}
+      <footer className="w-full border-t border-white/[0.07] py-12 px-6 sm:px-10 lg:px-16 xl:px-24 text-xs text-slate-500 bg-[#07080C] rounded-b-[10px]">
         <div className="w-full flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <div className="w-7 h-7 rounded-lg bg-white/[0.08] border border-white/20 flex items-center justify-center text-white font-bold text-xs">
+            <div className="w-7 h-7 rounded-[8px] bg-white/[0.08] border border-white/20 flex items-center justify-center text-white font-bold text-xs">
               R
             </div>
             <span className="font-semibold text-slate-300">Personal RAG Assistant</span>
@@ -684,6 +688,8 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+        </div>
+      </main>
     </div>
   );
 }
