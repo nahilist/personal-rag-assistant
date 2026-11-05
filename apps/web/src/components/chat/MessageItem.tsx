@@ -29,7 +29,7 @@ const renderInlineTokens = (
           key={idx}
           type="button"
           onClick={() => source && onSelectSource && onSelectSource(source)}
-          className="inline-flex items-center px-2 py-0.5 mx-0.5 text-xs font-semibold rounded-md bg-blue-500/15 text-blue-300 hover:bg-blue-500/25 transition-all cursor-pointer border border-blue-500/30 shadow-xs"
+          className="inline-flex items-center px-2 py-0.5 mx-0.5 text-xs font-mono font-semibold rounded-md bg-white/[0.08] text-white hover:bg-white/[0.18] transition-all cursor-pointer border border-white/20 shadow-xs"
           title={
             source
               ? `Source: ${source.document_title || "Document"}${
@@ -184,13 +184,25 @@ export const MessageItem: React.FC<MessageItemProps> = ({
     >
       {/* Avatar Icon */}
       <div
-        className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 shadow-xs ${
+        className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 border border-white/20 shadow-md ${
           isUser
-            ? "bg-blue-600 text-white"
-            : "bg-emerald-600 dark:bg-emerald-700 text-white"
+            ? "bg-white/[0.12] text-white"
+            : "bg-[#090A0F] text-white"
         }`}
       >
-        {isUser ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
+        {isUser ? (
+          <User className="w-4 h-4 text-slate-200" />
+        ) : (
+          <svg viewBox="0 0 100 100" fill="none" className="w-4 h-4 text-white">
+            <path
+              d="M 28 28 L 72 72 L 72 28 L 28 72 Z"
+              stroke="currentColor"
+              strokeWidth="8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        )}
       </div>
 
       {/* Bubble & Sources */}
@@ -198,8 +210,8 @@ export const MessageItem: React.FC<MessageItemProps> = ({
         <div
           className={`relative group rounded-2xl text-sm leading-relaxed ${
             isUser
-              ? "p-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-tr-sm text-left inline-block shadow-lg shadow-blue-600/20"
-              : "p-5 bg-[#0C101B]/90 text-slate-100 rounded-tl-sm border border-white/[0.08] shadow-xl"
+              ? "p-4 bg-white/[0.08] text-white rounded-tr-sm text-left inline-block border border-white/15 shadow-xl"
+              : "p-5 bg-[#090A0F] text-slate-100 rounded-tl-sm border border-white/[0.08] shadow-2xl"
           }`}
         >
           {/* Copy button for assistant */}
@@ -207,11 +219,11 @@ export const MessageItem: React.FC<MessageItemProps> = ({
             <button
               type="button"
               onClick={handleCopy}
-              className="absolute top-3 right-3 p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
+              className="absolute top-3 right-3 p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
               title="Copy answer"
             >
               {copied ? (
-                <Check className="w-3.5 h-3.5 text-emerald-600" />
+                <Check className="w-3.5 h-3.5 text-emerald-400" />
               ) : (
                 <Copy className="w-3.5 h-3.5" />
               )}
@@ -227,7 +239,7 @@ export const MessageItem: React.FC<MessageItemProps> = ({
             )}
 
             {message.status === "streaming" && (
-              <span className="inline-block w-2 h-4 ml-1 bg-blue-500 animate-pulse align-middle rounded-sm" />
+              <span className="inline-block w-2 h-4 ml-1 bg-white animate-pulse align-middle rounded-sm" />
             )}
           </div>
         </div>
@@ -243,17 +255,17 @@ export const MessageItem: React.FC<MessageItemProps> = ({
                 key={s.label}
                 type="button"
                 onClick={() => onSelectSource(s)}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700/80 transition-all shadow-2xs"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs rounded-xl bg-[#090A0F] hover:bg-white/[0.06] text-slate-300 hover:text-white border border-white/10 hover:border-white/20 transition-all shadow-sm"
                 title={`Open verified excerpt from ${s.document_title || "Document"}`}
               >
-                <span className="font-bold text-blue-600 dark:text-blue-400">
+                <span className="font-bold font-mono text-white">
                   {s.label}
                 </span>
-                <span className="truncate max-w-[130px] font-medium">
+                <span className="truncate max-w-[130px] font-medium text-slate-400">
                   {s.document_title || "Document"}
                 </span>
                 {s.page_start && (
-                  <span className="text-[10px] text-slate-400 bg-white dark:bg-slate-900 px-1 py-0.5 rounded">
+                  <span className="text-[10px] text-slate-400 bg-white/[0.06] px-1 py-0.5 rounded border border-white/5">
                     p.{s.page_start}
                   </span>
                 )}

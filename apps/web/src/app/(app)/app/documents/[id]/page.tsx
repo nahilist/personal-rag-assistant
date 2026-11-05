@@ -89,14 +89,14 @@ export default function DocumentDetailPage() {
       <Card className="space-y-6">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center shadow-lg shadow-blue-500/5">
+            <div className="w-12 h-12 rounded-2xl bg-white/[0.08] border border-white/15 text-white flex items-center justify-center shadow-md">
               <FileText className="w-6 h-6" />
             </div>
             <div>
               <h1 className="text-2xl font-black text-white tracking-tight">
                 {document.title}
               </h1>
-              <p className="text-xs text-slate-400 font-mono mt-1">
+              <p className="text-xs text-slate-500 font-mono mt-1">
                 ID: {document.id}
               </p>
             </div>
@@ -105,26 +105,26 @@ export default function DocumentDetailPage() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-white/[0.08] text-xs">
-          <div className="p-3 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
-            <span className="text-slate-400 block mb-1 font-mono text-[11px] uppercase">Payload Size</span>
+          <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+            <span className="text-slate-500 block mb-1 font-mono text-[10px] uppercase tracking-wider">Payload Size</span>
             <span className="font-semibold text-white font-mono">
               {(document.byte_size / 1024).toFixed(1)} KB
             </span>
           </div>
-          <div className="p-3 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
-            <span className="text-slate-400 block mb-1 font-mono text-[11px] uppercase">Format</span>
+          <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+            <span className="text-slate-500 block mb-1 font-mono text-[10px] uppercase tracking-wider">Format</span>
             <span className="font-semibold text-white truncate block">
               {document.mime_type.split("/")[1] || document.mime_type}
             </span>
           </div>
-          <div className="p-3 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
-            <span className="text-slate-400 block mb-1 font-mono text-[11px] uppercase">Index Version</span>
-            <span className="font-semibold text-blue-400 font-mono">
+          <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+            <span className="text-slate-500 block mb-1 font-mono text-[10px] uppercase tracking-wider">Index Version</span>
+            <span className="font-semibold text-white font-mono">
               v{document.active_generation}
             </span>
           </div>
-          <div className="p-3 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
-            <span className="text-slate-400 block mb-1 font-mono text-[11px] uppercase">Uploaded</span>
+          <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+            <span className="text-slate-500 block mb-1 font-mono text-[10px] uppercase tracking-wider">Uploaded</span>
             <span className="font-semibold text-white">
               {new Date(document.created_at).toLocaleDateString(undefined, {
                 month: "short",
@@ -138,11 +138,11 @@ export default function DocumentDetailPage() {
 
       {/* Extracted Excerpt / Content Preview */}
       <Card className="space-y-3">
-        <h2 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-          <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+        <h2 className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
+          <Sparkles className="w-3.5 h-3.5 text-white/70" />
           <span>Authoritatively Indexed Text Sample</span>
         </h2>
-        <div className="p-5 bg-[#05070B] border border-white/[0.08] rounded-2xl max-h-96 overflow-y-auto">
+        <div className="p-5 bg-[#07080B] border border-white/[0.08] rounded-2xl max-h-96 overflow-y-auto">
           <p className="text-xs text-slate-300 font-mono whitespace-pre-wrap leading-relaxed">
             {sourceContent || "No extracted excerpt available yet."}
           </p>

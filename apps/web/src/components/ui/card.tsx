@@ -9,7 +9,7 @@ export const Card: React.FC<CardProps> = ({ children, className, ...props }) => 
     <div
       className={twMerge(
         clsx(
-          "bg-[#0C101B]/80 backdrop-blur-md border border-white/[0.08] rounded-2xl shadow-xl p-6 transition-all",
+          "bg-[#090A0F] border border-white/[0.08] hover:border-white/[0.16] rounded-2xl p-6 transition-all shadow-xl",
           className
         )
       )}

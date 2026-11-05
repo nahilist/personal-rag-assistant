@@ -28,13 +28,13 @@ export const Button: React.FC<ButtonProps> = ({
 
   const variantClasses = {
     primary:
-      "bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 active:translate-y-0 focus:ring-blue-500",
+      "bg-white hover:bg-slate-200 text-black shadow-md shadow-white/10 active:scale-95 transition-all focus:ring-white",
     secondary:
-      "bg-white/[0.08] hover:bg-white/[0.12] text-slate-100 border border-white/[0.08] focus:ring-slate-400",
+      "bg-white/[0.08] hover:bg-white/[0.14] text-white border border-white/10 active:scale-95 focus:ring-slate-400",
     danger:
-      "bg-red-600 hover:bg-red-500 text-white shadow-lg shadow-red-600/25 focus:ring-red-500",
+      "bg-red-600/90 hover:bg-red-500 text-white shadow-lg shadow-red-600/20 active:scale-95 focus:ring-red-500",
     outline:
-      "border border-white/[0.12] bg-white/[0.03] text-slate-200 hover:bg-white/[0.08] hover:text-white hover:border-white/20 focus:ring-slate-400",
+      "border border-white/[0.12] bg-white/[0.03] text-slate-200 hover:bg-white/[0.08] hover:text-white hover:border-white/25 active:scale-95 focus:ring-white",
     ghost:
       "text-slate-400 hover:text-white hover:bg-white/[0.06] focus:ring-slate-400",
   };

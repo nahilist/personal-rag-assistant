@@ -33,9 +33,9 @@ export const Modal: React.FC<ModalProps> = ({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-lg bg-[#0C101B]/95 border border-white/[0.12] rounded-3xl shadow-2xl overflow-hidden text-slate-100"
+        className="relative w-full max-w-lg bg-[#090A0F] border border-white/[0.12] rounded-[28px] shadow-2xl overflow-hidden text-slate-100"
       >
-        <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.08]">
+        <div className="flex items-center justify-between px-6 py-4.5 border-b border-white/[0.08]">
           <h3 className="text-base font-bold text-white tracking-tight">
             {title}
           </h3>
@@ -43,7 +43,7 @@ export const Modal: React.FC<ModalProps> = ({
             onClick={onClose}
             className="p-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
         <div className="p-6">{children}</div>

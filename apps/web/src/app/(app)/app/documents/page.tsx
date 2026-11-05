@@ -83,22 +83,22 @@ export default function DocumentsPage() {
   };
 
   return (
-    <div className="p-8 max-w-6xl mx-auto space-y-8">
+    <div className="p-4 sm:p-8 max-w-6xl mx-auto space-y-8 font-sans">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-2">
-            <Layers className="w-3.5 h-3.5" /> Immutable Generations
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-slate-300 text-xs font-medium mb-2">
+            <Layers className="w-3.5 h-3.5 text-white/80" /> Immutable Generations · 2026
           </div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
             Document Repository
           </h1>
-          <p className="text-sm text-slate-400 mt-1 max-w-xl">
+          <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-xl">
             Private, isolated document storage with strict row-level security and durable background vector indexing.
           </p>
         </div>
         <div className="flex items-center gap-3">
           <Button variant="outline" size="sm" onClick={fetchDocuments}>
-            <RotateCw className="w-4 h-4 mr-1.5 text-blue-400" /> Refresh
+            <RotateCw className="w-4 h-4 mr-1.5" /> Refresh
           </Button>
           <Button onClick={() => setIsUploadOpen(true)}>
             <UploadCloud className="w-4 h-4 mr-2" /> Upload Document
@@ -107,8 +107,8 @@ export default function DocumentsPage() {
       </div>
 
       {documents.length === 0 && !isLoading ? (
-        <Card className="text-center py-16 border-dashed border-white/[0.12]">
-          <div className="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mx-auto mb-4">
+        <Card className="text-center py-16 border-dashed border-white/[0.1]">
+          <div className="w-14 h-14 rounded-2xl bg-white/[0.06] border border-white/10 flex items-center justify-center text-white mx-auto mb-4">
             <UploadCloud className="w-7 h-7" />
           </div>
           <h3 className="text-base font-bold text-white">
@@ -122,7 +122,7 @@ export default function DocumentsPage() {
           </Button>
         </Card>
       ) : (
-        <div className="rounded-3xl bg-[#0C101B]/80 border border-white/[0.08] overflow-hidden shadow-2xl backdrop-blur-md">
+        <div className="rounded-3xl bg-[#090A0F] border border-white/[0.08] overflow-hidden shadow-2xl">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
               <thead className="bg-white/[0.03] border-b border-white/[0.06] text-[11px] text-slate-400 uppercase tracking-wider font-mono">
@@ -142,11 +142,11 @@ export default function DocumentsPage() {
                   >
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shrink-0">
+                        <div className="w-9 h-9 rounded-xl bg-white/[0.06] border border-white/10 flex items-center justify-center text-white shrink-0 shadow-sm">
                           <FileText className="w-4 h-4" />
                         </div>
                         <div className="min-w-0">
-                          <p className="font-semibold text-white group-hover:text-blue-400 transition-colors truncate max-w-xs sm:max-w-md">
+                          <p className="font-semibold text-white group-hover:text-slate-200 transition-colors truncate max-w-xs sm:max-w-md">
                             {doc.title}
                           </p>
                           <p className="text-[11px] text-slate-500 font-mono">
@@ -181,6 +181,13 @@ export default function DocumentsPage() {
                           <Eye className="w-4 h-4" />
                         </button>
                       </Link>
+                      {doc.status === "ready" && (
+                        <Link href={`/app`}>
+                          <Button size="sm" variant="outline">
+                            Chat
+                          </Button>
+                        </Link>
+                      )}
                       {doc.status === "failed" && (
                         <Button
                           variant="outline"
@@ -189,7 +196,7 @@ export default function DocumentsPage() {
                           isLoading={actionLoadingId === doc.id}
                           title="Retry ingestion"
                         >
-                          <RotateCw className="w-3.5 h-3.5 mr-1 text-blue-400" /> Retry
+                          <RotateCw className="w-3.5 h-3.5 mr-1" /> Retry
                         </Button>
                       )}
                       <button

@@ -74,7 +74,7 @@ export const DocumentUploadModal: React.FC<UploadModalProps> = ({
       <div className="space-y-4">
         <div
           onClick={() => fileInputRef.current?.click()}
-          className="border-2 border-dashed border-white/[0.12] hover:border-blue-500/50 rounded-2xl p-8 flex flex-col items-center justify-center cursor-pointer transition-all bg-white/[0.02] hover:bg-white/[0.04] group"
+          className="border-2 border-dashed border-white/[0.12] hover:border-white/30 rounded-2xl p-8 flex flex-col items-center justify-center cursor-pointer transition-all bg-white/[0.02] hover:bg-white/[0.04] group"
         >
           <input
             type="file"
@@ -83,7 +83,7 @@ export const DocumentUploadModal: React.FC<UploadModalProps> = ({
             accept=".pdf,.docx,.txt,.md"
             className="hidden"
           />
-          <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-3 group-hover:scale-105 transition-transform">
+          <div className="w-12 h-12 rounded-2xl bg-white/[0.08] border border-white/15 flex items-center justify-center text-white mb-3 group-hover:scale-105 transition-transform shadow-md">
             <UploadCloud className="w-6 h-6" />
           </div>
           <p className="text-sm font-semibold text-white">
@@ -95,13 +95,13 @@ export const DocumentUploadModal: React.FC<UploadModalProps> = ({
         </div>
 
         {selectedFile && (
-          <div className="flex items-center gap-3 p-3.5 bg-blue-500/10 border border-blue-500/20 rounded-xl">
-            <File className="w-5 h-5 text-blue-400 shrink-0" />
+          <div className="flex items-center gap-3 p-3.5 bg-white/[0.04] border border-white/15 rounded-xl">
+            <File className="w-5 h-5 text-white/80 shrink-0" />
             <div className="flex-1 min-w-0">
               <p className="text-xs font-semibold text-white truncate">
                 {selectedFile.name}
               </p>
-              <p className="text-[11px] text-blue-300">
+              <p className="text-[11px] text-slate-400">
                 {(selectedFile.size / 1024).toFixed(1)} KB
               </p>
             </div>
@@ -109,8 +109,8 @@ export const DocumentUploadModal: React.FC<UploadModalProps> = ({
         )}
 
         {uploadProgress && (
-          <div className="flex items-center gap-2 p-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-xs font-medium text-indigo-300">
-            <Sparkles className="w-4 h-4 text-indigo-400 animate-spin" />
+          <div className="flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.06] border border-white/15 text-xs font-medium text-slate-200">
+            <Sparkles className="w-4 h-4 text-white animate-spin" />
             <span>{uploadProgress}</span>
           </div>
         )}
