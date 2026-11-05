@@ -54,74 +54,73 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#050608] text-slate-100 selection:bg-white selection:text-black relative overflow-x-hidden flex flex-col justify-between">
+    <div className="min-h-screen w-full bg-[#040507] text-slate-100 selection:bg-white selection:text-black relative overflow-x-hidden flex flex-col items-center justify-between p-2 sm:p-4 lg:p-6 xl:p-8">
       
-      {/* Top Floating Glass Navigation Bar */}
-      <header className="w-full z-50 border-b border-white/[0.07] bg-[#050608]/85 backdrop-blur-2xl">
-        <div className="w-full px-6 sm:px-10 lg:px-16 xl:px-24 h-20 flex items-center justify-between">
-          
-          {/* Left Corner: Brand Logo */}
-          <Link href="/" className="flex items-center gap-3.5 group">
-            <div className="w-9 h-9 rounded-[10px] bg-white/[0.08] border border-white/20 flex items-center justify-center text-white group-hover:scale-105 transition-all shadow-md">
-              {/* Minimalist Geometric Vector Emblem */}
-              <svg viewBox="0 0 100 100" fill="none" className="w-4 h-4 text-white">
-                <path
-                  d="M 28 28 L 72 72 L 72 28 L 28 72 Z"
-                  stroke="currentColor"
-                  strokeWidth="8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="font-extrabold text-base tracking-tight text-white">Personal RAG</span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/[0.06] text-slate-400 border border-white/10">
-                PRO 2026
-              </span>
-            </div>
-          </Link>
+      {/* Master Framed Showcase: Nav Bar to Footer Unified with 10px Rounded Side Corners */}
+      <div className="w-full max-w-[1920px] mx-auto rounded-[10px] border border-white/[0.09] bg-[#090A0F] shadow-[0_25px_100px_rgba(0,0,0,0.9)] relative overflow-hidden flex flex-col flex-1 justify-between">
+        
+        {/* Cinematic Ambient Lighting (Inside Framed Page) */}
+        <div className="absolute top-0 right-1/4 w-[900px] h-[600px] bg-white/[0.03] blur-[180px] pointer-events-none -z-10" />
+        <div className="absolute top-1/3 left-0 w-[700px] h-[700px] bg-blue-600/[0.025] blur-[180px] pointer-events-none -z-10" />
 
-          {/* Center Navigation Links */}
-          <nav className="hidden md:flex items-center gap-10 text-xs font-semibold tracking-wide text-slate-400 uppercase">
-            <a href="#hero" className="hover:text-white transition-colors">Hero</a>
-            <a href="#overview" className="hover:text-white transition-colors">Overview</a>
-            <a href="#identity" className="hover:text-white transition-colors">Identity</a>
-            <Link href="/admin" className="hover:text-white transition-colors flex items-center gap-1.5">
-              <Activity className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Metrics</span>
+        {/* Top Navigation Bar (Inside Framed Page with Rounded Top Corners) */}
+        <header className="w-full z-50 border-b border-white/[0.07] bg-[#08090E]/85 backdrop-blur-2xl rounded-t-[10px]">
+          <div className="w-full px-6 sm:px-10 lg:px-16 xl:px-24 h-20 flex items-center justify-between">
+            
+            {/* Left Corner: Brand Logo */}
+            <Link href="/" className="flex items-center gap-3.5 group">
+              <div className="w-9 h-9 rounded-[10px] bg-white/[0.08] border border-white/20 flex items-center justify-center text-white group-hover:scale-105 transition-all shadow-md">
+                {/* Minimalist Geometric Vector Emblem */}
+                <svg viewBox="0 0 100 100" fill="none" className="w-4 h-4 text-white">
+                  <path
+                    d="M 28 28 L 72 72 L 72 28 L 28 72 Z"
+                    stroke="currentColor"
+                    strokeWidth="8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="font-extrabold text-base tracking-tight text-white">Personal RAG</span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/[0.06] text-slate-400 border border-white/10">
+                  PRO 2026
+                </span>
+              </div>
             </Link>
-          </nav>
 
-          {/* Right Corner: Auth CTAs */}
-          <div className="flex items-center gap-4">
-            <Link
-              href="/auth/login"
-              className="text-xs font-semibold text-slate-300 hover:text-white transition-colors px-3 py-2"
-            >
-              Sign In
-            </Link>
-            <Link
-              href="/auth/signup"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] text-xs font-bold bg-white text-black hover:bg-slate-200 transition-all shadow-xl shadow-white/10 hover:scale-[1.02] active:scale-[0.98]"
-            >
-              <span>Get Started</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </Link>
+            {/* Center Navigation Links */}
+            <nav className="hidden md:flex items-center gap-10 text-xs font-semibold tracking-wide text-slate-400 uppercase">
+              <a href="#hero" className="hover:text-white transition-colors">Hero</a>
+              <a href="#overview" className="hover:text-white transition-colors">Overview</a>
+              <a href="#identity" className="hover:text-white transition-colors">Identity</a>
+              <Link href="/admin" className="hover:text-white transition-colors flex items-center gap-1.5">
+                <Activity className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Metrics</span>
+              </Link>
+            </nav>
+
+            {/* Right Corner: Auth CTAs */}
+            <div className="flex items-center gap-4">
+              <Link
+                href="/auth/login"
+                className="text-xs font-semibold text-slate-300 hover:text-white transition-colors px-3 py-2"
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/auth/signup"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] text-xs font-bold bg-white text-black hover:bg-slate-200 transition-all shadow-xl shadow-white/10 hover:scale-[1.02] active:scale-[0.98]"
+              >
+                <span>Get Started</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* Main Framed Showcase Container: Hero se Footer tak 10px Border Radius & Halka Black */}
-      <main className="w-full flex-1 px-2 sm:px-4 lg:px-6 xl:px-8 py-3 sm:py-5 flex flex-col">
-        <div className="w-full max-w-[1920px] mx-auto rounded-[10px] border border-white/[0.09] bg-[#090A0F] shadow-[0_25px_100px_rgba(0,0,0,0.9)] relative overflow-hidden flex flex-col flex-1 justify-between">
-          
-          {/* Cinematic Ambient Lighting (Inside Framed Page) */}
-          <div className="absolute top-0 right-1/4 w-[900px] h-[600px] bg-white/[0.03] blur-[180px] pointer-events-none -z-10" />
-          <div className="absolute top-1/3 left-0 w-[700px] h-[700px] bg-blue-600/[0.025] blur-[180px] pointer-events-none -z-10" />
-
-          {/* Hero Section */}
-          <section id="hero" className="w-full flex-1 flex flex-col justify-center px-6 sm:px-10 lg:px-16 xl:px-24 py-8 lg:py-12">
+        {/* Hero Section */}
+        <section id="hero" className="w-full flex-1 flex flex-col justify-center px-6 sm:px-10 lg:px-16 xl:px-24 py-8 lg:py-12">
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center min-h-[calc(100vh-140px)]">
           
           {/* Left Column: Massive Typography & Corner Metadata Cards (Span 7) */}
@@ -688,8 +687,7 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
-        </div>
-      </main>
+      </div>
     </div>
   );
 }
