@@ -1,18 +1,17 @@
 services:
   - type: web
-    name: personal-rag-api
+    name: personal-rag-assistant
     runtime: python
     plan: free
     region: oregon
-    rootDir: apps/api
-    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    buildCommand: ./build.sh
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /api/v1/health
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.0
       - key: PYTHONPATH
-        value: .
+        value: apps/api:.
       - key: SUPABASE_URL
         value: https://rmcbmyvxthppakmmdlbl.supabase.co
       - key: SUPABASE_JWT_ISSUER
@@ -31,4 +30,3 @@ services:
         value: mock
       - key: EMBEDDING_PROVIDER
         value: mock
-

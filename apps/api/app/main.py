@@ -83,3 +83,19 @@ async def generic_exception_handler(request: Request, exc: Exception):
 
 app.include_router(api_v1_router, prefix=settings.API_V1_PREFIX)
 
+
+@app.get("/", tags=["system"])
+async def root():
+    return {
+        "status": "online",
+        "service": "Personal RAG Assistant API",
+        "version": "1.0.0",
+        "docs": "/docs",
+        "health": f"{settings.API_V1_PREFIX}/health",
+    }
+
+
+@app.get("/health", tags=["system"])
+async def root_health():
+    return {"status": "ok", "service": "personal-rag-api"}
+
