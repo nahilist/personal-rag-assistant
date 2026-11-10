@@ -12,3 +12,4 @@ if [ -f "apps/api/requirements.txt" ]; then
 fi
 
 echo "=== Build finished successfully ==="
+
